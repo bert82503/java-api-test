@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CollectionsTest {
 
     @Test(dataProvider = "sortTestData")
-    public <T extends Comparable<? super T>> void sort(List<T> list, List<T> expected) {
+    public <E extends Comparable<? super E>> void sort(List<E> list, List<E> expected) {
         assertThat(list).isNotNull();
         assertThat(expected).isNotNull();
         assertThat(list.size()).isEqualTo(expected.size());

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ListTest {
 
     @Test(dataProvider = "addAllTestData")
-    public <T> void addAll(List<T> target, List<T> list, List<T> expected) {
+    public <E> void addAll(List<E> target, List<E> list, List<E> expected) {
         target.addAll(list);
         assertThat(target.size()).isEqualTo(expected.size());
         assertThat(target).isEqualTo(expected);
@@ -35,7 +35,7 @@ public class ListTest {
     }
 
     @Test(expectedExceptions = NullPointerException.class, dataProvider = "addAllExceptionTestData")
-    public <T> void addAllException(List<T> target, List<T> list) {
+    public <E> void addAllException(List<E> target, List<E> list) {
         target.addAll(list);
     }
 
