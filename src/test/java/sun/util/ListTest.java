@@ -1,8 +1,10 @@
 package sun.util;
 
+import com.google.common.collect.Lists;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class ListTest {
     public static Object[][] addAllTestData() {
         return new Object[][] {
                 { Collections.emptyList(), Collections.emptyList(), Collections.emptyList() },
+                // Arrays.asList 返回的列表不支持增加、删除操作
+                { Lists.newArrayList(3, 7), Arrays.asList(10, 3), Arrays.asList(3, 7, 10, 3) },
         };
     }
 
