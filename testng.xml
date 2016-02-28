@@ -3,5 +3,8 @@
 
 <suite name="api-tests" verbose="1">
 	<test name="testng">
+        <packages>
+            <package name="sun.util"/>
+        </packages>
 	</test>
 </suite>
