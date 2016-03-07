@@ -27,10 +27,10 @@ public class ListTest {
 
     @DataProvider(name = "addAllTestData")
     public static Object[][] addAllTestData() {
-        return new Object[][] {
-                { Collections.emptyList(), Collections.emptyList(), Collections.emptyList() },
+        return new Object[][]{
+                {Collections.emptyList(), Collections.emptyList(), Collections.emptyList()},
                 // Arrays.asList 返回的列表不支持增加、删除操作
-                { Lists.newArrayList(3, 7), Arrays.asList(10, 3), Arrays.asList(3, 7, 10, 3) },
+                {Lists.newArrayList(3, 7), Arrays.asList(10, 3), Arrays.asList(3, 7, 10, 3)},
         };
     }
 
@@ -41,8 +41,8 @@ public class ListTest {
 
     @DataProvider(name = "addAllExceptionTestData")
     public static Object[][] addAllExceptionTestData() {
-        return new Object[][] {
-                { Collections.emptyList(), null },
+        return new Object[][]{
+                {Collections.emptyList(), null},
         };
     }
 

@@ -31,13 +31,13 @@ public class DateUtilsTest {
 
     @DataProvider(name = "truncateTestData")
     public static Object[][] truncateTestData() {
-        return new Object[][] {
+        return new Object[][]{
                 // 2016-02-04 13:37:07.493
-                { 1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-04 00:00" },
-                { 1454564227493L, Calendar.HOUR_OF_DAY, "2016-02-04 13:00" },
+                {1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-04 00:00"},
+                {1454564227493L, Calendar.HOUR_OF_DAY, "2016-02-04 13:00"},
                 // 2016-02-28 22:00:46.300
-                { 1456668046300L, Calendar.DAY_OF_MONTH, "2016-02-28 00:00" },
-                { 1456668046300L, Calendar.HOUR_OF_DAY, "2016-02-28 22:00" },
+                {1456668046300L, Calendar.DAY_OF_MONTH, "2016-02-28 00:00"},
+                {1456668046300L, Calendar.HOUR_OF_DAY, "2016-02-28 22:00"},
         };
     }
 
@@ -51,13 +51,13 @@ public class DateUtilsTest {
 
     @DataProvider(name = "roundTestData")
     public static Object[][] roundTestData() {
-        return new Object[][] {
+        return new Object[][]{
                 // 2016-02-04 13:37:07.493
-                { 1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-05 00:00" },
-                { 1454564227493L, Calendar.HOUR_OF_DAY, "2016-02-04 14:00" },
+                {1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-05 00:00"},
+                {1454564227493L, Calendar.HOUR_OF_DAY, "2016-02-04 14:00"},
                 // 2016-02-28 22:00:46.300
-                { 1456668046300L, Calendar.DAY_OF_MONTH, "2016-02-29 00:00" },
-                { 1456668046300L, Calendar.HOUR_OF_DAY, "2016-02-28 22:00" },
+                {1456668046300L, Calendar.DAY_OF_MONTH, "2016-02-29 00:00"},
+                {1456668046300L, Calendar.HOUR_OF_DAY, "2016-02-28 22:00"},
         };
     }
 

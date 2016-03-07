@@ -21,8 +21,8 @@ public class DateTimeFormatterTest {
 
     @DataProvider(name = "printTestData")
     public static Object[][] printTestData() {
-        return new Object[][] {
-                { DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS"), 1454564227493L, "2016-02-04 13:37:07.493" },
+        return new Object[][]{
+                {DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS"), 1454564227493L, "2016-02-04 13:37:07.493"},
         };
     }
 

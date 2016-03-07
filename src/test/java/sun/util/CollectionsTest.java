@@ -30,8 +30,8 @@ public class CollectionsTest {
 
     @DataProvider(name = "sortTestData")
     public static Object[][] sortTestData() {
-        return new Object[][] {
-                { Lists.newArrayList(7, 23, 10, 3), Arrays.asList(3, 7, 10, 23) },
+        return new Object[][]{
+                {Lists.newArrayList(7, 23, 10, 3), Arrays.asList(3, 7, 10, 23)},
         };
     }
 
