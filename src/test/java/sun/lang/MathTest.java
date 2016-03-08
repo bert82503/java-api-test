@@ -20,7 +20,7 @@ public class MathTest {
     }
 
     @DataProvider(name = "maxTestData")
-    public static Object[][] maxTestData() {
+    private static Object[][] maxTestData() {
         return new Object[][]{
                 {Integer.MAX_VALUE, 0, Integer.MAX_VALUE},
                 {10, 0, 10},

@@ -26,7 +26,7 @@ public class ListTest {
     }
 
     @DataProvider(name = "addAllTestData")
-    public static Object[][] addAllTestData() {
+    private static Object[][] addAllTestData() {
         return new Object[][]{
                 {Collections.emptyList(), Collections.emptyList(), Collections.emptyList()},
                 // Arrays.asList 返回的列表不支持增加、删除操作
@@ -34,13 +34,14 @@ public class ListTest {
         };
     }
 
+
     @Test(expectedExceptions = NullPointerException.class, dataProvider = "addAllExceptionTestData")
     public <E> void addAllException(List<E> target, List<E> list) {
         target.addAll(list);
     }
 
     @DataProvider(name = "addAllExceptionTestData")
-    public static Object[][] addAllExceptionTestData() {
+    private static Object[][] addAllExceptionTestData() {
         return new Object[][]{
                 {Collections.emptyList(), null},
         };

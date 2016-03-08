@@ -14,15 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DateTimeFormatterTest {
 
     @Test(dataProvider = "printTestData")
-    public void print(DateTimeFormatter formatter, long currentTimeMillis, String expected) {
-        String actual = formatter.print(currentTimeMillis);
+    public void print(long currentTimeMillis, String expected) {
+        String actual = DATE_TIME_FORMATTER.print(currentTimeMillis);
         assertThat(actual).isEqualTo(expected);
     }
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern(
+            "yyyy-MM-dd HH:mm:ss.SSS");
+
     @DataProvider(name = "printTestData")
-    public static Object[][] printTestData() {
+    private static Object[][] printTestData() {
         return new Object[][]{
-                {DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.SSS"), 1454564227493L, "2016-02-04 13:37:07.493"},
+                {1454564227493L, "2016-02-04 13:37:07.493"},
         };
     }
 

@@ -53,7 +53,7 @@ public class ObjectsTest {
      * 建议使用 {@link java.util.Arrays#hashCode(Object[])}
      */
     @Test(dataProvider = "hashTestData")
-    public void hash(int expected, Object[] values) {
+    public void hash(Object[] values, int expected) {
         int hashCode = Objects.hash(values);
         assertThat(hashCode).isEqualTo(expected);
     }
@@ -61,7 +61,7 @@ public class ObjectsTest {
     @DataProvider(name = "hashTestData")
     private static Object[][] hashTestData() {
         return new Object[][]{
-                {0, null},
+                {null, 0},
         };
     }
 

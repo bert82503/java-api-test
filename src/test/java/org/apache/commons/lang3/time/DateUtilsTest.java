@@ -30,7 +30,7 @@ public class DateUtilsTest {
     }
 
     @DataProvider(name = "truncateTestData")
-    public static Object[][] truncateTestData() {
+    private static Object[][] truncateTestData() {
         return new Object[][]{
                 // 2016-02-04 13:37:07.493
                 {1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-04 00:00"},
@@ -41,6 +41,7 @@ public class DateUtilsTest {
         };
     }
 
+
     @Test(dataProvider = "roundTestData")
     public void round(long currentTimeMillis, int field, String expected) {
         Date currentDate = new Date(currentTimeMillis);
@@ -50,7 +51,7 @@ public class DateUtilsTest {
     }
 
     @DataProvider(name = "roundTestData")
-    public static Object[][] roundTestData() {
+    private static Object[][] roundTestData() {
         return new Object[][]{
                 // 2016-02-04 13:37:07.493
                 {1454564227493L, Calendar.DAY_OF_MONTH, "2016-02-05 00:00"},

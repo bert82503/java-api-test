@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Test for {@link Arrays}.
  *
@@ -28,9 +30,23 @@ public class ArraysTest {
     }
 
     @DataProvider(name = "asListTestData")
-    public static Object[][] asListTestData() {
+    private static Object[][] asListTestData() {
         return new Object[][]{
                 {Arrays.asList(1, 2, 3), 4},
+        };
+    }
+
+
+    @Test(dataProvider = "hashCodeTestData")
+    public void hashCode_(Object[] values, int expected) {
+        int hashCode = Arrays.hashCode(values);
+        assertThat(hashCode).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "hashCodeTestData")
+    private static Object[][] hashCodeTestData() {
+        return new Object[][]{
+                {null, 0},
         };
     }
 
