@@ -78,6 +78,24 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- ============ Logging（日志记录） ============ -->
+        <!-- Logback - http://logback.qos.ch/ -->
+        <!-- Documentation - http://logback.qos.ch/documentation.html -->
+        <!-- Reasons to prefer logback over log4j - http://logback.qos.ch/reasonsToSwitch.html -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <!-- SLF4J: Simple Logging Facade for Java - http://www.slf4j.org/ -->
+        <!-- User Manual - http://www.slf4j.org/manual.html -->
+        <!-- Documentation - http://www.slf4j.org/docs.html -->
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-api</artifactId>-->
+        <!--<version>${slf4j.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <issueManagement>
