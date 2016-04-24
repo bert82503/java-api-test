@@ -29,7 +29,9 @@ public class LoggerTest {
         try {
             this.throwException1();
         } catch (Exception e) {
-            logger.error("call '{}' failed", "error", e);
+            // 异常实例：必须放在最后一个参数，这样就永远不会被占位符替换
+            // 占位符 {} 只能用参数替换，不能用异常实例替换，SLF4J 做了特殊处理
+            logger.error("call '{}' failed: {} {}", "error", e); // 第二个之后的占位符 未被替换
         }
     }
 
