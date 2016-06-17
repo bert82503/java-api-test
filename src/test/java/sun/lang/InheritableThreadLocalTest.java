@@ -45,6 +45,10 @@ public class InheritableThreadLocalTest {
                         inheritableThreadLocal.set("sub thread"); // 只会更新子线程的本地变量
                         threadLocal = inheritableThreadLocal.get();
                         assertThat(threadLocal).isEqualTo("sub thread");
+
+                        // action
+
+                        // 清理并释放本地变量
                         inheritableThreadLocal.clearAll();
                     }
                 }
@@ -68,6 +72,10 @@ public class InheritableThreadLocalTest {
                 inheritableThreadLocal.set("Callable.call()"); // 只会更新子线程的本地变量
                 threadLocal = inheritableThreadLocal.get();
                 assertThat(threadLocal).isEqualTo("Callable.call()");
+
+                // action
+
+                // 清理并释放本地变量
                 inheritableThreadLocal.clearAll();
 
                 return "Callable.call()";
