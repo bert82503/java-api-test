@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * For example, the class below generates unique identifiers local to each thread.
  * A thread's id is assigned the first time it invokes ThreadId.get() and remains unchanged on subsequent calls.
  *
- * @see ThreadLocal
+ * @see java.lang.ThreadLocal
  * @author xingle
  * @since 2016年06月17日 15:35
  */

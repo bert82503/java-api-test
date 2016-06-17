@@ -1,5 +1,6 @@
 package sun.lang;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.Executors;
@@ -15,11 +16,17 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ThreadIdTest {
 
+    private ThreadFactory threadFactory;
+
+    @BeforeClass(alwaysRun = true)
+    public void setUp() {
+        threadFactory = Executors.defaultThreadFactory(); // 默认的线程工厂
+    }
+
     @Test
     public void get() {
         assertThat(ThreadId.get()).isEqualTo(0); // 测试主线程
 
-        ThreadFactory threadFactory = Executors.defaultThreadFactory(); // 默认的线程工厂
         for (int i = 1; i < 10; i++) {
             Thread thread = threadFactory.newThread(new ThreadLocalRunnable(i));
             thread.start();
@@ -43,7 +50,6 @@ public class ThreadIdTest {
 
             ThreadId.remove();
         }
-
     }
 
 }
