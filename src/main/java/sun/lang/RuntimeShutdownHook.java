@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * The demo of {@link Runtime}.
+ * The demo of {@link Runtime#addShutdownHook(Thread)}.
  *
  * @author xingle
  * @since 2016年08月24日 16:26
  */
-public class RuntimeDemo {
+public class RuntimeShutdownHook {
 
-    private static final Logger logger = LoggerFactory.getLogger(RuntimeDemo.class);
+    private static final Logger logger = LoggerFactory.getLogger(RuntimeShutdownHook.class);
 
 
     /**
