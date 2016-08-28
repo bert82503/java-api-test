@@ -1,5 +1,6 @@
 package com.google.common.base;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -10,11 +11,18 @@ import org.testng.annotations.Test;
  */
 public class PreconditionsTest {
 
-    @Test(expectedExceptions = IllegalArgumentException.class,
+    @Test(dataProvider = "checkArgumentTestData",
+            expectedExceptions = IllegalArgumentException.class,
             expectedExceptionsMessageRegExp = "'id' is invalid, id: 0")
-    public void checkArgument() {
-        long id = 0L;
+    public void checkArgument(long id) {
         Preconditions.checkArgument(id > 0L, "'id' is invalid, id: %s", id);
+    }
+
+    @DataProvider(name = "checkArgumentTestData")
+    private static Object[][] checkArgumentTestData() {
+        return new Object[][]{
+                {0L},
+        };
     }
 
 }
