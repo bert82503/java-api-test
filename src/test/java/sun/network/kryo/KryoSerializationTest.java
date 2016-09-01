@@ -46,14 +46,16 @@ public class KryoSerializationTest {
         encodeDecode(Sets.newLinkedHashSet(Arrays.asList(4382332L, 323843789L)), LinkedHashSet.class);
         encodeDecode(Sets.newLinkedHashSet(Arrays.asList("Edward Lee", "Fei Men")), LinkedHashSet.class);
         // Map
-        HashMap<String, Object> hashMap = Maps.newHashMap();
-        hashMap.put("int", 24);
-        hashMap.put("long", 38372L);
-        hashMap.put("string", "#@~#@~%^$&%*(*)))+)_NB<M>GK<");
-        hashMap.put("list", Lists.newArrayList());
-        hashMap.put("set", Sets.newLinkedHashSet());
-        hashMap.put("map", Maps.newHashMap());
-        encodeDecode(hashMap, HashMap.class);
+        for (int i = 0; i < 3; i++) {
+            HashMap<String, Object> hashMap = Maps.newHashMap();
+            hashMap.put("int", 24);
+            hashMap.put("long", 38372L);
+            hashMap.put("string", "#@~#@~%^$&%*(*)))+)_NB<M>GK<");
+            hashMap.put("list", Lists.newArrayList());
+            hashMap.put("set", Sets.newLinkedHashSet());
+            hashMap.put("map", Maps.newHashMap());
+            encodeDecode(hashMap, HashMap.class);
+        }
         LinkedHashMap<String, Object> linkedHashMap = Maps.newLinkedHashMap();
         linkedHashMap.put(null, null);
         linkedHashMap.put("_int", 7384);
