@@ -39,31 +39,36 @@ public class KryoSerializationTest {
         // List
         encodeDecode(Lists.newArrayList(Integer.MAX_VALUE, 0, -1, 1), ArrayList.class);
         encodeDecode(Lists.newArrayList(Long.MIN_VALUE, 0L, -3L, 3L), ArrayList.class);
-        encodeDecode(Lists.newArrayList("", "3dafy78dh@~@!78343@~@32"), ArrayList.class);
+        encodeDecode(Lists.newArrayList("", "3day78dh@~@!78343@~@32"), ArrayList.class);
         encodeDecode(Lists.newLinkedList(Arrays.asList("Hello,", " world!")), LinkedList.class);
         // Set
         encodeDecode(Sets.newHashSet("@!~#$%", "*^%()_+"), HashSet.class);
         encodeDecode(Sets.newLinkedHashSet(Arrays.asList(4382332L, 323843789L)), LinkedHashSet.class);
-        encodeDecode(Sets.newLinkedHashSet(Arrays.asList("Edward Lee", "Fei Men")), LinkedHashSet.class);
+        encodeDecode(Sets.newLinkedHashSet(Arrays.asList("行乐", "Fei Men")), LinkedHashSet.class);
         // Map
         for (int i = 0; i < 3; i++) {
             HashMap<String, Object> hashMap = Maps.newHashMap();
             hashMap.put("int", 24);
             hashMap.put("long", 38372L);
             hashMap.put("string", "#@~#@~%^$&%*(*)))+)_NB<M>GK<");
-            hashMap.put("list", Lists.newArrayList());
-            hashMap.put("set", Sets.newLinkedHashSet());
-            hashMap.put("map", Maps.newHashMap());
+            hashMap.put("list", Lists.newArrayList(234L, 38483L));
+            hashMap.put("set", Sets.newLinkedHashSet(Arrays.asList("Edward Lee", "")));
+            HashMap<Object, Object> map = Maps.newHashMap();
+            map.put("int", 3);
+            map.put("string", "String test");
+            hashMap.put("map", map);
+            hashMap.put("user", buildUser());
             encodeDecode(hashMap, HashMap.class);
         }
         LinkedHashMap<String, Object> linkedHashMap = Maps.newLinkedHashMap();
         linkedHashMap.put(null, null);
-        linkedHashMap.put("_int", 7384);
+        linkedHashMap.put("int", 7384);
         encodeDecode(linkedHashMap, LinkedHashMap.class);
 
         // User
         encodeDecode(buildUser(), User.class);
     }
+
 
     /**
      * {@link com.esotericsoftware.kryo.Kryo}   基于{@link ThreadLocal}实现性能更优
@@ -106,6 +111,7 @@ public class KryoSerializationTest {
         System.out.println("\navg time (ms): " + avgTime);
     }
 
+
     private static <T extends Serializable> void encodeDecode(T obj, Class<T> clazz) {
         T deserializeObj = KryoSerialization.deserialize(KryoSerialization.serialize(obj), clazz);
         assertThat(deserializeObj).isEqualTo(obj);
@@ -116,10 +122,10 @@ public class KryoSerializationTest {
         Map<String, Object> objectMap = Maps.newHashMap();
         objectMap.put("int", 24);
         objectMap.put("long", 38473L);
-        objectMap.put("string", "fdfy3432dafu");
+        objectMap.put("string", "fire3432day");
 
-        return new User().setName("xingle").setAge(30)
-                .setObjectList(Lists.<Object>newArrayList(43, 438473L, "dfd137die"))
+        return new User().setName("乐乐").setAge(30)
+                .setObjectList(Lists.<Object>newArrayList(43, 438473L, "restart137life"))
                 .setObjectMap(objectMap);
     }
 
