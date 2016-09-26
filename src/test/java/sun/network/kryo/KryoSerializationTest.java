@@ -124,15 +124,43 @@ public class KryoSerializationTest {
         objectMap.put("long", 38473L);
         objectMap.put("string", "fire3432day");
 
-        return new User().setName("乐乐").setAge(30)
+        return new User().setName("乐乐").setUserType(UserType.MEN).setAge(30)
                 .setObjectList(Lists.<Object>newArrayList(43, 438473L, "restart137life"))
                 .setObjectMap(objectMap);
+    }
+
+    // 枚举类型
+    private enum UserType {
+        /** 女性 */
+        WOMEN(1),
+        /** 男性 */
+        MEN(2)
+        ;
+
+
+        private final int value;
+
+        UserType(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return "UserType{" +
+                    this.name() + '(' + value + ')' +
+                    '}';
+        }
     }
 
     private static class User implements Serializable {
         private static final long serialVersionUID = -6573400345937920925L;
 
         private String name;
+        private UserType userType;
         private int age;
         private List<Object> objectList;
         private Map<String, Object> objectMap;
@@ -171,6 +199,15 @@ public class KryoSerializationTest {
 
         public User setName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public UserType getUserType() {
+            return userType;
+        }
+
+        public User setUserType(UserType userType) {
+            this.userType = userType;
             return this;
         }
 

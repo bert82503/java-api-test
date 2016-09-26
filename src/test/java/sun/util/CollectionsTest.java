@@ -73,7 +73,6 @@ public class CollectionsTest {
                 {Collections.unmodifiableCollection(Queues.<String>newLinkedBlockingQueue(1)), StringUtils.EMPTY},
                 {Collections.unmodifiableCollection(Queues.<String>newLinkedBlockingDeque(1)), StringUtils.EMPTY},
                 {Collections.unmodifiableCollection(Queues.<String>newArrayDeque()), StringUtils.EMPTY},
-                {Collections.unmodifiableCollection(Queues.<String>newConcurrentLinkedQueue()), StringUtils.EMPTY},
                 {Collections.unmodifiableCollection(Queues.<String>newSynchronousQueue()), StringUtils.EMPTY},
                 // TransferQueue
                 {Collections.unmodifiableCollection(new LinkedTransferQueue<String>()), StringUtils.EMPTY},

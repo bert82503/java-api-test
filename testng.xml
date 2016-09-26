@@ -3,8 +3,11 @@
 
 <suite name="api-tests" verbose="1">
 	<test name="testng">
-        <packages>
-            <package name="sun.util"/>
-        </packages>
+        <!--<packages>-->
+            <!--<package name="sun.util"/>-->
+        <!--</packages>-->
+        <classes>
+            <class name="com.google.common.base.OptionalTest"/>
+        </classes>
 	</test>
 </suite>

@@ -15,7 +15,8 @@ public class MonitorModule implements Module {
 
 
     public MonitorModule() {
-        logger.info("create 'MonitorModule'");
+//        logger.info("create 'MonitorModule'");
+        throw new RuntimeException("create 'MonitorModule' exception");
     }
 
 
