@@ -52,6 +52,9 @@ public class FormulaTest {
         // 与上面声明等价
         Formula formula = a -> 0; // Lambda表达式
 
+        // Default methods cannot be accessed from within lambda expressions.
+//        Formula formula1 = (a) -> sqrt(a * 100);
+
         Formula overrideDefaultMethod = new Formula() {
             @Override
             public double calculate(int a) {
