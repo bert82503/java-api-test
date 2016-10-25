@@ -21,7 +21,8 @@ public class ConverterTest {
     @DataProvider(name = "convertTestData")
     private static Object[][] convertTestData() {
 //        Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
-        Converter<String, Integer> converter = Integer::valueOf;
+        // 方法引用
+        Converter<String, Integer> converter = Integer::valueOf; // 静态方法引用
 
         return new Object[][]{
                 {converter, "123", 123},
