@@ -24,7 +24,7 @@ public class ParallelStreamTest {
     private List<String> values;
 
     @BeforeMethod
-    public void setUp() throws Exception {
+    public void setUp() {
         // 1. create a large list of unique elements
         int max = 1000000;
         values = Lists.newArrayListWithExpectedSize(max);
