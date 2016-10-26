@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Test of {@link Supplier}.
  * <p>
- * 供应者：产生给定泛型类型的一个结果
+ * 供应者：产生一个给定泛型类型的结果
  *
  * @author dannong
  * @since 2016年10月25日 16:08
