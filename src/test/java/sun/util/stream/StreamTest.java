@@ -7,14 +7,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test of {@link Stream}.
- * <p>
- * 流：表示元素序列
+ * Streams. (流：表示元素序列)
  *
  * @author dannong
  * @since 2016年10月25日 19:17
