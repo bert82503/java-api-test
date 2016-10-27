@@ -9,6 +9,8 @@ import lombok.ToString;
  * @author dannong
  * @since 2016年10月25日 16:15
  */
+@Hint("hint1")
+@Hint("hint2")
 @ToString
 public class Person {
     @Getter
