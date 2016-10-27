@@ -1,12 +1,12 @@
 package sun.util.stream;
 
-import com.google.common.collect.Lists;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,35 +25,37 @@ public class StreamTest {
     @Test(description = "过滤器：接受一个谓词函数来过滤流中的所有元素")
     public void filter() {
         // Filter accepts a predicate to filter all elements of the stream
-        Collection<String> result = Lists.newArrayList();
-        collection
+//        Collection<String> result = Lists.newArrayList();
+//        collection
+//                .stream()
+//                .filter(s -> s.startsWith("a"))
+//                .forEach(result::add);
+        Collection<String> result = collection
                 .stream()
                 .filter(s -> s.startsWith("a"))
-                .forEach(result::add);
+                .collect(Collectors.toList());
         assertThat(result).isEqualTo(Arrays.asList("aaa2", "aaa1"));
     }
 
     @Test(description = "排序：一个中间运算，它返回流的一个有序视图")
     public void sorted() {
         // Sorted is an intermediate operation which returns a sorted view of the stream
-        Collection<String> result = Lists.newArrayList();
-        collection
+        Collection<String> result = collection
                 .stream()
                 .sorted()
                 .filter(s -> s.startsWith("a"))
-                .forEach(result::add);
+                .collect(Collectors.toList());
         assertThat(result).isEqualTo(Arrays.asList("aaa1", "aaa2"));
     }
 
     @Test(description = "映射：通过给定函数将每个元素转换为另一个对象")
     public void map() {
         // Map converts each element into another object via the given function
-        Collection<String> result = Lists.newArrayList();
-        collection
+        Collection<String> result = collection
                 .stream()
                 .map(String::toUpperCase)
                 .sorted((a, b) -> b.compareTo(a))
-                .forEach(result::add);
+                .collect(Collectors.toList());
         assertThat(result).isEqualTo(Arrays.asList(
                 "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "BBB1", "AAA2", "AAA1"
         ));
