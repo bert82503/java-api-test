@@ -26,6 +26,14 @@ public class LoggerTest {
 
     @Test
     public void error() {
+        // 1. 只打印异常信息日志
+        try {
+            this.throwException2();
+        } catch (Exception e) {
+            logger.error("Error happens", e);
+        }
+
+        // 2. 同时打印参数和异常信息日志
         try {
             this.throwException1();
         } catch (Exception e) {
