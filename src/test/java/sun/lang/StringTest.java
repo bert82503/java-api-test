@@ -39,4 +39,22 @@ public class StringTest {
         };
     }
 
+    @Test(dataProvider = "compareToTestData")
+    public void compareTo(String str1, String str2, int expected) {
+        if (expected > 0) {
+            assertThat(str1.compareTo(str2)).isGreaterThan(0);
+        } else if (expected < 0) {
+            assertThat(str1.compareTo(str2)).isLessThan(0);
+        } else {
+            assertThat(str1.compareTo(str2)).isEqualTo(0);
+        }
+    }
+
+    @DataProvider(name = "compareToTestData")
+    private static Object[][] compareToTestData() {
+        return new Object[][]{
+                {"5", "12", 1},
+                {"1", "12", -1},
+        };
+    }
 }
