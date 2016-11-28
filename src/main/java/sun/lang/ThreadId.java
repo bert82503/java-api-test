@@ -24,7 +24,7 @@ public class ThreadId {
             new ThreadLocal<Integer>() {
                 @Override
                 protected Integer initialValue() {
-                    return nextId.getAndIncrement();
+                    return nextId.incrementAndGet();
                 }
             };
 
