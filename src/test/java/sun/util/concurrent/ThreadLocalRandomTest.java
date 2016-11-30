@@ -24,8 +24,8 @@ public class ThreadLocalRandomTest {
 
     @Test(dataProvider = "nextIntTestData")
     public void nextInt(int minBonus, int maxBonus, int size) {
-        // 更高效的随机数生成器的并发实现
-        ThreadLocalRandom random = ThreadLocalRandom.current(); // 多线程设计
+        // 多线程设计：更高效的随机数生成器的并发实现
+        ThreadLocalRandom random = ThreadLocalRandom.current();
 
         int bound = maxBonus + 1;
         int initialCapacity = bound - minBonus;
@@ -54,6 +54,21 @@ public class ThreadLocalRandomTest {
             totalSum += entry.getValue();
         }
         assertThat(totalSum).isEqualTo(size);
+    }
+
+    private static int getRandomNumber(int size) {
+        // 多线程设计：更高效的随机数生成器的并发实现
+        return ThreadLocalRandom.current().nextInt(0, size);
+    }
+
+    @Test
+    public void getRandomNumber() {
+        int size = 10;
+        for (int i = 0; i < 100000; i++) {
+            int randomNumber = getRandomNumber(size);
+            assertThat(randomNumber).isGreaterThanOrEqualTo(0);
+            assertThat(randomNumber).isLessThan(10);
+        }
     }
 
     @DataProvider(name = "nextIntTestData")
