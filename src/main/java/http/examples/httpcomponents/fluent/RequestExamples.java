@@ -12,7 +12,6 @@ import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -33,8 +32,11 @@ public class RequestExamples {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestExamples.class);
 
-    private static final int MILLIS_ONE_SECOND = (int) TimeUnit.SECONDS.toMillis(1L);
-    private static final String CHARSET_UTF_8 = StandardCharsets.UTF_8.name();
+    private static final int MILLIS_ONE_SECOND;
+
+    static {
+        MILLIS_ONE_SECOND = (int) TimeUnit.SECONDS.toMillis(1L);
+    }
 
 
     /**
@@ -44,17 +46,23 @@ public class RequestExamples {
         String uri = "https://www.baidu.com";
         try {
             // with timeout settings and return response content as String.
-            Response response = Request.Get(uri)
+//            Response response = Request.Get(uri)
+//                    .connectTimeout(MILLIS_ONE_SECOND)
+//                    .socketTimeout(MILLIS_ONE_SECOND)
+//                    .execute();
+//            HttpResponse httpResponse = response.returnResponse();
+            HttpResponse httpResponse = Request.Get(uri)
                     .connectTimeout(MILLIS_ONE_SECOND)
                     .socketTimeout(MILLIS_ONE_SECOND)
-                    .execute();
-            HttpResponse httpResponse = response.returnResponse();
+                    .execute()
+                    .returnResponse();
+
             StatusLine statusLine = httpResponse.getStatusLine();
             if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                 // 响应内容编码自适应？(好像没那么智能)
 //                String responseContent = response.returnContent().asString(); // IllegalStateException: Response content has been already consumed
                 String responseContent = EntityUtils.toString(
-                        httpResponse.getEntity(), CHARSET_UTF_8); // OK
+                        httpResponse.getEntity(), StandardCharsets.UTF_8); // OK
 
                 logger.debug("response content: {}", responseContent);
             }
@@ -138,7 +146,7 @@ public class RequestExamples {
 //                        }
 //                        InputStream entityContent = entity.getContent();
 
-                        return EntityUtils.toString(entity, CHARSET_UTF_8);
+                        return EntityUtils.toString(entity, StandardCharsets.UTF_8);
                     });
 
             logger.debug("response content: {}", responseContent);
@@ -149,9 +157,9 @@ public class RequestExamples {
     }
 
     public static void main(String[] args) {
-//        doGet();
+        doGet();
 
-        handleResponse();
+//        handleResponse();
     }
 
 }
