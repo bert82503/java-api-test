@@ -28,7 +28,7 @@ public class StopWatchExample {
         stopWatch.stop();
 
         logger.debug("informative string describing all tasks performed:\n {}\n",
-                stopWatch.toString()); // 描述所有执行的任务的耗时信息
+                stopWatch); // 描述所有执行的任务的耗时信息
         logger.debug("a string with a table describing all tasks performed:\n {}",
                 stopWatch.prettyPrint());
     }

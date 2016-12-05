@@ -1,5 +1,9 @@
 # gitignore Documentation - http://git-scm.com/docs/gitignore
 
+# Log
+log/
+logs/
+
 # TestNG
 test-output/
 
