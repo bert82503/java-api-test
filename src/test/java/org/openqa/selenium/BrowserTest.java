@@ -1,14 +1,12 @@
 package org.openqa.selenium;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.openqa.selenium.remote.service.DriverService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.StopWatch;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -19,17 +17,14 @@ import java.io.IOException;
  */
 public abstract class BrowserTest {
 
-    /**
-     * 驱动服务
-     */
-    protected static DriverService driverService;
+    private static final Logger logger = LoggerFactory.getLogger(BrowserTest.class);
 
     /**
      * Web驱动
      */
     protected WebDriver webDriver;
 
-    protected abstract DriverService.Builder newDriverServiceBuilder();
+    protected abstract DriverService newDriverService();
 
     protected abstract String getWebDriverPath();
 
@@ -39,47 +34,42 @@ public abstract class BrowserTest {
 
     protected abstract void createDriver();
 
-    protected abstract void quitDriver();
+    // 性能剖析
+    protected StopWatch stopWatch;
+
+    protected abstract StopWatch newStopWatch();
+
+    private void quitDriver() {
+        if (webDriver != null) {
+            webDriver.quit(); // UnreachableBrowserException: Error communicating with the remote browser. It may have died.
+        }
+    }
 
 
     @BeforeClass(alwaysRun = true)
-    public void createAndStartService() throws IOException {
-        DriverService.Builder builder = newDriverServiceBuilder();
-        if (StringUtils.isNotEmpty(getWebDriverPath())) {
-            builder.usingDriverExecutable(new File(getWebDriverPath()));
-        }
-        if (StringUtils.isNotEmpty(getLogFilePath())) {
-            builder.withLogFile(new File(getLogFilePath()));
-        }
-        if (NumberUtils.compare(getPort(), 0) > 0) {
-            builder.usingPort(getPort());
-        } else {
-            builder.usingAnyFreePort();
-        }
+    public void init() throws IOException {
+        stopWatch = newStopWatch();
 
-        driverService = builder.build();
-        driverService.start();
-
-//        createDriver();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void createAndStopService() {
-//        quitDriver();
-
-        if (driverService != null) {
-            driverService.stop();
-        }
-    }
-
-    @BeforeMethod
-    public void setUp() {
         createDriver();
     }
 
-    @AfterMethod
-    public void tearDown() throws Exception {
-        quitDriver();
+    @AfterClass(alwaysRun = true)
+    public void destroy() {
+        stopWatch.start("quitDriver");
+        this.quitDriver();
+        stopWatch.stop();
+
+        logger.debug("{}", stopWatch);
     }
+
+//    @BeforeMethod
+//    public void setUp() {
+//        createDriver();
+//    }
+
+//    @AfterMethod(alwaysRun = true)
+//    public void tearDown() throws Exception {
+//        quitDriver();
+//    }
 
 }
