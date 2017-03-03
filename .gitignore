@@ -13,6 +13,8 @@ test-output/
 # Maven
 target/
 
+.clover/
+
 # IDEA
 .idea/
 *.iml
