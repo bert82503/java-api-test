@@ -1,14 +1,15 @@
 package sun.util;
 
-import com.google.common.collect.Lists;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.google.common.collect.Lists;
 
 /**
  * Test for {@link List}.
@@ -17,6 +18,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.0
  */
 public class ListTest {
+
+    @Test(dataProvider = "containsTestData")
+    public <E> void contains(List<E> target, E element, boolean expected) {
+        assertThat(target.contains(element)).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "containsTestData")
+    private static Object[][] containsTestData() {
+        return new Object[][]{
+                {Arrays.asList(1, null, 3), null, true},
+        };
+    }
 
     @Test(dataProvider = "addAllTestData")
     public <E> void addAll(List<E> target, List<E> list, List<E> expected) {

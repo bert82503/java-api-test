@@ -1,9 +1,9 @@
 package sun.lang;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link String}.
