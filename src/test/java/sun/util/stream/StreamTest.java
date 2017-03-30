@@ -1,14 +1,18 @@
 package sun.util.stream;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.Test;
+
+import com.google.common.collect.Lists;
+import jdk8.tutorial.UserDO;
 
 /**
  * Streams. (流：表示元素序列)
@@ -59,6 +63,19 @@ public class StreamTest {
         assertThat(result).isEqualTo(Arrays.asList(
                 "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "BBB1", "AAA2", "AAA1"
         ));
+    }
+
+    @Test(description = "映射：通过给定函数将每个元素转换为另一个对象")
+    public void mapToObject() {
+        Collection<UserDO> userCollection = Lists.newArrayList(
+                new UserDO("Edward Lee", 30, "你好，%s！"),
+                new UserDO("Bert Lee", 31, "%s，欢迎回家！")
+        );
+        List<String> introList = userCollection.stream()
+                .map((user) -> user.setIntroduction(String.format(user.getIntroduction(), user.getName())))
+                .map(UserDO::getIntroduction)
+                .collect(Collectors.toList());
+        assertThat(introList).isEqualTo(Arrays.asList("你好，Edward Lee！", "Bert Lee，欢迎回家！"));
     }
 
     @Test(description = "匹配：用来检查是否某些谓词匹配流")
