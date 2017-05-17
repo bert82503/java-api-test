@@ -36,6 +36,7 @@ After the code fragment that you want to change, type a dot (.), press ⌘J：Po
 ⌘J：Live Templates, complete any valid Live Template abbreviation
 Tab：Try Live Templates, File | Settings | Live Templates, Live Templates allow you to generate many typical code constructs in seconds!
 ⇧⌘↑ or ⇧⌘↓：Move Statement Up/Down action is useful for reorganizing the code lines
+shift+⌘T：Choose Test
 
 
 #### Edit
