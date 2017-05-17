@@ -30,15 +30,27 @@ public class ObjectMapperTest {
     }
 
 
-    @Test(enabled = true)
+    @Test
     public void readValue() throws IOException {
         String response = "{\"return_code\":\"0\",\"token\":\"a8d7as********sjdabca\",\"token_expiry\":\"2016-09-03 23:11:56\"}";
         TokenResponse tokenResponse = objectMapper.readValue(response, TokenResponse.class);
-
         assertThat(tokenResponse).isNotNull();
         assertThat(tokenResponse.getReturnCode()).isEqualTo(0);
         assertThat(tokenResponse.getToken()).isEqualTo("a8d7as********sjdabca");
         assertThat(tokenResponse.getTokenExpiry()).isEqualTo("2016-09-03 23:11:56");
+
+
+        tokenResponse = objectMapper.readValue("{}", TokenResponse.class);
+        assertThat(tokenResponse).isNotNull();
+        assertThat(tokenResponse.getReturnCode()).isEqualTo(0);
+        assertThat(tokenResponse.getToken()).isNull();
+        assertThat(tokenResponse.getTokenExpiry()).isNull();
+    }
+
+    @Test(expectedExceptions = JsonMappingException.class,
+            expectedExceptionsMessageRegExp = "No content to map due to end-of-input\\n at \\[Source\\: ; line\\: 1, column\\: 0\\]")
+    public void readValue_Exception() throws IOException {
+        objectMapper.readValue("", TokenResponse.class);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
