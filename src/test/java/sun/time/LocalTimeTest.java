@@ -1,6 +1,6 @@
 package sun.time;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -9,7 +9,7 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.Test;
 
 /**
  * LocalTime. (当地时间：表示一个时间)
@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2016年10月26日 14:57
  */
 public class LocalTimeTest {
+
     @Test
     public void functionTest() {
         ZoneId berlinZone = ZoneId.of("Europe/Berlin");
@@ -45,4 +46,5 @@ public class LocalTimeTest {
         LocalTime parsedTime = LocalTime.parse("13:37", germanFormatter);
         assertThat(parsedTime.toString()).isEqualTo("13:37");
     }
+
 }

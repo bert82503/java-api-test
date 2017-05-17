@@ -13,6 +13,20 @@ import org.testng.annotations.Test;
  */
 public class StringTest {
 
+    @Test(dataProvider = "indexOfTestData")
+    public void indexOf(String str, int ch, int expectedIndex) {
+        int index = str.indexOf(ch);
+        assertThat(index).isEqualTo(expectedIndex);
+    }
+
+    @DataProvider(name = "indexOfTestData")
+    private static Object[][] indexOfTestData() {
+        return new Object[][]{
+                {"dannong@wacai.com", '@', 7},
+        };
+    }
+
+
     @Test(dataProvider = "substringTestData")
     public void substring(String str, int beginIndex, int endIndex, String expected) {
         String subString = str.substring(beginIndex, endIndex);
@@ -26,6 +40,7 @@ public class StringTest {
         };
     }
 
+
     @Test(dataProvider = "valueOfTestData")
     public void valueOf(Object obj, String expected) {
         String str = String.valueOf(obj);
@@ -38,6 +53,7 @@ public class StringTest {
                 {0L, "0"},
         };
     }
+
 
     @Test(dataProvider = "compareToTestData")
     public void compareTo(String str1, String str2, int expected) {

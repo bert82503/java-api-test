@@ -1,10 +1,10 @@
 package sun.time;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.ZoneId;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.Test;
 
 /**
  * Timezones. (时区：由{@link ZoneId}表示)

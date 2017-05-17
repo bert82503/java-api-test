@@ -21,6 +21,7 @@ import jdk8.tutorial.UserDO;
  * @since 2016年10月25日 19:17
  */
 public class StreamTest {
+
     // 1. create a sample source in form of a list of strings
     private static final Collection<String> collection =
             Collections.unmodifiableCollection(
@@ -114,4 +115,5 @@ public class StreamTest {
                 .reduce((s1, s2) -> s1 + "#" + s2);
         assertThat(reduce.get()).isEqualTo("aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2");
     }
+
 }

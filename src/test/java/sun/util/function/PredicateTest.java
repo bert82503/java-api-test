@@ -1,11 +1,11 @@
 package sun.util.function;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.Test;
 
 /**
  * Test of {@link Predicate}.
@@ -51,4 +51,5 @@ public class PredicateTest {
         assertThat(isNotEmpty.test("foo")).isTrue();
         assertThat(isNotEmpty.test("")).isFalse();
     }
+
 }
