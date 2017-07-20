@@ -27,6 +27,16 @@ public class StringTest {
     }
 
 
+    @Test
+    public void lastIndexOf() {
+        String uri = "https://api.fudata.cn/tarantula/get_token";
+        int i = uri.lastIndexOf('/');
+        assertThat(i).isGreaterThan(0);
+        String path = uri.substring(i + 1);
+        assertThat(path).isEqualTo("get_token");
+    }
+
+
     @Test(dataProvider = "substringTestData")
     public void substring(String str, int beginIndex, int endIndex, String expected) {
         String subString = str.substring(beginIndex, endIndex);
