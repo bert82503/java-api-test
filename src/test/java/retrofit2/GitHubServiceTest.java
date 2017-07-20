@@ -17,9 +17,15 @@ import java.util.List;
  *
  * @author dannong
  * @since 2017年07月21日 02:02
+ * @see com.example.retrofit.SimpleService
  */
 public class GitHubServiceTest {
 
+  /**
+   * <a href="http://square.github.io/retrofit/">Retrofit - A type-safe HTTP client for Android and Java</a>
+   *
+   * @throws IOException
+   */
   @Test
   public void ListRepository() throws IOException {
     // 1. Create a very simple REST adapter which points the GitHub API.
