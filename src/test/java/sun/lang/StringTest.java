@@ -51,6 +51,23 @@ public class StringTest {
     }
 
 
+    @Test(dataProvider = "matchesTestData")
+    public void matches(String jarName, String regex, boolean result) {
+        assertThat(jarName.matches(regex)).isEqualTo(result);
+    }
+
+    @DataProvider(name = "matchesTestData")
+    private static Object[][] matchesTestData() {
+        return new Object[][]{
+            {"mybatis-3.5.1-SNAPSHOT.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
+            {"mybatis-3.5.10-SNAPSHOT.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
+            {"mybatis-3.5.10-snapshot.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
+            {"mybatis-3.5.10-RELEASE.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
+            {"mybatis-spring-1.3.1-SNAPSHOT.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", false},
+        };
+    }
+
+
     @Test(dataProvider = "valueOfTestData")
     public void valueOf(Object obj, String expected) {
         String str = String.valueOf(obj);
