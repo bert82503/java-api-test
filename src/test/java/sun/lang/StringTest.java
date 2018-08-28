@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
- * Test for {@link String}.
+ * Test of {@link String}.
  *
  * @since 1.0
  */

@@ -2,22 +2,31 @@ package sun.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.collect.Lists;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Test for {@link List}.
+ * Test of {@link java.util.List}.
  *
- * @author xingle
  * @since 1.0
  */
 public class ListTest {
+
+    @Test
+    public void forEach() {
+        List<String> list = new ArrayList<>(10);
+        list.add("dannong");
+        for (String str : list) {
+            assertThat(str).isNotEmpty(); // 不会遍历到多余的null元素
+        }
+    }
 
     @Test(dataProvider = "containsTestData")
     public <E> void contains(List<E> target, E element, boolean expected) {
