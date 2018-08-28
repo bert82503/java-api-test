@@ -8,10 +8,31 @@ import org.testng.annotations.Test;
 /**
  * Test for {@link String}.
  *
- * @author xingle
  * @since 1.0
  */
 public class StringTest {
+
+    @Test
+    public void equal() {
+        assertThat("str".equals(null)).isFalse();
+        assertThat("str".equals("")).isFalse();
+        assertThat("str".equals("null")).isFalse();
+        assertThat("str".equals("str")).isTrue();
+        assertThat("str" == "str").isTrue();
+    }
+
+    @Test(dataProvider = "equalsIgnoreCaseTestData")
+    public void equalsIgnoreCase(String s1, String s2, boolean expected) {
+        assertThat(s1.equalsIgnoreCase(s2)).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "equalsIgnoreCaseTestData")
+    private static Object[][] equalsIgnoreCaseTestData() {
+        return new Object[][]{
+            {"Phoenix", "phoenix", true},
+            {"phoenix", "Phoenix", true},
+        };
+    }
 
     @Test(dataProvider = "indexOfTestData")
     public void indexOf(String str, int ch, int expectedIndex) {
@@ -67,6 +88,45 @@ public class StringTest {
         };
     }
 
+    @Test(dataProvider = "replaceFirstTestData")
+    public void replaceFirst(String str, String regex, String replacement, String expected) {
+        String replaceAll = str.replaceFirst(regex, replacement);
+        assertThat(replaceAll).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "replaceFirstTestData")
+    private static Object[][] replaceFirstTestData() {
+        return new Object[][]{
+            {"test$com.service.CreditCardService:1.0$", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0$"},
+            {"test-com.service.CreditCardService:-1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:-1.0"},
+            {"test_com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test+com.service.CreditCardService:1.0+", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0+"},
+            {"test!com.service.CreditCardService:1.0!", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0!"},
+            {"test~com.service.CreditCardService:~1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:~1.0"},
+            /// 没替换
+            {"test:com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test:com.service.CreditCardService:1.0"},
+        };
+    }
+
+    @Test(dataProvider = "replaceAllTestData")
+    public void replaceAll(String str, String regex, String replacement, String expected) {
+        String replaceAll = str.replaceAll(regex, replacement);
+        assertThat(replaceAll).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "replaceAllTestData")
+    private static Object[][] replaceAllTestData() {
+        return new Object[][]{
+            {"test$com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test-com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test_com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test+com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test!com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            {"test~com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test/com.service.CreditCardService:1.0"},
+            /// 没替换
+            {"test:com.service.CreditCardService:1.0", "[$\\-_+!~]", "/", "test:com.service.CreditCardService:1.0"},
+        };
+    }
 
     @Test(dataProvider = "valueOfTestData")
     public void valueOf(Object obj, String expected) {
