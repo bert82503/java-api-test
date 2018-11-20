@@ -1,9 +1,9 @@
 package sun.lang;
 
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * 线程辅助类。
@@ -19,6 +19,7 @@ public class ThreadUtil {
 
     private ThreadUtil() {
         // prevent to instantiate
+        super();
     }
 
     /**
