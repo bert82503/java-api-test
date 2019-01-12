@@ -50,11 +50,15 @@ public class StringTest {
 
     @Test
     public void lastIndexOf() {
-        String uri = "https://api.fudata.cn/tarantula/get_token";
+        String uri = "https://api.free.cn/biz/get_token";
         int i = uri.lastIndexOf('/');
         assertThat(i).isGreaterThan(0);
         String path = uri.substring(i + 1);
         assertThat(path).isEqualTo("get_token");
+
+        String serviceInterface = "org.free.DemoService";
+        int lastIndexOf = serviceInterface.lastIndexOf('.');
+        assertThat(serviceInterface.substring(lastIndexOf + 1)).isEqualTo("DemoService");
     }
 
 
