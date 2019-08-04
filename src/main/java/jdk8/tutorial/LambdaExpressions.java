@@ -6,10 +6,9 @@ import java.util.List;
  * Lambda expressions. (Lambda表达式)
  *
  * @author dannong
- * @since 2016年10月22日 16:33
+ * @since 2016年10月22日
  */
 public class LambdaExpressions {
-
     /**
      * how to sort a list of strings. (如何排序字符串列表)
      */
@@ -41,5 +40,4 @@ public class LambdaExpressions {
         // gets even shorter
         list.sort(((o1, o2) -> o2.compareTo(o1)));
     }
-
 }

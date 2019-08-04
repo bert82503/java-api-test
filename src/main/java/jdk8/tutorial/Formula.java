@@ -9,8 +9,9 @@ package jdk8.tutorial;
  * 使用<b>default</b>关键字往接口添加非抽象方法实现，此功能也称为<b><i>虚拟扩展方法</i></b>。
  *
  * @author dannong
- * @since 2016年10月22日 15:10
+ * @since 2016年10月22日
  */
+@FunctionalInterface
 public interface Formula {
     double calculate(int a);
 

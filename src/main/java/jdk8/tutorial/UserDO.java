@@ -4,10 +4,9 @@ package jdk8.tutorial;
  * 用户领域模型。
  *
  * @author dannong
- * @since 2017年03月30日 16:17
+ * @since 2017年03月30日
  */
 public class UserDO {
-
     private String name;
 
     private int age;

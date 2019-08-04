@@ -7,7 +7,7 @@ import lombok.ToString;
  * 个人信息。
  *
  * @author dannong
- * @since 2016年10月25日 16:15
+ * @since 2016年10月25日
  */
 @Hint("hint1")
 @Hint("hint2")
