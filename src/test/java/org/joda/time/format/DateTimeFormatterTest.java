@@ -1,9 +1,9 @@
 package org.joda.time.format;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test for {@link DateTimeFormatter}.
@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.0
  */
 public class DateTimeFormatterTest {
-
     @Test(dataProvider = "printTestData")
     public void print(long currentTimeMillis, String expected) {
         String actual = DATE_TIME_FORMATTER.print(currentTimeMillis);
@@ -25,8 +24,8 @@ public class DateTimeFormatterTest {
     @DataProvider(name = "printTestData")
     private static Object[][] printTestData() {
         return new Object[][]{
-                {1454564227493L, "2016-02-04 13:37:07.493"},
+            {1505986098088L, "2017-09-21 17:28:18.088"},
+            {1506068411484L, "2017-09-22 16:20:11.484"}
         };
     }
-
 }
