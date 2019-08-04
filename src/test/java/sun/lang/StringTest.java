@@ -59,6 +59,20 @@ public class StringTest {
         String serviceInterface = "org.free.DemoService";
         int lastIndexOf = serviceInterface.lastIndexOf('.');
         assertThat(serviceInterface.substring(lastIndexOf + 1)).isEqualTo("DemoService");
+
+        String dubboJar = "dubbo-3.3.4-SNAPSHOT.jar";
+        assertThat(endsWith(dubboJar, ".jar")).isTrue();
+        lastIndexOf = dubboJar.lastIndexOf(".jar");
+        assertThat(dubboJar.substring(0, lastIndexOf)).isEqualTo("dubbo-3.3.4-SNAPSHOT");
+        dubboJar = "dubbo-3.3.4-SNAPSHOT.jar!/";
+        assertThat(endsWith(dubboJar, ".jar!/")).isTrue();
+        lastIndexOf = dubboJar.lastIndexOf(".jar!/");
+        assertThat(dubboJar.substring(0, lastIndexOf)).isEqualTo("dubbo-3.3.4-SNAPSHOT");
+    }
+
+    private boolean endsWith(String file, String suffix) {
+        int lastIndexOf = file.lastIndexOf(suffix);
+        return lastIndexOf == file.length() - suffix.length();
     }
 
 
@@ -89,6 +103,8 @@ public class StringTest {
             {"mybatis-3.5.10-snapshot.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
             {"mybatis-3.5.10-RELEASE.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
             {"mybatis-spring-1.3.1-SNAPSHOT.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", false},
+            {"com.finance.service", "*.finance.*", true},
+            {"com.fund.user", "*.fund.*", true},
         };
     }
 

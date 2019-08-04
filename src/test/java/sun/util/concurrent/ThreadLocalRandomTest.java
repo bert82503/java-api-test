@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 1.0
  */
 public class ThreadLocalRandomTest {
-
     private static final Logger logger = LoggerFactory.getLogger(ThreadLocalRandomTest.class);
 
     @Test(dataProvider = "nextIntTestData")
@@ -77,5 +76,4 @@ public class ThreadLocalRandomTest {
                 {1, 5, 100},
         };
     }
-
 }
