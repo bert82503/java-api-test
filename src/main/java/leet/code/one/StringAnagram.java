@@ -117,7 +117,7 @@ public class StringAnagram {
     /**
      * 滑动窗口算法。
      * <pre>
-     *
+     * 对于window/needs计数器，使用包装类型的Map对象，存在基本类型与包装类型的自动包装与拆包装。
      * </pre>
      * 执行用时：41 ms，内存消耗：38.7 MB
      */
@@ -191,6 +191,9 @@ public class StringAnagram {
      * C语言代码风格
      * </pre>
      * 执行用时：8 ms，内存消耗：38.1 MB
+     * <p>
+     * 这个版本的执行用时比第一版减少了33ms，耗时降低了80%。
+     * 在大数据量场景下，包装类型的自动装箱与拆箱还是挺耗时的。
      */
     private static List<Integer> findAnagrams3(String s, String p) {
         if (s == null || s.length() < p.length()) {
