@@ -139,12 +139,12 @@ public class StringAnagram {
             char ch = p.charAt(i);
             needs.put(ch, needs.getOrDefault(ch, 0) + 1);
         }
+        int needsSize = needs.size();
 
         // 记录window中已经有多少个字符符合要求了
         int match = 0;
 
         int slen = s.length();
-        int needsSize = needs.size();
         while (right < slen) {
             char rc = s.charAt(right);
             Integer nr = needs.get(rc);
