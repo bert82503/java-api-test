@@ -119,6 +119,8 @@ public class StringAnagram {
      * <pre>
      * 对于window/needs计数器，使用包装类型的Map对象，存在基本类型与包装类型的自动包装与拆包装。
      * </pre>
+     * 时间复杂度是 O(m + n)，空间复杂度是 O(26)
+     * <p>
      * 执行用时：41 ms，内存消耗：38.7 MB
      */
     private static List<Integer> findAnagrams2(String s, String p) {
