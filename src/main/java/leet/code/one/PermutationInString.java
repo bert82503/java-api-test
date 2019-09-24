@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
  * 输入: s1= "ab" s2 = "eidboaoo"
  * 输出: False
  * </pre>
- * <p>
+ *
  * 1.认识题目
  * <pre>
  * 1.条件：给定两个字符串 s1 和 s2
@@ -37,7 +37,7 @@ import org.testng.annotations.Test;
  * 4.注意1：输入的字符串只包含小写字母 (值范围['a', 'z'])
  * 5.注意2：两个字符串的长度都在 [1, 10,000] 之间
  * </pre>
- * <p>
+ *
  * 2.认识问题
  * <pre>
  * 结合第1点和第5点，两个字符串 s1 和 s2 都是非空
