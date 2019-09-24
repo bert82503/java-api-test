@@ -279,7 +279,7 @@ public class StringAnagram {
         // 记录s中所有与p长度相同的「字母异位词的起始索引」
         List<Integer> startIndexes = new ArrayList<>();
 
-        // 相当于两个计数器
+        // 相当于两个计数器，小写字母的字符
         int[] window = new int[128];
         int[] needs = new int[128];
         int needsSize = 0;
@@ -316,7 +316,7 @@ public class StringAnagram {
                 if (needs[lc] > 0) {
                     // 移出window
                     if (--window[lc] < needs[lc]) {
-                        // 字符lc出现次数不再符合要求
+                        // 字符lc的出现次数不再符合要求
                         match--;
                     }
                 }

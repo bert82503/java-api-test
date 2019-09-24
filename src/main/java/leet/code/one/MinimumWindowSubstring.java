@@ -251,7 +251,7 @@ public class MinimumWindowSubstring {
                 if (needs[lc] > 0) {
                     // 移出window
                     if (--window[lc] < needs[lc]) {
-                        // 字符lc出现次数不再符合要求
+                        // 字符lc的出现次数不再符合要求
                         match--;
                     }
                 }
