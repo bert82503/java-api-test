@@ -207,8 +207,8 @@ public class StringAnagram {
         List<Integer> startIndexes = new ArrayList<>();
 
         // 相当于两个计数器
-        int[] window = new int[65536];
-        int[] needs = new int[65536];
+        int[] window = new int[128];
+        int[] needs = new int[128];
         int needsSize = 0;
 
         int plen = p.length();
@@ -266,7 +266,7 @@ public class StringAnagram {
      *
      * 代码可读性差
      * </pre>
-     * 执行用时：7 ms，内存消耗：38.8 MB
+     * 执行用时：7 ms，内存消耗：37.5 MB
      *
      * @see #findAnagrams3(String, String)
      */
@@ -280,8 +280,8 @@ public class StringAnagram {
         List<Integer> startIndexes = new ArrayList<>();
 
         // 相当于两个计数器
-        int[] window = new int[65536];
-        int[] needs = new int[65536];
+        int[] window = new int[128];
+        int[] needs = new int[128];
         int needsSize = 0;
 
         int plen = p.length();
@@ -343,6 +343,7 @@ public class StringAnagram {
                 // 最前面匹配
                 {"a", "a", Collections.singletonList(0)},
                 {"aaa", "aaa", Collections.singletonList(0)},
+                {"zzz", "zzz", Collections.singletonList(0)},
                 // 对称型
                 {"aaa", "a", Arrays.asList(0, 1, 2)},
                 {"aaa", "aa", Arrays.asList(0, 1)},
