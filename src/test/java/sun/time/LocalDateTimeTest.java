@@ -1,6 +1,6 @@
 package sun.time;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -11,17 +11,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 /**
- * LocalDateTime. (当地日期时间：表示一个日期-时间)
+ * Test of {@link LocalDateTime}. (当地日期时间：表示一个日期-时间)
  * <p>
  * {@link LocalDateTime}是不可变和线程安全的类。
  *
  * @author dannong
- * @since 2016年10月26日 20:17
+ * @since 2016年10月26日
  */
 public class LocalDateTimeTest {
+
     @Test
     public void functionTest() {
         // utilize methods for retrieving certain fields from a date-time
@@ -50,4 +52,51 @@ public class LocalDateTimeTest {
         String dateTimeString = formatter.format(localDateTime);
         assertThat(dateTimeString).isEqualTo("2016-10-20 07:13");
     }
+
+    // UT, unit test
+
+    /**
+     * <pre>
+     * Instant Class
+     * https://docs.oracle.com/javase/tutorial/datetime/iso/instant.html
+     *
+     * Date and Time Classes
+     * https://docs.oracle.com/javase/tutorial/datetime/iso/datetime.html
+     *
+     * Parsing and Formatting
+     * https://docs.oracle.com/javase/tutorial/datetime/iso/format.html
+     * </pre>
+     */
+    @Test(dataProvider = "formatDataTimeTestData")
+    public void formatDataTime(long timeMillis, String expected) {
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String result = localDateTime.format(dateTimeFormatter);
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "formatDataTimeTestData")
+    public static Object[][] formatDataTimeTestData() {
+        return new Object[][]{
+                {1569403175997L, "2019-09-25 17:19:35.997"},
+                {1567966035000L, "2019-09-09 02:07:15.000"},
+        };
+    }
+
+    @Test(dataProvider = "formatChineseDataTimeTestData")
+    public void formatChineseDataTime(long timeMillis, String expected) {
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        String result = localDateTime.format(dateTimeFormatter);
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @DataProvider(name = "formatChineseDataTimeTestData")
+    public static Object[][] formatChineseDataTimeTestData() {
+        return new Object[][]{
+                {1569403175997L, "2019年09月25日"},
+                {1567966035000L, "2019年09月09日"},
+        };
+    }
+
 }

@@ -1,6 +1,6 @@
 package sun.time;
 
-import org.testng.annotations.Test;
+import static org.assertj.core.api.Assertions.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -10,17 +10,18 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.Test;
 
 /**
- * LocalDate. (当地日期：表示不同的日期)
+ * Test of {@link LocalDate}. (当地日期：表示不同的日期)
  * <p>
  * {@link LocalDate}是不可变和线程安全的类。
  *
  * @author dannong
- * @since 2016年10月26日 15:11
+ * @since 2016年10月26日
  */
 public class LocalDateTest {
+
     @Test
     public void functionTest() {
         // how to calculate new dates by adding or subtracting days, months or years
@@ -42,4 +43,5 @@ public class LocalDateTest {
         LocalDate localDate = LocalDate.parse("2016-10-20", chinaFormatter);
         assertThat(localDate.toString()).isEqualTo("2016-10-20");
     }
+
 }
