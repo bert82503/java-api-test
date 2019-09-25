@@ -67,32 +67,32 @@ public class LocalDateTimeTest {
      * https://docs.oracle.com/javase/tutorial/datetime/iso/format.html
      * </pre>
      */
-    @Test(dataProvider = "formatDataTimeTestData")
-    public void formatDataTime(long timeMillis, String expected) {
+    @Test(dataProvider = "formatDateTimeTestData")
+    public void formatDateTime(long timeMillis, String expected) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String result = localDateTime.format(dateTimeFormatter);
         assertThat(result).isEqualTo(expected);
     }
 
-    @DataProvider(name = "formatDataTimeTestData")
-    public static Object[][] formatDataTimeTestData() {
+    @DataProvider(name = "formatDateTimeTestData")
+    public static Object[][] formatDateTimeTestData() {
         return new Object[][]{
                 {1569403175997L, "2019-09-25 17:19:35.997"},
                 {1567966035000L, "2019-09-09 02:07:15.000"},
         };
     }
 
-    @Test(dataProvider = "formatChineseDataTimeTestData")
-    public void formatChineseDataTime(long timeMillis, String expected) {
+    @Test(dataProvider = "formatChineseDateTimeTestData")
+    public void formatChineseDateTime(long timeMillis, String expected) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
         String result = localDateTime.format(dateTimeFormatter);
         assertThat(result).isEqualTo(expected);
     }
 
-    @DataProvider(name = "formatChineseDataTimeTestData")
-    public static Object[][] formatChineseDataTimeTestData() {
+    @DataProvider(name = "formatChineseDateTimeTestData")
+    public static Object[][] formatChineseDateTimeTestData() {
         return new Object[][]{
                 {1569403175997L, "2019年09月25日"},
                 {1567966035000L, "2019年09月09日"},
