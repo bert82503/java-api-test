@@ -24,7 +24,7 @@ public class StubbingVoidMethodsWithExceptions {
         doThrow(new RuntimeException("boom!"))
                 .when(mockedList).clear();
 
-        // following throws RuntimeException
+        // following throws RuntimeException:
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(mockedList::clear)
                 .withMessage("boom!");
