@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 public class VerifySomeBehaviour {
 
     @Test
-    public void verifyListBehaviour() {
+    public void verifyBehaviour() {
         // mock creation
         List<Object> mockedList = mock(List.class);
 
