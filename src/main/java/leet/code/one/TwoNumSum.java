@@ -90,7 +90,7 @@ public class TwoNumSum {
      * 这时候要引入`哈希表`，其实就是一个登记册，写上你的名字和你的要求。
      * 如果每个人都提前在主持人那里登记一遍，然后只要大家依次再报出自己名字，主持人就能够识别到，ta 就是你要找的人。
      *
-     * 哈希表-登记册的类比
+     * 哈希表-登记册/注册表的类比
      *
      * 考察点：待找的操作数和数组下标映射的哈希表(HashMap: <num, index>)
      * </pre>
@@ -158,20 +158,22 @@ public class TwoNumSum {
         if (nums == null || nums.length < 2) {
             throw new IllegalArgumentException("No two sum solution");
         }
-        int len = nums.length;
-        Map<Integer, Integer> operandIndexMap = new HashMap<>();
+        // <num, index>
+        // 合适的初始容量，减少键冲突
+        Map<Integer, Integer> numIndexMap = new HashMap<>(16384);
         // 每个人报出自己想要配对的人
-        for (int i = 0; i < len; i++) {
+        int length = nums.length;
+        for (int i = 0; i < length; i++) {
             int num = nums[i];
-            // 每个人报出自己想要配对的人
+            // 配对的数字
             int operand = target - num;
-            Integer index = operandIndexMap.get(operand);
+            Integer index = numIndexMap.get(operand);
             if (index != null) {
-                // 如果有人被登记过，就是他
+                // 发现有人登记过，就是他
                 return new int[]{index, i};
             } else {
                 // 否则，主持人登记他的需求
-                operandIndexMap.put(num, i);
+                numIndexMap.put(num, i);
             }
         }
         throw new IllegalArgumentException("No two sum solution");
@@ -196,7 +198,10 @@ public class TwoNumSum {
                 {new int[]{2, 7, 11, 15}, 26, new int[]{2, 3}},
                 {new int[]{3, 2, 4}, 6, new int[]{1, 2}},
                 {new int[]{3, 2, 4}, 7, new int[]{0, 2}},
-                {new int[]{3, 3}, 6, new int[]{0, 1}},
+                {new int[]{3, 3, 1, 2}, 6, new int[]{0, 1}},
+                {new int[]{1, 4, 3, 3}, 6, new int[]{2, 3}},
+                {new int[]{1, 2, 3, 4, 1}, 2, new int[]{0, 4}},
+                {new int[]{0, 0}, 0, new int[]{0, 1}},
                 // 两个答案，不符合题目要求
 //                {new int[]{3, 2, 4, 3}, 6, new int[]{1, 2}},
         };
