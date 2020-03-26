@@ -1,4 +1,4 @@
-package leet.code.one;
+package leet.code.onehundred.fiftyfive;
 
 import java.util.Deque;
 import java.util.LinkedList;
