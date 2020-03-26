@@ -1,10 +1,5 @@
 package leet.code.twenty;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
 /**
  * <a href="有效的括号">https://leetcode-cn.com/problems/valid-parentheses/</a>
  *
@@ -17,52 +12,68 @@ public class Solution {
     /**
      * 括号闭合关系对映射
      */
-    private static final Map<Character, Character> CLOSURE_MAP;
+    private static final char[] CLOSURE_MAP;
     static {
-        CLOSURE_MAP = new HashMap<>(8);
-        CLOSURE_MAP.put(')', '(');
-        CLOSURE_MAP.put('}', '{');
-        CLOSURE_MAP.put(']', '[');
+        CLOSURE_MAP = new char[256];
+        // 左括号入栈
+        CLOSURE_MAP['('] = ')';
+        CLOSURE_MAP['{'] = '}';
+        CLOSURE_MAP['['] = ']';
+        // 右括号出栈/闭合
+//        CLOSURE_MAP[')'] = '(';
+//        CLOSURE_MAP['}'] = '{';
+//        CLOSURE_MAP[']'] = '[';
     }
 
+    /**
+     * 解法2
+     * <pre>
+     * 执行用时 : 0 ms, 在所有 Java 提交中击败了 100.00% 的用户
+     * 内存消耗 : 37.2 MB, 在所有 Java 提交中击败了 5.01% 的用户
+     * </pre>
+     */
     public boolean isValid(String s) {
         if (s == null || s.isEmpty()) {
             // 注意空字符串可被认为是有效字符串
             return true;
         }
-        if ((s.length() & 1) != 0) {
+        int strLen = s.length();
+        if ((strLen & 1) != 0) {
             // 剪枝：奇数个括号
             return false;
         }
         // 模拟栈的行为
-        Deque<Character> deque = new LinkedList<>();
-        for (char c : s.toCharArray()) {
+        char[] deque = new char[strLen];
+        int index = -1;
+        for (int i = 0; i < strLen; i++) {
             // 解法2
-            Character v = CLOSURE_MAP.get(c);
-            if (v == null) {
-                // 左括号
-                deque.offerFirst(c);
-            } else {
-                // 右括号，需要判断是否闭合
-                if (v.equals(deque.peekFirst())) {
-                    // 相同类型的左右括号闭合
-                    deque.pollFirst();
-                } else {
-                    // 左括号必须以正确的顺序闭合
-                    // 剪枝：右括号与左括号的类型不相同，未闭合，直接结束
-                    return false;
-                }
+            char c = s.charAt(i);
+            switch (c) {
+                // 左括号入栈
+                case '(':
+                case '{':
+                case '[':
+                    char right = CLOSURE_MAP[c];
+                    deque[++index] = right;
+                    break;
+                // 右括号出栈/闭合
+                case ')':
+                case '}':
+                case ']':
+                    // 右括号，需要判断是否闭合
+                    if (index < 0 || c != deque[index]) {
+                        // 左括号必须以正确的顺序闭合
+                        // 剪枝：右括号与左括号的类型不相同，未闭合，直接结束
+                        return false;
+                    } else {
+                        index--;
+                    }
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + c);
             }
-
-            // 解法1
-//            if (deque.isEmpty() || !deque.peekFirst().equals(CLOSURE_MAP.get(c))) {
-//                deque.offerFirst(c);
-//            } else {
-//                // 括号闭合
-//                deque.pollFirst();
-//            }
         }
-        return deque.isEmpty();
+        return index == -1;
     }
 
     /**
