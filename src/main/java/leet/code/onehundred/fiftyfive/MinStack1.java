@@ -15,61 +15,59 @@ import java.util.LinkedList;
  * </pre>
  *
  * <pre>
- * 执行用时: 6 ms, 在所有 Java 提交中击败了 98.03% 的用户
- * 内存消耗: 41.3 MB, 在所有 Java 提交中击败了 16.20% 的用户
+ * 执行用时: 7 ms, 在所有 Java 提交中击败了 88.42% 的用户
+ * 内存消耗: 41.2 MB, 在所有 Java 提交中击败了 16.60% 的用户
  * </pre>
  *
  * @author EdwardLee03
  * @since 2020-03-25
  */
-@SuppressWarnings("unused")
-public class MinStack {
-    private static class Element {
-        /** 元素值 */
-        private int value;
-        /** 最小值 */
-        private int min;
-    }
+public class MinStack1 {
 
     /**
-     * 数据值和最小值的同步栈，入栈和出栈操作是原子性的。
+     * 数据栈和最小栈同步，存在入栈和出栈操作非原子性。
      *
      * 使用"双端队列"模拟"栈"（基本类型与包装类型存在自动解包装）
      */
-    private Deque<Element> deque;
+    private Deque<Integer> data;
+    private Deque<Integer> min;
 
     /** initialize your data structure here. */
-    public MinStack() {
-        deque = new LinkedList<>();
+    public MinStack1() {
+        data = new LinkedList<>();
+        min = new LinkedList<>();
     }
 
     public void push(int x) {
-        Element e = new Element();
-        e.value = x;
-        int min;
-        if (deque.isEmpty()) {
-            e.min = x;
+        // 非原子性操作
+        data.offerFirst(x);
+        if (min.isEmpty() || min.peekFirst() >= x) {
+            min.offerFirst(x);
         } else {
-            e.min = Math.min(deque.peekFirst().min, x);
+            min.offerFirst(min.peekFirst());
         }
-        deque.offerFirst(e);
     }
 
     public void pop() {
-        deque.pollFirst();
+        if (data.isEmpty()) {
+            return;
+        }
+        // 非原子性操作
+        data.pollFirst();
+        min.pollFirst();
     }
 
     public int top() {
-        if (deque.isEmpty()) {
+        if (data.isEmpty()) {
             return 0;
         }
-        return deque.peekFirst().value;
+        return data.peekFirst();
     }
 
     public int getMin() {
-        if (deque.isEmpty()) {
+        if (min.isEmpty()) {
             return 0;
         }
-        return deque.peekFirst().min;
+        return min.peekFirst();
     }
 }

@@ -56,7 +56,7 @@ public class Solution {
             // 剪枝：奇数个括号
             return false;
         }
-        // 使用"双端队列"模拟栈（基本类型与包装类型存在自动解包装，损耗性能）
+        // 使用"双端队列"模拟"栈"（基本类型与包装类型存在自动解包装）
         Deque<Character> deque = new LinkedList<>();
         for (int i = 0; i < strLen; i++) {
             char c = s.charAt(i);
