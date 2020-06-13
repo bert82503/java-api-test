@@ -2,9 +2,23 @@ package leet.code.problem.number;
 
 import java.util.BitSet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * <a href="https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/">
  *     面试题03. 数组中重复的数字</a>
+ *
+ * <pre>
+ * 在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。
+ * 数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。
+ * 请找出数组中任意一个重复的数字。
+ * </pre>
+ *
+ * <pre>
+ * 一、认识题目：
+ * "所有数字都在 0～n-1 的范围内"，转换为"数字可以作为数组的下标"
+ * "找出数组中任意一个重复的数字"，找到一个即可结束查找
+ * </pre>
  *
  * @author guangyi
  * @since 2020-06-13
@@ -47,8 +61,21 @@ public class RepeatNumber {
         throw new IllegalStateException("repeat number is not find");
     }
 
+    /**
+     * Test cases.
+     */
     public static void main(String[] args) {
-        int[] nums = new int[]{2, 3, 1, 0, 2, 5, 3};
-        System.out.println(findRepeatNumber(nums));
+        assertThat(findRepeatNumber(new int[]{2, 3, 1, 0, 2, 5, 3}))
+                .isEqualTo(2);
+        assertThat(findRepeatNumber(new int[]{0, 0}))
+                .isEqualTo(0);
+        assertThat(findRepeatNumber(new int[]{1, 1}))
+                .isEqualTo(1);
+        assertThat(findRepeatNumber(new int[]{0, 1, 2, 3, 4, 5, 6, 0}))
+                .isEqualTo(0);
+        assertThat(findRepeatNumber(new int[]{0, 1, 2, 3, 4, 5, 6, 3}))
+                .isEqualTo(3);
+        assertThat(findRepeatNumber(new int[]{0, 1, 2, 3, 4, 5, 6, 4, 0}))
+                .isEqualTo(4);
     }
 }
