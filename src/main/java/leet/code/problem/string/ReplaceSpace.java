@@ -37,6 +37,7 @@ public class ReplaceSpace {
             return s;
         }
         int length = s.length();
+        // 本题关键：预先分配富足的容量，以空间换时间
         StringBuilder sb = new StringBuilder(length * 3);
         for (int i = 0; i < length; i++) {
             char c = s.charAt(i);
