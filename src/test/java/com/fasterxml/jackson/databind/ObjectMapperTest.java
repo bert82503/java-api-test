@@ -53,7 +53,7 @@ public class ObjectMapperTest {
     }
 
     @Test(expectedExceptions = JsonMappingException.class,
-            expectedExceptionsMessageRegExp = "No content to map due to end-of-input\\n at \\[Source\\: ; line\\: 1, column\\: 0\\]")
+            expectedExceptionsMessageRegExp = "No content to map due to end-of-input.*")
     public void readValue_Exception() throws IOException {
         objectMapper.readValue("", TokenResponse.class);
     }

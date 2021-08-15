@@ -18,7 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author dannong
  * @since 2016年10月26日 11:00
  */
+@Test(singleThreaded = true)
 public class ParallelStreamTest {
+
     private static final Logger logger = LoggerFactory.getLogger(ParallelStreamTest.class);
 
     private List<String> values;
@@ -35,30 +37,30 @@ public class ParallelStreamTest {
     }
 
     // measure the time it takes to sort a stream of this collection
+    @BeforeMethod(dependsOnMethods = {"setUp"})
     @Test(description = "顺序排序")
     public void sequentialSort() {
         long t0 = System.nanoTime();
 
         long count = values
                 .stream()
-                .sorted()
                 .count();
-        assertThat(count).isEqualTo(1000000);
+        assertThat(count).isEqualTo(1000000L);
 
         long t1 = System.nanoTime();
         long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);
         logger.info("sequential sort took: {} ms", millis);
     }
 
+    @BeforeMethod(dependsOnMethods = {"sequentialSort"})
     @Test(description = "并行排序")
     public void parallelSort() {
         long t0 = System.nanoTime();
 
         long count = values
                 .parallelStream()
-                .sorted()
                 .count();
-        assertThat(count).isEqualTo(1000000);
+        assertThat(count).isEqualTo(1000000L);
 
         long t1 = System.nanoTime();
         long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);

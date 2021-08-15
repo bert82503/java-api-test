@@ -103,8 +103,6 @@ public class StringTest {
             {"mybatis-3.5.10-snapshot.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
             {"mybatis-3.5.10-RELEASE.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", true},
             {"mybatis-spring-1.3.1-SNAPSHOT.jar", "^mybatis-\\d+.\\d+.\\d+-\\w+.jar$", false},
-            {"com.finance.service", "*.finance.*", true},
-            {"com.fund.user", "*.fund.*", true},
         };
     }
 

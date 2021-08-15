@@ -29,10 +29,10 @@ public class JSONTest {
     Map<String, Object> map = Maps.newHashMapWithExpectedSize(1);
     map.put("bankJob", bankParam);
     String jsonString = JSON.toJSONString(map);
-    assertThat(jsonString).isEqualTo("{\"bankJob\":{\"entryName\":\"37236638385647\"}}");
+    assertThat(jsonString).isEqualTo("{\"bankJob\":{\"entry_name\":\"37236638385647\"}}");
 
     jsonString = JSON.toJSONString(bankParam);
-    assertThat(jsonString).isEqualTo("{\"entryName\":\"37236638385647\"}");
+    assertThat(jsonString).isEqualTo("{\"entry_name\":\"37236638385647\"}");
   }
 
   @Test

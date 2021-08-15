@@ -25,10 +25,10 @@ public class ThreadIdTest {
 
     @Test
     public void get() {
-        assertThat(ThreadId.get()).isEqualTo(0); // 测试主线程
+        assertThat(ThreadId.get()).isEqualTo(1); // 测试主线程
 
         for (int i = 1; i < 10; i++) {
-            Thread thread = threadFactory.newThread(new ThreadLocalRunnable(i));
+            Thread thread = threadFactory.newThread(new ThreadLocalRunnable(i + 1));
             thread.start();
         }
 
@@ -37,7 +37,7 @@ public class ThreadIdTest {
 
     static class ThreadLocalRunnable implements Runnable {
 
-        private int id;
+        private final int id;
 
         public ThreadLocalRunnable(int id) {
             this.id = id;
