@@ -64,7 +64,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         int firstIndex = 0;
         int lastIndex = nums.length - 1;
         // 递归查找目标值
-        int curIndex = recursiveSearch(nums, firstIndex, lastIndex, target);
+        int curIndex = binarySearch(nums, firstIndex, lastIndex, target);
         if (curIndex >= 0 && curIndex <= nums.length - 1) {
             if (nums[curIndex] == target) {
                 // 找到目标值
@@ -86,6 +86,8 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
     /**
      * 使用递归查找目标值。
+     * <p></p>
+     * 基于递归搜索的二分查找。
      *
      * @param nums       一个按照升序排列的整数数组
      * @param startIndex 起始下标，包含
@@ -93,7 +95,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @param target     一个目标值
      * @return 当前位置
      */
-    public static int recursiveSearch(int[] nums, int startIndex, int endIndex, int target) {
+    public static int binarySearch(int[] nums, int startIndex, int endIndex, int target) {
         if (startIndex < 0 || endIndex >= nums.length || startIndex > endIndex) {
             // 递归终止条件
             // 数组越界
@@ -106,10 +108,10 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
             return midIndex;
         } else if (num > target) {
             // 上半区递归查找
-            return recursiveSearch(nums, startIndex, midIndex - 1, target);
+            return binarySearch(nums, startIndex, midIndex - 1, target);
         } else {
             // 下半区递归查找
-            return recursiveSearch(nums, midIndex + 1, endIndex, target);
+            return binarySearch(nums, midIndex + 1, endIndex, target);
         }
     }
 }
