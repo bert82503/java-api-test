@@ -9,7 +9,7 @@ package leet.code.search.binary;
  */
 public class BinarySearchSolution {
 
-    // 解法一，循环遍历，时间复杂度是O(n)
+    // 解法一，循环遍历，时间复杂度为 O(n)
 
 //    /**
 //     * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，
@@ -53,7 +53,7 @@ public class BinarySearchSolution {
 //        return -1;
 //    }
 
-    // 解法二，基于递归搜索的二分查找，时间复杂度是O(log n)
+    // 解法二，基于递归搜索的二分查找，时间复杂度为 O(log n)
 
     /**
      * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，

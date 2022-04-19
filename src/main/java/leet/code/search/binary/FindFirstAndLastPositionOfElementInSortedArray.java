@@ -12,7 +12,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 
     private static final int[] ELEMENT_NOT_FOUND = new int[]{-1, -1};
 
-    // 解法一，循环遍历，时间复杂度是O(n)
+    // 解法一，循环遍历，时间复杂度为 O(n)
 
 //    /**
 //     * 34. 在排序数组中查找元素的第一个和最后一个位置。
@@ -50,7 +50,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 //        return ELEMENT_NOT_FOUND;
 //    }
 
-    // 解法二，基于递归搜索的二分查找，时间复杂度是O(log n)
+    // 解法二，基于递归搜索的二分查找，时间复杂度为 O(log n)
 
     /**
      * 34. 在排序数组中查找元素的第一个和最后一个位置。
