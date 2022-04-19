@@ -50,7 +50,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
 //        return ELEMENT_NOT_FOUND;
 //    }
 
-    // 解法二，基于递归搜索的二分查找，时间复杂度是O(n)
+    // 解法二，基于递归搜索的二分查找，时间复杂度是O(log n)
 
     /**
      * 34. 在排序数组中查找元素的第一个和最后一个位置。
