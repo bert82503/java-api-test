@@ -95,18 +95,20 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      */
     public static int recursiveSearch(int[] nums, int firstIndex, int lastIndex, int target) {
         if (firstIndex < 0 || lastIndex >= nums.length || firstIndex > lastIndex) {
+            // 递归终止条件
             // 数组越界
             return -1;
         }
         int midIndex = (firstIndex + lastIndex) / 2;
         int num = nums[midIndex];
         if (num == target) {
+            // 递归终止条件
             return midIndex;
         } else if (num > target) {
-            // 上半区
+            // 上半区递归查找
             return recursiveSearch(nums, firstIndex, midIndex - 1, target);
         } else {
-            // 下半区
+            // 下半区递归查找
             return recursiveSearch(nums, midIndex + 1, lastIndex, target);
         }
     }
