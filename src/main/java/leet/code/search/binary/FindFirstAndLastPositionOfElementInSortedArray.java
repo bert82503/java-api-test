@@ -88,28 +88,28 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * 使用递归查找目标值。
      *
      * @param nums       一个按照升序排列的整数数组
-     * @param firstIndex 数组元素的的第一个位置
-     * @param lastIndex  数组元素的的最后一个位置
+     * @param startIndex 起始下标，包含
+     * @param endIndex   终止下标，不包含
      * @param target     一个目标值
      * @return 当前位置
      */
-    public static int recursiveSearch(int[] nums, int firstIndex, int lastIndex, int target) {
-        if (firstIndex < 0 || lastIndex >= nums.length || firstIndex > lastIndex) {
+    public static int recursiveSearch(int[] nums, int startIndex, int endIndex, int target) {
+        if (startIndex < 0 || endIndex >= nums.length || startIndex > endIndex) {
             // 递归终止条件
             // 数组越界
             return -1;
         }
-        int midIndex = (firstIndex + lastIndex) / 2;
+        int midIndex = (startIndex + endIndex) / 2;
         int num = nums[midIndex];
         if (num == target) {
             // 递归终止条件
             return midIndex;
         } else if (num > target) {
             // 上半区递归查找
-            return recursiveSearch(nums, firstIndex, midIndex - 1, target);
+            return recursiveSearch(nums, startIndex, midIndex - 1, target);
         } else {
             // 下半区递归查找
-            return recursiveSearch(nums, midIndex + 1, lastIndex, target);
+            return recursiveSearch(nums, midIndex + 1, endIndex, target);
         }
     }
 }
