@@ -8,7 +8,7 @@ package leet.code.search.binary;
  * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，
  * 写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
  * <p></p>
- * 特征：
+ * 特性：
  * 1. 有序的（升序）整型数组
  * 2. 一个目标值，并返回其下标
  *
@@ -21,7 +21,7 @@ public class BinarySearchSolution {
     /**
      * 二分查找
      * <p></p>
-     * 特征：
+     * 特性：
      * 1. 有序的（升序）整型数组
      * 2. 一个目标值，并返回其下标
      *
@@ -61,10 +61,11 @@ public class BinarySearchSolution {
         } else if (num > target) {
             // 上半区递归查找
             return binarySearch(nums, startIndex, midIndex - 1, target);
-        } else {
+        } else if (num < target) {
             // 下半区递归查找
             return binarySearch(nums, midIndex + 1, endIndex, target);
         }
+        return -1;
     }
 
 

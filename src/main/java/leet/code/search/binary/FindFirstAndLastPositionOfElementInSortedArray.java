@@ -13,9 +13,9 @@ package leet.code.search.binary;
  *
  * 注意：当存在一个目标值时，输出同一个位置。
  * <p></p>
- * 特征：
+ * 特性：
  * 1. 一个按照升序排列的整数数组
- * 2. 变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
+ * 2. 变体：先查找目标值，再查找目标值在数组中的开始位置和结束位置
  *
  * @author guangyi
  */
@@ -30,9 +30,9 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      *
      * 注意：当存在一个目标值时，输出同一个位置。
      * <p></p>
-     * 特征：
+     * 特性：
      * 1. 一个按照升序排列的整数数组
-     * 2. 变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
+     * 2. 变体：先查找目标值，再查找目标值在数组中的开始位置和结束位置
      *
      * @param nums   一个按照升序排列的整数数组
      * @param target 一个目标值
@@ -86,10 +86,11 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         } else if (num > target) {
             // 上半区递归查找
             return binarySearch(nums, startIndex, midIndex - 1, target);
-        } else {
+        } else if (num < target) {
             // 下半区递归查找
             return binarySearch(nums, midIndex + 1, endIndex, target);
         }
+        return -1;
     }
 
 
