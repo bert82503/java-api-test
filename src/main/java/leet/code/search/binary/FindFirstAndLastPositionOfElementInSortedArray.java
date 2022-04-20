@@ -6,7 +6,6 @@ package leet.code.search.binary;
  * https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
  * <p></p>
  * 给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。
- *
  * 如果数组中不存在目标值 target，返回 [-1, -1]。
  *
  * 进阶：
@@ -15,8 +14,8 @@ package leet.code.search.binary;
  * 注意：当存在一个目标值时，输出同一个位置。
  * <p></p>
  * 特征：
- * 1.一个按照升序排列的整数数组
- * 2.变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
+ * 1. 一个按照升序排列的整数数组
+ * 2. 变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
  *
  * @author guangyi
  */
@@ -32,8 +31,8 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * 注意：当存在一个目标值时，输出同一个位置。
      * <p></p>
      * 特征：
-     * 1.一个按照升序排列的整数数组
-     * 2.变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
+     * 1. 一个按照升序排列的整数数组
+     * 2. 变形：先查找目标值，再查找目标值在数组中的开始位置和结束位置
      *
      * @param nums   一个按照升序排列的整数数组
      * @param target 一个目标值
