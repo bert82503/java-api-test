@@ -19,6 +19,15 @@ package leet.code.search.depth.first;
  */
 public class NumberIsLands {
 
+    /**
+     * '0'（水）
+     */
+    private static final char WATER = '0';
+    /**
+     * '1'（陆地）
+     */
+    private static final char LAND = '1';
+
     public static int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) {
             return 0;
@@ -27,10 +36,10 @@ public class NumberIsLands {
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 // 搜索条件
-                if (grid[x][y] == '1') {
-                    // 发现岛屿陆地
+                if (grid[x][y] == LAND) {
+                    // 发现陆地
                     num++;
-                    dfs(grid, x, y);
+                    depthFirstSearch(grid, x, y);
                 }
             }
         }
@@ -40,22 +49,22 @@ public class NumberIsLands {
     /**
      * 深度遍历搜索。
      */
-    private static void dfs(char[][] grid, int x, int y) {
+    private static void depthFirstSearch(char[][] grid, int x, int y) {
         // 终止条件
-        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[x].length) {
             // 边界保护
             return;
         }
-        if (grid[x][y] == '0') {
+        if (grid[x][y] == WATER) {
             // 遇到水
             return;
         }
-        // 发现岛屿陆地
-        grid[x][y] = '0';
-        // 继续向四周查找连接的岛屿陆地
-        dfs(grid, x, y - 1);
-        dfs(grid, x, y + 1);
-        dfs(grid, x - 1, y);
-        dfs(grid, x + 1, y);
+        // 发现陆地
+        grid[x][y] = WATER;
+        // 继续向四周查找连接的陆地
+        depthFirstSearch(grid, x, y - 1);
+        depthFirstSearch(grid, x, y + 1);
+        depthFirstSearch(grid, x - 1, y);
+        depthFirstSearch(grid, x + 1, y);
     }
 }
