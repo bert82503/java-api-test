@@ -1,7 +1,7 @@
 package leet.code.search.binary;
 
 /**
- * 34. 在排序数组中查找元素的第一个和最后一个位置。
+ * 34. 在排序数组中查找元素的第一个和最后一个位置
  * <p></p>
  * https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
  * <p></p>
@@ -26,7 +26,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
     // 解法二，基于递归搜索的二分查找，时间复杂度为 O(log n)
 
     /**
-     * 34. 在排序数组中查找元素的第一个和最后一个位置。
+     * 在排序数组中查找元素的第一个和最后一个位置
      *
      * 注意：当存在一个目标值时，输出同一个位置。
      * <p></p>
@@ -70,7 +70,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
      * @param startIndex 起始下标，包含
      * @param endIndex   终止下标，不包含
      * @param target     一个目标值
-     * @return 当前位置
+     * @return 目标值所在的数组下标，未找到返回-1
      */
     public static int binarySearch(int[] nums, int startIndex, int endIndex, int target) {
         if (startIndex < 0 || endIndex >= nums.length || startIndex > endIndex) {
