@@ -11,12 +11,20 @@ package leet.code.search.binary;
  * 注意：不允许使用任何内置指数函数和算符，例如 pow(x, 0.5) 或者 x ** 0.5 。
  * <p></p>
  * 特征：
- * x轴坐标系，类似单调递增的有序数组。
+ * 坐标系的x轴，类似有序单调递增的整数数组。
  *
  * @author guangyi
  */
 public class SqrtX {
 
+    /**
+     * x 的平方根。
+     * <p></p>
+     * 特征：
+     * 坐标系的x轴，类似有序单调递增的整数数组。
+     *
+     * @param x 坐标系的x轴
+     */
     public static int mySqrt(int x) {
         int start = 0;
         int end = x;
