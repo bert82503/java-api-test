@@ -28,25 +28,29 @@ public class SqrtX {
      * @param x 坐标系的x轴
      */
     public static int mySqrt(int x) {
-        int start = 0;
-        int end = x;
+        if (x <= 1) {
+            return x;
+        }
+
+        int left = 0;
+        int right = x;
         // 二分查找
-        while (start <= end) {
-            int mid = (start + end) / 2;
-            // 两个整数相乘可能存在越界为长整数，未考虑到
-            long square = (long) mid * mid;
-            if (square == x) {
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int sqrt = x / mid;
+            if (sqrt == mid) {
                 // 发现目标
                 return mid;
-            } else if (square > x) {
+            } else if (sqrt < mid) {
                 // 向左低区间查找目标
-                end = mid - 1;
-            } else if (square < x) {
+                right = mid - 1;
+            } else if (sqrt > mid) {
                 // 向右高区间查找目标
-                start = mid + 1;
+                left = mid + 1;
             }
         }
         // 结果只保留 整数部分 ，小数部分将被 舍去
-        return start - 1;
+//        return left - 1;
+        return right;
     }
 }
