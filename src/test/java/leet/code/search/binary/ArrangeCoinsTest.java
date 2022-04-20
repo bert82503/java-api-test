@@ -21,7 +21,7 @@ public class ArrangeCoinsTest {
     @DataProvider(name = "arrangeCoinsTestData")
     private static Object[][] arrangeCoinsTestData() {
         return new Object[][]{
-                // 边界，未考虑到
+                // 边界
                 {Integer.MAX_VALUE, 65535},
                 // n*(n+1)/2
                 {105, 14},

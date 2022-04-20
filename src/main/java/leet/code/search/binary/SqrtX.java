@@ -12,7 +12,7 @@ package leet.code.search.binary;
  * <p></p>
  * 特性：
  * 1. 坐标系的x轴，类似有序单调递增的整数数组
- * 2. 变体：一个近似目标值，目标值和下标一样
+ * 2. 变体：一个近似目标值[n*n]，目标值和下标一样
  *
  * @author guangyi
  */
@@ -37,14 +37,15 @@ public class SqrtX {
         // 二分查找
         while (left <= right) {
             int mid = (left + right) / 2;
-            int sqrt = x / mid;
-            if (sqrt == mid) {
+            // 两个整数相乘可能存在越界为长整数，未考虑到
+            long square = (long) mid * mid;
+            if (square == x) {
                 // 发现目标
                 return mid;
-            } else if (sqrt < mid) {
+            } else if (square > x) {
                 // 向左低区间查找目标
                 right = mid - 1;
-            } else if (sqrt > mid) {
+            } else if (square < x) {
                 // 向右高区间查找目标
                 left = mid + 1;
             }
