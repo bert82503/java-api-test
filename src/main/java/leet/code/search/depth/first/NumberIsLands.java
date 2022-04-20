@@ -32,18 +32,19 @@ public class NumberIsLands {
         if (grid == null || grid.length == 0) {
             return 0;
         }
-        int num = 0;
+        // 岛屿的数量
+        int islandNum = 0;
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 // 搜索条件
                 if (grid[x][y] == LAND) {
                     // 发现陆地
-                    num++;
+                    islandNum += 1;
                     depthFirstSearch(grid, x, y);
                 }
             }
         }
-        return num;
+        return islandNum;
     }
 
     /**
@@ -61,7 +62,7 @@ public class NumberIsLands {
         }
         // 发现陆地
         grid[x][y] = WATER;
-        // 继续向四周查找连接的陆地
+        // 继续向四周查找相邻连接的陆地
         depthFirstSearch(grid, x, y - 1);
         depthFirstSearch(grid, x, y + 1);
         depthFirstSearch(grid, x - 1, y);
