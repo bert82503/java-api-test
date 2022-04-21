@@ -14,7 +14,7 @@ package leet.code.search.depth.first;
  * 格子是边长为 1 的正方形。网格为长方形，且宽度和高度均不超过 100 。
  * 计算这个岛屿的周长。
  * <p></p>
- * 认识问题：
+ * 认识问题
  * 1. 一个二维网格地图 grid ，其中：grid[i][j] = 1 表示陆地， grid[i][j] = 0 表示水域。
  * 2. 格子 水平和垂直 方向相连（对角线方向不相连）。上下左右格子为相连
  * 3. 恰好有一个岛屿（一个或多个表示陆地的格子相连组成的岛屿）。只有一个解
@@ -88,10 +88,11 @@ public class IslandPerimeter {
             // 遇到水
             return 1;
         } else if (grid[x][y] == UNKNOWN) {
-            // 避免重复搜索，重复计算
+            // 避免重复搜索与计算
             return 0;
         }
         // 发现陆地
+        // 将陆地标记为未知领域，避免重复搜索与计算
         grid[x][y] = UNKNOWN;
         // 继续向四周查找相邻连接的陆地
         return depthFirstSearch(grid, x - 1, y) +
