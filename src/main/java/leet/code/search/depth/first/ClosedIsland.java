@@ -18,6 +18,8 @@ package leet.code.search.depth.first;
  * 1. 二维整数数组，只包含 0 或 1 元素
  * 2. 封闭岛，一个 完全 由1包围（左、上、右、下）的岛
  * 3. 岛屿数量的变体，计算封闭岛屿的数目
+ * 4. 逆向思维
+ * 5. 对所有矩阵的边框格子，寻找岛屿，并标记为未知领域。等完成后，计算岛屿的数量
  *
  * @author guangyi
  */
@@ -35,25 +37,33 @@ public class ClosedIsland {
      */
     private static final int UNKNOWN = -1;
 
-    /**
-     * 封闭岛屿的数目
-     */
-    private static int islandNum;
-
     public static int closedIsland(int[][] grid) {
         if (grid == null || grid[0].length == 0) {
             return 0;
         }
-        // 封闭岛屿的数目
+        // 1.对所有矩阵的边框格子，寻找岛屿，并标记为未知领域
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid[x].length; y++) {
+                // 搜索条件
+                if (x == 0 || x == (grid.length - 1) ||
+                        y == 0 || y == (grid[x].length - 1)) {
+                    // 矩阵边框
+                    if (grid[x][y] == LAND) {
+                        // 发现岛屿
+                        depthFirstSearch(grid, x, y);
+                    }
+                }
+            }
+        }
+        // 2.计算封闭岛屿的数目
         int closedIslandNum = 0;
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid[x].length; y++) {
                 // 搜索条件
                 if (grid[x][y] == LAND) {
                     // 发现岛屿
-                    islandNum = 1;
                     depthFirstSearch(grid, x, y);
-                    closedIslandNum += islandNum;
+                    closedIslandNum += 1;
                 }
             }
         }
@@ -65,10 +75,9 @@ public class ClosedIsland {
      */
     private static void depthFirstSearch(int[][] grid, int x, int y) {
         // 终止条件
-        if ((x < 0 || x == grid.length || y < 0 || y == grid[x].length)) {
+        if (x < 0 || x == grid.length || y < 0 || y == grid[x].length) {
             // 边界保护
             // 不是封闭岛屿
-            islandNum = 0;
             return;
         }
         int num = grid[x][y];
