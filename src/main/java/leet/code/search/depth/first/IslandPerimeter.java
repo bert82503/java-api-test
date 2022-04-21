@@ -41,7 +41,6 @@ public class IslandPerimeter {
      * 1 表示陆地
      */
     private static final int LAND = 1;
-
     /**
      * 未知领域
      */
@@ -70,6 +69,7 @@ public class IslandPerimeter {
                 // 搜索条件
                 if (grid[x][y] == LAND) {
                     // 发现岛屿
+                    // 返回岛屿的周长
                     return depthFirstSearch(grid, x, y);
                 }
             }
@@ -78,6 +78,9 @@ public class IslandPerimeter {
         return 0;
     }
 
+    /**
+     * 基于深度遍历搜索，计算岛屿的周长。
+     */
     private static int depthFirstSearch(int[][] grid, int x, int y) {
         // 终止条件
         if (x < 0 || x >= grid.length || y < 0 || y >= grid[x].length) {

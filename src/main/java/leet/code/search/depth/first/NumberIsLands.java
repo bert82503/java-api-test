@@ -36,7 +36,6 @@ public class NumberIsLands {
      * '1'（陆地）
      */
     private static final char LAND = '1';
-
     /**
      * 未知领域
      */
@@ -45,8 +44,8 @@ public class NumberIsLands {
     /**
      * 岛屿数量。
      *
-     * @param grid
-     * @return
+     * @param grid 二维整数数组，只包含 0 或 1 元素
+     * @return 返回岛屿的数量
      */
     public static int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) {
@@ -68,7 +67,7 @@ public class NumberIsLands {
     }
 
     /**
-     * 深度遍历搜索。
+     * 基于深度遍历搜索，计算岛屿的数量。
      */
     private static void depthFirstSearch(char[][] grid, int x, int y) {
         // 终止条件
