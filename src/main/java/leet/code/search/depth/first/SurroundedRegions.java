@@ -40,44 +40,44 @@ public class SurroundedRegions {
         if (board == null || board.length == 0) {
             return;
         }
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
                 // 搜索条件
-                if (i == 0 || i == (board.length - 1) ||
-                        j == 0 || j == (board[i].length - 1)) {
+                if (x == 0 || x == (board.length - 1) ||
+                        y == 0 || y == (board[x].length - 1)) {
                     // 矩阵边框
-                    if (board[i][j] == LAND) {
+                    if (board[x][y] == LAND) {
                         // 发现岛屿
-                        depthFirstSearch(board, i, j);
+                        depthFirstSearch(board, x, y);
                     }
                 }
             }
         }
         // 2.将所有的内部陆地标记为水域
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == LAND) {
-                    board[i][j] = WATER;
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
+                if (board[x][y] == LAND) {
+                    board[x][y] = WATER;
                 }
             }
         }
         // 3.回溯将所有的未知领域为陆地
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == UNKNOWN) {
-                    board[i][j] = LAND;
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
+                if (board[x][y] == UNKNOWN) {
+                    board[x][y] = LAND;
                 }
             }
         }
     }
 
-    private static void depthFirstSearch(char[][] grid, int i, int j) {
+    private static void depthFirstSearch(char[][] grid, int x, int y) {
         // 终止条件
-        if (i < 0 || i == grid.length || j < 0 || j == grid[i].length) {
+        if (x < 0 || x == grid.length || y < 0 || y == grid[x].length) {
             // 边界保护
             return;
         }
-        char ch = grid[i][j];
+        char ch = grid[x][y];
         if (ch == WATER) {
             // 遇到水
             return;
@@ -87,10 +87,10 @@ public class SurroundedRegions {
         }
         // 发现陆地
         // 将陆地标记为未知领域，避免重复搜索与计算
-        grid[i][j] = UNKNOWN;
-        depthFirstSearch(grid, i - 1, j);
-        depthFirstSearch(grid, i + 1, j);
-        depthFirstSearch(grid, i, j - 1);
-        depthFirstSearch(grid, i, j + 1);
+        grid[x][y] = UNKNOWN;
+        depthFirstSearch(grid, x - 1, y);
+        depthFirstSearch(grid, x + 1, y);
+        depthFirstSearch(grid, x, y - 1);
+        depthFirstSearch(grid, x, y + 1);
     }
 }
