@@ -40,6 +40,7 @@ public class SurroundedRegions {
         if (board == null || board.length == 0) {
             return;
         }
+        // 1.对所有矩阵的边框格子，寻找岛屿，并标记为未知领域
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[x].length; y++) {
                 // 搜索条件
