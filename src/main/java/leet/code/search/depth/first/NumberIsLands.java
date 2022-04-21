@@ -14,11 +14,15 @@ package leet.code.search.depth.first;
  * * n == grid[i].length
  * * 1 <= m, n <= 300
  * * grid[i][j] 的值为 '0' 或 '1'
+ * <p></p>
+ * 认识问题
+ * 1. 一个二维网格，由 '1'（陆地）和 '0'（水）组成。(二维整数数组)
+ * 2. 岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。(由上下左右的陆地相连)
+ * 3. 目标：计算岛屿的数量。
  *
  * @author guangyi
  */
 public class NumberIsLands {
-
     /**
      * '0'（水）
      */
@@ -28,6 +32,17 @@ public class NumberIsLands {
      */
     private static final char LAND = '1';
 
+    /**
+     * 未知领域
+     */
+    private static final int UNKNOWN = 'Z';
+
+    /**
+     * 岛屿数量。
+     *
+     * @param grid
+     * @return
+     */
     public static int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) {
             return 0;
@@ -38,7 +53,7 @@ public class NumberIsLands {
             for (int y = 0; y < grid[x].length; y++) {
                 // 搜索条件
                 if (grid[x][y] == LAND) {
-                    // 发现陆地
+                    // 发现岛屿
                     islandNum += 1;
                     depthFirstSearch(grid, x, y);
                 }
@@ -59,13 +74,17 @@ public class NumberIsLands {
         if (grid[x][y] == WATER) {
             // 遇到水
             return;
+        } else if (grid[x][y] == UNKNOWN) {
+            // 避免重复搜索与计算
+            return;
         }
         // 发现陆地
-        grid[x][y] = WATER;
+        // 将陆地标记为未知领域，避免重复搜索与计算
+        grid[x][y] = UNKNOWN;
         // 继续向四周查找相邻连接的陆地
-        depthFirstSearch(grid, x, y - 1);
-        depthFirstSearch(grid, x, y + 1);
         depthFirstSearch(grid, x - 1, y);
         depthFirstSearch(grid, x + 1, y);
+        depthFirstSearch(grid, x, y - 1);
+        depthFirstSearch(grid, x, y + 1);
     }
 }
