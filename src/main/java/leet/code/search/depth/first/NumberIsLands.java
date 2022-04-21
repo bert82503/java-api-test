@@ -75,10 +75,11 @@ public class NumberIsLands {
             // 边界保护
             return;
         }
-        if (grid[x][y] == WATER) {
+        char num = grid[x][y];
+        if (num == WATER) {
             // 遇到水
             return;
-        } else if (grid[x][y] == UNKNOWN) {
+        } else if (num == UNKNOWN) {
             // 避免重复搜索与计算
             return;
         }

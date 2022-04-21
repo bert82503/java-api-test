@@ -87,10 +87,11 @@ public class IslandPerimeter {
             // 边界保护
             return 1;
         }
-        if (grid[x][y] == WATER) {
+        int num = grid[x][y];
+        if (num == WATER) {
             // 遇到水
             return 1;
-        } else if (grid[x][y] == UNKNOWN) {
+        } else if (num == UNKNOWN) {
             // 避免重复搜索与计算
             return 0;
         }
