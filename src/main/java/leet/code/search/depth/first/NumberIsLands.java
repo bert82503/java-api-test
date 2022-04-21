@@ -35,7 +35,7 @@ public class NumberIsLands {
     /**
      * 未知领域
      */
-    private static final int UNKNOWN = 'Z';
+    private static final int UNKNOWN = '#';
 
     /**
      * 岛屿数量。
