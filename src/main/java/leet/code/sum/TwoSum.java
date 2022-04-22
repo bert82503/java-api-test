@@ -113,7 +113,7 @@ public class TwoSum {
      * 执行用时：4 ms，内存消耗：38.3 MB
      * </pre>
      */
-    public static int[] twoSum_2(int[] nums, int target) {
+    public static int[] twoSum_HashMap_2(int[] nums, int target) {
         if (nums == null || nums.length < 2) {
             throw new IllegalArgumentException("No two sum solution");
         }
@@ -136,36 +136,5 @@ public class TwoSum {
         throw new IllegalArgumentException("No two sum solution");
     }
 
-    /**
-     * 解法一：暴力枚举法
-     * <pre>
-     * 最简单的想法就是把每两个都拿出来加一下，看看结果是不是我们想要的。
-     * 但是直觉告诉我们，这样子并不高效。举一个很实际的例子就能明白。
-     *
-     * 比如这个周末你去参加线下相亲会，全场有且只有两个人才是真爱。
-     * 于是我们每个人都要去找其他所有人聊天，去寻找 ta 是不是自己要找的另一半。
-     * 每个人都要和每个人说话，这样时间复杂度很高，翻译成计算机的表示就是 O(n2)。
-     * </pre>
-     * 时间复杂度是 O(n2)，空间复杂度是 O(n)
-     *
-     * <pre>
-     * 执行用时：33 ms，内存消耗：38.2 MB
-     * </pre>
-     */
-    private static int[] twoSum_ForEach(int[] nums, int target) {
-        if (nums == null || nums.length < 2) {
-            throw new IllegalArgumentException("No two sum solution");
-        }
-        int len = nums.length;
-        // 每个人
-        for (int i = 0; i < len; i++) {
-            // 都去问其他的人
-            for (int j = i + 1; j < len; j++) {
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{i, j};
-                }
-            }
-        }
-        throw new IllegalArgumentException("No two sum solution");
-    }
+    // 解法一：暴力枚举法
 }
