@@ -70,7 +70,7 @@ public class ThreeSum {
             int num = nums[i];
             if (num > 0) {
                 // 若 nums[i]>0：因为已经排序好，所以后面不可能有三个数加和等于 0，直接返回结果
-                return new ArrayList<>(result);
+                return result;
             }
             if (i > 0 && num == nums[i - 1]) {
                 // 对于重复元素：跳过，避免出现重复解
