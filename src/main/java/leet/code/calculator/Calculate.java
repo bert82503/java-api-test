@@ -21,10 +21,10 @@ import java.util.LinkedList;
  * @author guangyi
  */
 public class Calculate {
-    private static final char MULTIPLY = '*';
-    private static final char DIVIDE = '/';
     private static final char PLUS = '+';
     private static final char SUBTRACT = '-';
+    private static final char MULTIPLY = '*';
+    private static final char DIVIDE = '/';
 
     private static final char SPACE = ' ';
 
@@ -32,65 +32,48 @@ public class Calculate {
         if (str == null || str.isEmpty()) {
             return 0;
         }
-        // 堆栈
-        // 操作数
-        Deque<Integer> operandDeque = new LinkedList<>();
-        // 运算符
-        Deque<Character> operatorDeque = new LinkedList<>();
-
-        // 1.整数、乘除计算
+        // 左侧操作数堆栈
+        Deque<Integer> leftOperandDeque = new LinkedList<>();
         int num = 0;
-        int i = 0;
-        while (i < str.length()) {
+        char preOperator = '+';
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            if (Character.isDigit(ch)) {
+            if (ch == SPACE) {
+                // ignore
+                continue;
+            } else if (Character.isDigit(ch)) {
                 // 数字
                 num = num * 10 + ch - '0';
-            } else if (ch == MULTIPLY || ch == DIVIDE) {
-                // 出栈，递归的终止条件
-                // 右操作数
-                int rightOperand = 0;
-                while (++i < str.length()) {
-                    char c = str.charAt(i);
-                    if (Character.isDigit(c)) {
-                        rightOperand = rightOperand * 10 + c - '0';
-                    } else if (c == SPACE) {
-                        // ignore
-                    } else {
-                        i--;
-                        break;
-                    }
-                }
-                // 下一个运算符
-                if (ch == MULTIPLY) {
-                    num = num * rightOperand;
-                } else {
-                    // ch == DIVIDE
-                    num = num / rightOperand;
-                }
-            } else if (ch == PLUS || ch == SUBTRACT) {
-                // 入栈，递归的开启条件
-                operandDeque.addLast(num);
+            } else if (ch == PLUS || ch == SUBTRACT || ch == MULTIPLY || ch == DIVIDE) {
+                eval(leftOperandDeque, preOperator, num);
                 num = 0;
-                operatorDeque.addLast(ch);
+                preOperator = ch;
             }
-            i++;
         }
-        operandDeque.addLast(num);
-        // 2.加减计算
-        // 未考虑到加减法计算顺序，从左往右
-        int result = 0;
-        while (!operatorDeque.isEmpty()) {
-            char op = operatorDeque.removeFirst();
-            int leftOperand = operandDeque.removeFirst();
-            int rightOperand = operandDeque.removeFirst();
-            if (op == PLUS) {
-                result = leftOperand + rightOperand;
-            } else if (op == SUBTRACT) {
-                result = leftOperand - rightOperand;
-            }
-            operandDeque.addFirst(result);
+        eval(leftOperandDeque, preOperator, num);
+        int sum = 0;
+        while (!leftOperandDeque.isEmpty()) {
+            sum += leftOperandDeque.removeFirst();
         }
-        return operandDeque.removeFirst();
+        return sum;
+    }
+
+    private static void eval(Deque<Integer> leftOperandDeque, char preOperator, int rightOperand) {
+        switch (preOperator) {
+            case PLUS:
+                leftOperandDeque.addLast(rightOperand);
+                break;
+            case SUBTRACT:
+                leftOperandDeque.addLast(-rightOperand);
+                break;
+            case MULTIPLY:
+                leftOperandDeque.addLast(leftOperandDeque.removeLast() * rightOperand);
+                break;
+            case DIVIDE:
+                leftOperandDeque.addLast(leftOperandDeque.removeLast() / rightOperand);
+                break;
+            default:
+                break;
+        }
     }
 }
