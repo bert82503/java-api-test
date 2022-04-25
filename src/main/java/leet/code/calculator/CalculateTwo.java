@@ -43,10 +43,10 @@ public class CalculateTwo {
         if (str == null || str.isEmpty()) {
             return 0;
         }
-        return calculate(str, 0)[0];
+        return calculate_String(str, 0)[0];
     }
 
-    public static int[] calculate(String str, int i) {
+    public static int[] calculate_String(String str, int i) {
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
         char preSign = '+';
@@ -63,10 +63,12 @@ public class CalculateTwo {
                 preSign = ch;
                 num = 0;
             } else if (ch == LEFT_BRACKET) {
-                int[] tmp = calculate(str, i + 1);
+                // 递归条件，入栈
+                int[] tmp = calculate_String(str, i + 1);
                 num = tmp[0];
                 i = tmp[1];
             } else if (ch == RIGHT_BRACKET) {
+                // 终止条件，出栈
                 // 处理最后的数字
                 eval(leftOperandDeque,preSign,num);
                 // 结果计算
