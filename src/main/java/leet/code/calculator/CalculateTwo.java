@@ -43,14 +43,61 @@ public class CalculateTwo {
         if (str == null || str.isEmpty()) {
             return 0;
         }
+        return calculate(str, 0)[0];
+    }
+
+    public static int[] calculate(String str, int i) {
+        // 左侧操作数堆栈
+        Deque<Integer> leftOperandDeque = new LinkedList<>();
+        char preSign = '+';
+        int num = 0;
+        int len = str.length();
+        while (i < len) {
+            char ch = str.charAt(i);
+            if (Character.isDigit(ch)) {
+                // 数字
+                num = num * 10 + ch - '0';
+            } else if (OPERATOR_SET.contains(ch)) {
+                // 运算符
+                eval(leftOperandDeque,preSign,num);
+                preSign = ch;
+                num = 0;
+            } else if (ch == LEFT_BRACKET) {
+                int[] tmp = calculate(str, i + 1);
+                num = tmp[0];
+                i = tmp[1];
+            } else if (ch == RIGHT_BRACKET) {
+                // 处理最后的数字
+                eval(leftOperandDeque,preSign,num);
+                // 结果计算
+                int sum = leftOperandDeque.stream()
+                        .mapToInt(Integer::intValue)
+                        .sum();
+                return new int[]{sum, i};
+            }
+            i++;
+        }
+        // 处理最后的数字
+        eval(leftOperandDeque,preSign,num);
+        // 结果计算
+        int sum = leftOperandDeque.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        return new int[]{sum, i};
+    }
+
+    public static int calculate_Deque(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
         Deque<Character> charDeque = new LinkedList<>();
         for (char ch : str.toCharArray()) {
             charDeque.add(ch);
         }
-        return calculate(charDeque);
+        return calculate_Deque(charDeque);
     }
 
-    private static int calculate(Deque<Character> charDeque) {
+    private static int calculate_Deque(Deque<Character> charDeque) {
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
         char preSign = '+';
@@ -62,7 +109,7 @@ public class CalculateTwo {
                 num = num * 10 + ch - '0';
             } else if (ch == LEFT_BRACKET) {
                 // 递归条件，入栈
-                num = calculate(charDeque);
+                num = calculate_Deque(charDeque);
             } else if (ch == RIGHT_BRACKET) {
                 // 终止条件，出栈
                 break;
