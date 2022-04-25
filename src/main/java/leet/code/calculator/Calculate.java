@@ -71,8 +71,8 @@ public class Calculate {
             } else if (ch == PLUS || ch == SUBTRACT) {
                 // 入栈，递归的开启条件
                 operandDeque.addLast(num);
-                operatorDeque.addLast(ch);
                 num = 0;
+                operatorDeque.addLast(ch);
             }
             i++;
         }
@@ -92,88 +92,5 @@ public class Calculate {
             operandDeque.addFirst(result);
         }
         return operandDeque.removeFirst();
-    }
-
-//    public static int calculate(String str) {
-//        if (str == null || str.isEmpty()) {
-//            return 0;
-//        }
-//        return depthFirstSearch(str, 0, false)[0];
-//    }
-
-    private static int[] depthFirstSearch(String str, int i, boolean hasPlusSubtract) {
-//        // 堆栈
-//        // 操作数
-//        Deque<Integer> operandDeque = new LinkedList<>();
-//        // 运算符
-//        Deque<Character> operatorDeque = new LinkedList<>();
-
-        int result = 0;
-        // 1.整数、乘除计算
-        int num = 0;
-        while (i < str.length()) {
-            char ch = str.charAt(i);
-            if (Character.isDigit(ch)) {
-                // 数字
-                num = num * 10 + ch - '0';
-            } else if (ch == MULTIPLY || ch == DIVIDE) {
-                // 出栈，递归的终止条件
-                // 右操作数
-                int rightOperand = 0;
-                while (++i < str.length()) {
-                    char c = str.charAt(i);
-                    if (Character.isDigit(c)) {
-                        rightOperand = rightOperand * 10 + c - '0';
-                    } else if (c == SPACE) {
-                        // ignore
-                    } else {
-                        i--;
-                        break;
-                    }
-                }
-                // 下一个运算符
-                if (ch == MULTIPLY) {
-                    result = num * rightOperand;
-                } else {
-                    // ch == DIVIDE
-                    result = num / rightOperand;
-                }
-                if (hasPlusSubtract) {
-                    return new int[]{result, i};
-                }
-            } else if (ch == PLUS || ch == SUBTRACT) {
-                // 入栈，递归的开启条件
-//                operandDeque.addLast(num);
-//                operatorDeque.addLast(ch);
-                int[] tmp = depthFirstSearch(str, i + 1, true);
-                i = tmp[1];
-                int rightOperand = tmp[0];
-                if (ch == PLUS) {
-                    result = num + rightOperand;
-                } else {
-                    // ch == SUBTRACT
-                    result = num - rightOperand;
-                }
-            }
-            i++;
-        }
-        return new int[]{result, i};
-
-//        operandDeque.addLast(num);
-//        // 2.加减计算
-//        // 未考虑到加减法计算顺序，从左往右
-//        int result = 0;
-//        while (!operatorDeque.isEmpty()) {
-//            char op = operatorDeque.removeFirst();
-//            int leftOperand = operandDeque.removeFirst();
-//            int rightOperand = operandDeque.removeFirst();
-//            if (op == PLUS) {
-//                result = leftOperand + rightOperand;
-//            } else if (op == SUBTRACT) {
-//                result = leftOperand - rightOperand;
-//            }
-//            operandDeque.addFirst(result);
-//        }
-//        return operandDeque.removeFirst();
     }
 }
