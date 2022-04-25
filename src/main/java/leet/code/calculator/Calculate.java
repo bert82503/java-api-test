@@ -56,10 +56,45 @@ public class Calculate {
         if (str == null || str.isEmpty()) {
             return 0;
         }
-        return calculate(str, 0);
+        Deque<Character> charDeque = new LinkedList<>();
+        for (char ch : str.toCharArray()) {
+            charDeque.add(ch);
+        }
+        return calculate(charDeque);
     }
 
-    private static int calculate(String str, int i) {
+    private static int calculate(Deque<Character> charDeque) {
+        // 左侧操作数堆栈
+        Deque<Integer> leftOperandDeque = new LinkedList<>();
+        char preSign = '+';
+        int num = 0;
+        while (!charDeque.isEmpty()) {
+            char ch = charDeque.poll();
+            if (Character.isDigit(ch)) {
+                // 数字
+                num = num * 10 + ch - '0';
+            }
+            if (!Character.isDigit(ch) && ch != SPACE) {
+                eval(leftOperandDeque, preSign, num);
+                preSign = ch;
+                num = 0;
+            }
+        }
+        eval(leftOperandDeque, preSign, num);
+        // 结果计算
+        return leftOperandDeque.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public static int calculate_String(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
+        return calculate_String(str, 0);
+    }
+
+    private static int calculate_String(String str, int i) {
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
         char preSign = '+';
