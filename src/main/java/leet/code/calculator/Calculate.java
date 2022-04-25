@@ -4,6 +4,30 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
+ * 227. 基本计算器 II
+ * <p></p>
+ * https://leetcode-cn.com/problems/basic-calculator-ii/
+ * <p></p>
+ * <pre>
+ * 思路
+ * 由于乘除优先于加减计算，因此不妨考虑先进行所有乘除运算，并将这些乘除运算后的整数值放回原表达式的相应位置，
+ * 则随后整个表达式的值，就等于一系列整数加减后的值。
+ *
+ * 基于此，我们可以用一个栈，保存这些（进行乘除运算后的）整数的值。
+ * 对于加减号后的数字，将其直接压入栈中；
+ * 对于乘除号后的数字，可以直接与栈顶元素计算，并替换栈顶元素为计算后的结果。
+ *
+ * 具体来说，遍历字符串 s，并用变量 preSign 记录每个数字之前的运算符，对于第一个数字，其之前的运算符视为加号。
+ * 每次遍历到数字末尾时，根据 preSign 来决定计算方式：
+ * 加号：将数字压入栈；
+ * 减号：将数字的相反数压入栈；
+ * 乘除号：计算数字与栈顶元素，并将栈顶元素替换为计算结果。
+ *
+ * 代码实现中，若读到一个运算符，或者遍历到字符串末尾，即认为是遍历到了数字末尾。
+ * 处理完该数字后，更新 preSign 为当前遍历的字符。
+ *
+ * 遍历完字符串 s 后，将栈中元素累加，即为该字符串表达式的值。
+ * </pre>
  * 面试题 16.26. 计算器
  * <p></p>
  * https://leetcode-cn.com/problems/calculator-lcci/
@@ -34,23 +58,22 @@ public class Calculate {
         }
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
+        char preSign = '+';
         int num = 0;
-        char preOperator = '+';
-        for (int i = 0; i < str.length(); i++) {
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
             char ch = str.charAt(i);
-            if (ch == SPACE) {
-                // ignore
-                continue;
-            } else if (Character.isDigit(ch)) {
+            if (Character.isDigit(ch)) {
                 // 数字
                 num = num * 10 + ch - '0';
-            } else if (ch == PLUS || ch == SUBTRACT || ch == MULTIPLY || ch == DIVIDE) {
-                eval(leftOperandDeque, preOperator, num);
+            }
+            if (!Character.isDigit(ch) && ch != SPACE || i == len - 1) {
+                eval(leftOperandDeque, preSign, num);
+                preSign = ch;
                 num = 0;
-                preOperator = ch;
             }
         }
-        eval(leftOperandDeque, preOperator, num);
+        // 结果计算
         int sum = 0;
         while (!leftOperandDeque.isEmpty()) {
             sum += leftOperandDeque.removeFirst();
@@ -58,8 +81,8 @@ public class Calculate {
         return sum;
     }
 
-    private static void eval(Deque<Integer> leftOperandDeque, char preOperator, int rightOperand) {
-        switch (preOperator) {
+    private static void eval(Deque<Integer> leftOperandDeque, char preSign, int rightOperand) {
+        switch (preSign) {
             case PLUS:
                 leftOperandDeque.addLast(rightOperand);
                 break;
