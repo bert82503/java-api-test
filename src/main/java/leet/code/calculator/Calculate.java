@@ -33,7 +33,7 @@ import java.util.LinkedList;
  * https://leetcode-cn.com/problems/calculator-lcci/
  * <p></p>
  * 给定一个包含正整数、加(+)、减(-)、乘(*)、除(/)的算数表达式(括号除外)，计算其结果。
- *
+ * <p>
  * 表达式仅包含非负整数，+， - ，*，/ 四种运算符和空格  。
  * 整数除法仅保留整数部分。
  * <p></p>
@@ -56,12 +56,16 @@ public class Calculate {
         if (str == null || str.isEmpty()) {
             return 0;
         }
+        return calculate(str, 0);
+    }
+
+    private static int calculate(String str, int i) {
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
         char preSign = '+';
         int num = 0;
         int len = str.length();
-        for (int i = 0; i < len; i++) {
+        while (i < len) {
             char ch = str.charAt(i);
             if (Character.isDigit(ch)) {
                 // 数字
@@ -72,13 +76,12 @@ public class Calculate {
                 preSign = ch;
                 num = 0;
             }
+            i++;
         }
         // 结果计算
-        int sum = 0;
-        while (!leftOperandDeque.isEmpty()) {
-            sum += leftOperandDeque.removeFirst();
-        }
-        return sum;
+        return leftOperandDeque.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     private static void eval(Deque<Integer> leftOperandDeque, char preSign, int rightOperand) {
