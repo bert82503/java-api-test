@@ -59,6 +59,7 @@ public class CalculateTwo {
                 num = num * 10 + ch - '0';
             } else if (OPERATOR_SET.contains(ch)) {
                 // 运算符
+                // 右操作数入栈，将运算符转换为整数
                 eval(leftOperandDeque,preSign,num);
                 preSign = ch;
                 num = 0;
@@ -117,6 +118,7 @@ public class CalculateTwo {
                 break;
             } else if (OPERATOR_SET.contains(ch)) {
                 // 运算符
+                // 右操作数入栈，将运算符转换为整数
                 eval(leftOperandDeque, preSign, num);
                 preSign = ch;
                 num = 0;

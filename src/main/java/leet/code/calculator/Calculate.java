@@ -62,9 +62,7 @@ public class Calculate {
         OPERATOR_SET.add(DIVIDE);
     }
 
-    private static final char SPACE = ' ';
-
-    public static int calculate(String str) {
+    public static int calculate_Deque(String str) {
         if (str == null || str.isEmpty()) {
             return 0;
         }
@@ -72,10 +70,10 @@ public class Calculate {
         for (char ch : str.toCharArray()) {
             charDeque.add(ch);
         }
-        return calculate(charDeque);
+        return calculate_Deque(charDeque);
     }
 
-    private static int calculate(Deque<Character> charDeque) {
+    private static int calculate_Deque(Deque<Character> charDeque) {
         // 左侧操作数堆栈
         Deque<Integer> leftOperandDeque = new LinkedList<>();
         char preSign = '+';
@@ -98,7 +96,7 @@ public class Calculate {
                 .sum();
     }
 
-    public static int calculate_String(String str) {
+    public static int calculate(String str) {
         if (str == null || str.isEmpty()) {
             return 0;
         }
@@ -117,12 +115,15 @@ public class Calculate {
                 // 数字
                 num = num * 10 + ch - '0';
             } else if (OPERATOR_SET.contains(ch)) {
+                // 右操作数入栈，将运算符转换为整数
                 eval(leftOperandDeque, preSign, num);
                 preSign = ch;
                 num = 0;
             }
             i++;
         }
+        // 处理最后的数字
+        eval(leftOperandDeque, preSign, num);
         // 结果计算
         return leftOperandDeque.stream()
                 .mapToInt(Integer::intValue)
