@@ -1,7 +1,9 @@
 package leet.code.calculator;
 
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * 227. 基本计算器 II
@@ -50,6 +52,16 @@ public class Calculate {
     private static final char MULTIPLY = '*';
     private static final char DIVIDE = '/';
 
+    private static final Set<Character> OPERATOR_SET;
+
+    static {
+        OPERATOR_SET = new HashSet<>(8);
+        OPERATOR_SET.add(PLUS);
+        OPERATOR_SET.add(SUBTRACT);
+        OPERATOR_SET.add(MULTIPLY);
+        OPERATOR_SET.add(DIVIDE);
+    }
+
     private static final char SPACE = ' ';
 
     public static int calculate(String str) {
@@ -73,8 +85,7 @@ public class Calculate {
             if (Character.isDigit(ch)) {
                 // 数字
                 num = num * 10 + ch - '0';
-            }
-            if (!Character.isDigit(ch) && ch != SPACE) {
+            } else if (OPERATOR_SET.contains(ch)) {
                 eval(leftOperandDeque, preSign, num);
                 preSign = ch;
                 num = 0;
@@ -105,8 +116,7 @@ public class Calculate {
             if (Character.isDigit(ch)) {
                 // 数字
                 num = num * 10 + ch - '0';
-            }
-            if (!Character.isDigit(ch) && ch != SPACE || i == len - 1) {
+            } else if (OPERATOR_SET.contains(ch)) {
                 eval(leftOperandDeque, preSign, num);
                 preSign = ch;
                 num = 0;
