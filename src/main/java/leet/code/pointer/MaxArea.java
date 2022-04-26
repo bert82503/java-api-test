@@ -20,6 +20,9 @@ package leet.code.pointer;
 public class MaxArea {
     /**
      * 方法一：双指针
+     * <p></p>
+     * 盛最多水的容器
+     * https://leetcode-cn.com/problems/container-with-most-water/solution/sheng-zui-duo-shui-de-rong-qi-by-leetcode-solution/
      * <pre>
      * 说明
      * 本题是一道经典的面试题，最优的做法是使用「双指针」。
@@ -61,6 +64,29 @@ public class MaxArea {
      * 时间复杂度：O(N)，双指针总计最多遍历整个数组一次。
      * 空间复杂度：O(1)，只需要额外的常数级别的空间。
      * </pre>
+     * 盛最多水的容器（双指针，清晰图解）
+     * https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/
+     * <pre>
+     * 设两指针 i , j ，指向的水槽板高度分别为 h[i] , h[j] ，此状态下水槽面积为 S(i, j) 。
+     * 由于可容纳水的高度由两板中的 短板 决定，因此可得如下 面积公式：
+     *     S(i, j) = min(h[i], h[j]) × (j−i)
+     * 在每个状态下，无论长板或短板向中间收窄一格，都会导致水槽 底边宽度 -1​ 变短：
+     * * 若向内 移动短板 ，水槽的短板 min(h[i], h[j]) 可能变大，因此下个水槽的面积 可能增大 。
+     * * 若向内 移动长板 ，水槽的短板 min(h[i], h[j])​ 不变或变小，因此下个水槽的面积 一定变小 。
+     * 因此，初始化双指针分列水槽左右两端，循环每轮将短板向内移动一格，并更新面积最大值，直到两指针相遇时跳出；即可获得最大面积。
+     * </pre>
+     *
+     * 双指针解法：理解正确性、图解原理
+     * https://leetcode-cn.com/problems/container-with-most-water/solution/on-shuang-zhi-zhen-jie-fa-li-jie-zheng-que-xing-tu/
+     * <pre>
+     * 为什么双指针往中间移动时，不会漏掉某些情况呢？
+     * 如果没有真正理解题目，即使一次对着答案做出来了，再次遇到这个题目，还是可能做不出来。
+     * 要理解这道题的正确性和原理，需要从背后的缩减搜索空间的思想去考虑题解。
+     *
+     * 用一句话概括双指针解法的要点：指针每一次移动，都意味着排除掉了一个柱子。
+     *
+     * 缩减搜索空间的思想
+     * </pre>
      *
      * @param height 整数数组
      * @return 返回容器可以储存的最大水量
@@ -76,6 +102,7 @@ public class MaxArea {
             // 容器储存的水量计算
             int area = Math.min(x, y) * (right - left);
             maxArea = Math.max(maxArea, area);
+            // 移动短板
             if (x <= y) {
                 left++;
             } else {
