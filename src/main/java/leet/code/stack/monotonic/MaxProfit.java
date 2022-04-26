@@ -44,7 +44,6 @@ public class MaxProfit {
         int minPrice = Integer.MAX_VALUE;
         // 最大利润
         int maxProfit = 0;
-        int profit;
         for (int price : prices) {
             minPrice = Math.min(minPrice, price);
             maxProfit = Math.max(maxProfit, price - minPrice);
