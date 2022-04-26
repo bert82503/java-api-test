@@ -23,6 +23,8 @@ import java.util.Arrays;
 public class ThreeSumClosest {
     /**
      * 方法一：排序 + 双指针
+     * <p></p>
+     * 双指针，将二维空间降到一维空间
      *
      * @param nums   整数数组
      * @param target 目标值
