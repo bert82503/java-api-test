@@ -14,22 +14,29 @@ package leet.code.stack.monotonic;
  * @author guangyi
  */
 public class IsMonotonic {
+    /**
+     * 方法一：一次遍历
+     *
+     * @param nums 整数数组
+     * @return 是否为单调数列
+     */
     public static boolean isMonotonic(int[] nums) {
         if (nums == null || nums.length == 0) {
             return true;
         }
+        int len = nums.length - 1;
         // 技巧
-        if (nums[nums.length - 1] >= nums[0]) {
+        if (nums[len] >= nums[0]) {
             // 单调递增
-            for (int i = 1; i < nums.length; i++) {
-                if (nums[i] < nums[i - 1]) {
+            for (int i = 0; i < len; i++) {
+                if (nums[i] > nums[i + 1]) {
                     return false;
                 }
             }
         } else {
             // 单调递减
-            for (int i = 1; i < nums.length; i++) {
-                if (nums[i] > nums[i - 1]) {
+            for (int i = 0; i < len; i++) {
+                if (nums[i] < nums[i + 1]) {
                     return false;
                 }
             }
