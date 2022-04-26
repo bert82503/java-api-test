@@ -1,4 +1,4 @@
-package leet.code.stack.monotonous;
+package leet.code.stack.monotonic;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

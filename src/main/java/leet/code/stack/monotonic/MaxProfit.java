@@ -1,4 +1,4 @@
-package leet.code.stack.monotonous;
+package leet.code.stack.monotonic;
 
 import java.util.Deque;
 import java.util.LinkedList;
