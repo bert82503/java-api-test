@@ -1,5 +1,6 @@
 package leet.code.stack.monotonic;
 
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -20,18 +21,45 @@ import java.util.LinkedList;
 public class DailyTemperatures {
 
     public static int[] dailyTemperatures(int[] temperatures) {
+        return dailyTemperatures_FromRightToLeft(temperatures);
+    }
+
+    public static int[] dailyTemperatures_FromRightToLeft(int[] temperatures) {
         // 存放答案的数组
         int[] result = new int[temperatures.length];
         // 存放元素索引的单调递减栈
         Deque<Integer> indexMonoStack = new LinkedList<>();
-        // 倒着往栈里放，从右往左
+        // 从右往左往栈里放
         for (int i = temperatures.length - 1; i >= 0; i--) {
             int num = temperatures[i];
-            while (!indexMonoStack.isEmpty() && num >= temperatures[indexMonoStack.getLast()]) {
-                indexMonoStack.removeLast();
+            // 区别
+            while (!indexMonoStack.isEmpty() && num >= temperatures[indexMonoStack.getFirst()]) {
+                indexMonoStack.removeFirst();
             }
-            result[i] = indexMonoStack.isEmpty() ? 0 : indexMonoStack.getLast() - i;
-            indexMonoStack.addLast(i);
+            // 区别
+            result[i] = indexMonoStack.isEmpty() ? 0 : indexMonoStack.getFirst() - i;
+            indexMonoStack.addFirst(i);
+        }
+        return result;
+    }
+
+    public static int[] dailyTemperatures_FromLeftToRight(int[] temperatures) {
+        // 存放答案的数组
+        int[] result = new int[temperatures.length];
+        // 区别
+        Arrays.fill(result, 0);
+        // 存放元素索引的单调递减栈
+        Deque<Integer> indexMonoStack = new LinkedList<>();
+        // 从左往右往栈里放
+        for (int i = 0; i < temperatures.length; i++) {
+            int num = temperatures[i];
+            // 区别
+            while (!indexMonoStack.isEmpty() && num > temperatures[indexMonoStack.getFirst()]) {
+                // 区别
+                int preIndex = indexMonoStack.removeFirst();
+                result[preIndex] = i - preIndex;
+            }
+            indexMonoStack.addFirst(i);
         }
         return result;
     }
