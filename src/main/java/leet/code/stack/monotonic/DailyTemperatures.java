@@ -32,32 +32,47 @@ public class DailyTemperatures {
         // 从右往左往栈里放
         for (int i = temperatures.length - 1; i >= 0; i--) {
             int num = temperatures[i];
-            // 区别
+            // 区别：大于等于栈顶元素，出栈
             while (!indexMonoStack.isEmpty() && num >= temperatures[indexMonoStack.getFirst()]) {
+                // 区别：忽略栈顶的索引下标
                 indexMonoStack.removeFirst();
             }
-            // 区别
+            // 区别：计算结果
             result[i] = indexMonoStack.isEmpty() ? 0 : indexMonoStack.getFirst() - i;
             indexMonoStack.addFirst(i);
         }
         return result;
     }
 
+    /**
+     * 题解：每日温度
+     * https://leetcode-cn.com/problems/daily-temperatures/solution/mei-ri-wen-du-by-leetcode-solution/
+     * <pre>
+     * 方法二：单调栈
+     * 可以维护一个存储下标的单调栈，从栈底到栈顶的下标对应的温度列表中的温度依次递减。
+     * 如果一个下标在单调栈里，则表示尚未找到下一次温度更高的下标。
+     *
+     * 正向遍历温度列表。
+     *
+     * 为什么可以在弹栈的时候更新 ans[prevIndex] 呢？
+     * </pre>
+     */
     public static int[] dailyTemperatures_FromLeftToRight(int[] temperatures) {
         // 存放答案的数组
         int[] result = new int[temperatures.length];
-        // 区别
+        // 区别：初始化数组
         Arrays.fill(result, 0);
         // 存放元素索引的单调递减栈
         Deque<Integer> indexMonoStack = new LinkedList<>();
         // 从左往右往栈里放
         for (int i = 0; i < temperatures.length; i++) {
             int num = temperatures[i];
-            // 区别
+            // 区别：大于栈顶元素，出栈
             while (!indexMonoStack.isEmpty() && num > temperatures[indexMonoStack.getFirst()]) {
-                // 区别
-                int preIndex = indexMonoStack.removeFirst();
-                result[preIndex] = i - preIndex;
+                // 区别：栈顶的索引下标
+                int prevIndex = indexMonoStack.removeFirst();
+                // 区别：计算结果
+                result[prevIndex] = i - prevIndex;
             }
             indexMonoStack.addFirst(i);
         }
