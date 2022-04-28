@@ -25,6 +25,8 @@ public class Find132PatternTest {
                 {new int[]{3,1,4,2}, true},
                 {new int[]{-1,3,2,0}, true},
                 {new int[]{1,2,3,4}, false},
+                // 未考虑到
+                {new int[]{-2,1,1}, false},
         };
     }
 }
