@@ -39,6 +39,7 @@ public class DailyTemperatures {
             }
             // 区别：计算结果
             result[i] = indexMonoStack.isEmpty() ? 0 : indexMonoStack.getFirst() - i;
+            // 入栈
             indexMonoStack.addFirst(i);
         }
         return result;
@@ -74,6 +75,7 @@ public class DailyTemperatures {
                 // 区别：计算结果
                 result[prevIndex] = i - prevIndex;
             }
+            // 入栈
             indexMonoStack.addFirst(i);
         }
         return result;
