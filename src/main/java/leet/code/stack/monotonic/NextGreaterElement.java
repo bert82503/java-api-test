@@ -32,6 +32,39 @@ import java.util.Map;
  */
 public class NextGreaterElement {
 
+    /**
+     * 下一个更大元素 I
+     * https://leetcode-cn.com/problems/next-greater-element-i/solution/xia-yi-ge-geng-da-yuan-su-i-by-leetcode-bfcoj/
+     * <p></p>
+     * 方法二：单调栈 + 哈希表
+     * <pre>
+     * 思路
+     * 我们可以先预处理 nums2，使查询 nums1 中的每个元素在 nums2 中对应位置的右边的第一个更大的元素值时不需要再遍历 nums2。
+     * 于是，我们将题目分解为两个子问题：
+     * 第 1 个子问题：如何更高效地计算 nums2 中每个元素右边的第一个更大的值；
+     * 第 2 个子问题：如何存储第 1 个子问题的结果。
+     *
+     * 算法
+     * 我们可以使用单调栈来解决第 1 个子问题。
+     * 倒序遍历 nums2，并用单调栈中维护当前位置右边的更大的元素列表，从栈底到栈顶的元素是单调递减的。
+     *
+     * 具体地，每次我们移动到数组中一个新的位置 i，就将当前单调栈中所有小于 nums2[i] 的元素弹出单调栈，
+     * 当前位置右边的第一个更大的元素即为栈顶元素，如果栈为空则说明当前位置右边没有更大的元素。
+     * 随后将位置 i 的元素入栈。
+     *
+     * 因为题目规定了 nums2 是没有重复元素的，所以可以使用哈希表来解决第 2 个子问题，
+     * 将元素值与其右边第一个更大的元素值的对应关系存入哈希表。
+     *
+     * 细节
+     * 因为在这道题中我们只需要用到 nums2 中元素的顺序而不需要用到下标，
+     * 所以栈中直接存储 nums2 中元素的值即可。
+     *
+     * 复杂度分析
+     * 时间复杂度：O(m + n)，其中 m 是 nums1 的长度，n 是 nums2 的长度。
+     * 我们需要遍历 nums2 以计算 nums2 中每个元素右边的第一个更大的值；需要遍历 nums1 以生成查询结果。
+     * 空间复杂度：O(n)，用于存储哈希表。
+     * </pre>
+     */
     public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
         int[] ans = new int[nums1.length];
         Map<Integer, Integer> nextGreaterElementMap = nextGreaterElement(nums2);
@@ -57,7 +90,7 @@ public class NextGreaterElement {
      * @param nums 没有重复元素的整数数组
      */
     private static Map<Integer, Integer> nextGreaterElement(int[] nums) {
-        // 存放答案的数组
+        // 存放答案的哈希表
         // <num, nextGreaterElement>
         Map<Integer, Integer> result = new HashMap<>(nums.length * 4 / 3 + 1);
         // 单调递减栈
