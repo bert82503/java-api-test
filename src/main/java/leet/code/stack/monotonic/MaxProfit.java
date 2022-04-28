@@ -22,6 +22,11 @@ import java.util.LinkedList;
  * @author guangyi
  */
 public class MaxProfit {
+
+    public static int maxProfit(int[] prices) {
+        return maxProfit_MonotonicStack(prices);
+    }
+
     /**
      * 方法二：一次遍历
      * <p></p>
@@ -39,7 +44,7 @@ public class MaxProfit {
      * @param prices 价格整数数组
      * @return 返回可以从这笔交易中获取的最大利润
      */
-    public static int maxProfit(int[] prices) {
+    private static int maxProfit_OneTraverse(int[] prices) {
         // 左侧过去历史的最低价
         int minPrice = Integer.MAX_VALUE;
         // 最大利润
@@ -52,11 +57,10 @@ public class MaxProfit {
     }
 
     /**
-     * 方法三：单调栈
-     * <p></p>
      * 利用哨兵👨‍✈️，维护一个单调栈📈(图解，直观掌握)
-     * <p></p>
      * https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/c-li-yong-shao-bing-wei-hu-yi-ge-dan-diao-zhan-tu-/
+     * <p></p>
+     * 方法三：单调栈
      * <pre>
      * 解题思路
      * 这道题的本质是要求某个数与其右边最大的数的差值，这符合单调栈的应用场景。
@@ -66,7 +70,7 @@ public class MaxProfit {
      * 这里我们维护一个单调增的栈 📈，要赚钱嘛，肯定单调增。
      *
      * 首先讲下维护单调栈的 具体思路：
-     * * 在 pricesprices 数组的末尾加上一个 哨兵‍(也就是一个很小的元素，这里设为 -1))，就相当于作为股市收盘的标记(后面就清楚他的作用了)。
+     * * 在 prices 数组的末尾加上一个 哨兵‍(也就是一个很小的元素，这里设为 -1))，就相当于作为股市收盘的标记(后面就清楚他的作用了)。
      * * 假如栈空或者入栈元素大于栈顶元素，直接入栈
      * * 假如入栈元素小于栈顶元素则循环弹栈，直到入栈元素大于栈顶元素或者栈空
      * * 在每次弹出的时候，我们拿他与买入的值(也就是栈底)做差，维护一个最大值。
@@ -83,27 +87,25 @@ public class MaxProfit {
      * @param prices 价格整数数组
      * @return 返回可以从这笔交易中获取的最大利润
      */
-    public static int maxProfit_MonotonicStack(int[] prices) {
+    private static int maxProfit_MonotonicStack(int[] prices) {
         // 最大利润
         int maxProfit = 0;
-        // 单调栈
-        Deque<Integer> monotonicStack = new LinkedList<>();
-        int len = prices.length;
-        int price;
-        for (int i = 0; i <= len; i++) {
-            if (i == len) {
-                // 在 prices 数组的末尾加上一个 哨兵，保证所有的元素出栈
-                price = -1;
-            } else {
-                price = prices[i];
+        // 单调递减栈
+        Deque<Integer> indexMonoStack = new LinkedList<>();
+        for (int i = prices.length - 1; i >= 0; i--) {
+            int price = prices[i];
+            // 判定条件
+            while (!indexMonoStack.isEmpty() && price >= prices[indexMonoStack.getFirst()]) {
+                // 出栈
+                indexMonoStack.removeFirst();
             }
-            while (!monotonicStack.isEmpty() && monotonicStack.getLast() > price) {
-                // 维护单调栈
-                maxProfit = Math.max(maxProfit, monotonicStack.getLast() - monotonicStack.getFirst());
-                monotonicStack.removeLast();
-            }
-            // 入栈元素比栈顶元素大，直接入栈
-            monotonicStack.addLast(price);
+            // 利润
+            int profit = indexMonoStack.isEmpty() ? 0 :
+                    prices[indexMonoStack.getLast()] - price;
+            maxProfit = Math.max(maxProfit, profit);
+            // 入栈
+            // 数组下标索引
+            indexMonoStack.addFirst(i);
         }
         return maxProfit;
     }

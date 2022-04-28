@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.*;
  * @author guangyi
  */
 public class MaxProfitTest {
+
     @Test(dataProvider = "maxProfitTestData")
     public void maxProfit(int[] prices, int expected) {
         int result = MaxProfit.maxProfit(prices);
