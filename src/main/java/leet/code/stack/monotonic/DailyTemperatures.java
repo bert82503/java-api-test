@@ -50,8 +50,10 @@ public class DailyTemperatures {
         // 从右向左遍历，逆序遍历
         for (int i = temperatures.length - 1; i >= 0; i--) {
             int num = temperatures[i];
+            // 判定条件
             // 区别：大于等于栈顶元素，出栈
             while (!indexMonoStack.isEmpty() && num >= temperatures[indexMonoStack.getFirst()]) {
+                // 出栈
                 // 区别：忽略栈顶的索引下标
                 indexMonoStack.removeFirst();
             }
@@ -98,8 +100,10 @@ public class DailyTemperatures {
         // 从左往右遍历，正序遍历
         for (int i = 0; i < temperatures.length; i++) {
             int num = temperatures[i];
+            // 判定条件
             // 区别：大于栈顶元素，出栈
             while (!indexMonoStack.isEmpty() && num > temperatures[indexMonoStack.getFirst()]) {
+                // 出栈
                 // 区别：栈顶的索引下标
                 int prevIndex = indexMonoStack.removeFirst();
                 // 区别：计算结果
