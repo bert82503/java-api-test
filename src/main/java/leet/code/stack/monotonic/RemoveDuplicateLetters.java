@@ -106,6 +106,7 @@ public class RemoveDuplicateLetters {
                 if (count[monoStack.getFirst()] == 0) {
                     break;
                 }
+                // 出栈
                 // 若之后还有，则可以 pop
                 // 弹出栈顶元素，并把该元素标记为不在栈中
                 inStack[monoStack.removeFirst()] = false;
@@ -115,7 +116,8 @@ public class RemoveDuplicateLetters {
             monoStack.addFirst(ch);
             inStack[ch] = true;
         }
-        StringBuilder sb = new StringBuilder(16);
+        // 结果计算
+        StringBuilder sb = new StringBuilder(monoStack.size());
         while (!monoStack.isEmpty()) {
             sb.append(monoStack.removeFirst());
         }
