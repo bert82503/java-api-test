@@ -22,6 +22,7 @@ import java.util.LinkedList;
  * 1 <= preorder[i] <= 10^8
  * preorder 中的值 互不相同
  * </pre>
+ * 递减栈的从左往右遍历/正序遍历，等价于，二叉搜索树的前序遍历
  *
  * @author guangyi
  */
