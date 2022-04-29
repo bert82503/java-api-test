@@ -25,6 +25,11 @@ import java.util.LinkedList;
  */
 public class FinalPrices {
 
+    /**
+     * 当前项向**右**找第一个比自己**小**的位置：从右向左维护一个单调**递增栈**
+     *
+     * 从右向左遍历，出栈条件：prices[j] > prices[i]
+     */
     public static int[] finalPrices(int[] prices) {
         int len = prices.length;
         if (len == 1) {
