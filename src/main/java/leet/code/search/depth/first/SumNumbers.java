@@ -24,19 +24,26 @@ package leet.code.search.depth.first;
 public class SumNumbers {
 
     public int sumNumbers(TreeNode root) {
-        StringBuilder num = new StringBuilder(11);
-        return depthFirstSearch(root, num);
+        if (root == null) {
+            return 0;
+        }
+        return depthFirstSearch(root, 0);
     }
 
-    private static int depthFirstSearch(TreeNode node, StringBuilder num) {
+    /**
+     * 方法一：深度优先搜索
+     */
+    private int depthFirstSearch(TreeNode node, int num) {
         if (node == null) {
             return 0;
         }
-        num = new StringBuilder(num).append(node.val);
+        num = num * 10 + node.val;
         if (node.left == null && node.right == null) {
             // 叶节点
-            return Integer.parseInt(num.toString());
+            return num;
         }
+        // 递归地遍历左右子树
+        // 数字之和
         return depthFirstSearch(node.left, num) +
                 depthFirstSearch(node.right, num);
     }
@@ -46,8 +53,13 @@ public class SumNumbers {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
