@@ -1,4 +1,4 @@
-package leet.code.problem.string;
+package leet.code.string;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

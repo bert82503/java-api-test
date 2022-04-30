@@ -1,4 +1,4 @@
-package leet.code.problem.string;
+package leet.code.string;
 
 /**
  * 剑指 Offer 05. 替换空格
