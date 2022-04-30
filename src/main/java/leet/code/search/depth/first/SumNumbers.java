@@ -32,6 +32,8 @@ public class SumNumbers {
 
     /**
      * 方法一：深度优先搜索
+     * <p></p>
+     * 前序遍历
      */
     private int depthFirstSearch(TreeNode node, int num) {
         if (node == null) {
