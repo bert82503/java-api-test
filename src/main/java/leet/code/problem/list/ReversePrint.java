@@ -1,5 +1,6 @@
 package leet.code.problem.list;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,24 @@ import java.util.List;
 public class ReversePrint {
 
     public int[] reversePrint(ListNode head) {
+        Deque<Integer> deque = new LinkedList<>();
+        ListNode node = head;
+        while (node != null) {
+            deque.addFirst(node.val);
+            node = node.next;
+        }
+
+        int[] result = new int[deque.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = deque.removeFirst();
+        }
+        return result;
+//        return deque.stream()
+//                .mapToInt(Integer::intValue)
+//                .toArray();
+    }
+
+    public int[] reversePrint_Recursive(ListNode head) {
         List<Integer> result = new LinkedList<>();
         recursive(head, result);
         return result.stream()
