@@ -1,22 +1,20 @@
 package leet.code.problem.string;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
- * <a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">
- *     面试题05. 替换空格</a>
- *
+ * 剑指 Offer 05. 替换空格
+ * <p></p>
+ * https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/
+ * <pre>
  * 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
  *
  * 限制：0 <= s 的长度 <= 10000
- *
+ * </pre>
  * <pre>
  * 一、认识题目：
  * 最坏场景：字符串 s 全是空格，长度翻 3 倍。
  * </pre>
  *
  * @author guangyi
- * @since 2020-06-13
  */
 public class ReplaceSpace {
 
@@ -25,50 +23,28 @@ public class ReplaceSpace {
     private static final String REPLACEMENT = "%20";
 
     /**
-     * 把字符串 s 中的每个空格替换成"%20"。
+     * 面试题05. 替换空格
+     * https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/solution/mian-shi-ti-05-ti-huan-kong-ge-by-leetcode-solutio/
+     * <pre></pre>
      *
-     * <pre>
-     * 执行用时 : 0 ms, 在所有 Java 提交中击败了 100.00% 的用户
-     * 内存消耗 : 37.6 MB, 在所有 Java 提交中击败了 100.00% 的用户
-     * </pre>
+     * 面试题05. 替换空格 （字符串修改，清晰图解）
+     * https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/solution/mian-shi-ti-05-ti-huan-kong-ge-ji-jian-qing-xi-tu-/
      */
-    public static String replaceSpace(String s) {
-        if (s == null || s.length() <= 0) {
-            return s;
+    public static String replaceSpace(String str) {
+        if (str == null || str.length() <= 0) {
+            return str;
         }
-        int length = s.length();
+        int length = str.length();
         // 本题关键：预先分配富足的容量，以空间换时间
         StringBuilder sb = new StringBuilder(length * 3);
         for (int i = 0; i < length; i++) {
-            char c = s.charAt(i);
-            if (c == WHITESPACE) {
+            char ch = str.charAt(i);
+            if (ch == WHITESPACE) {
                 sb.append(REPLACEMENT);
             } else {
-                sb.append(c);
+                sb.append(ch);
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * Test cases.
-     */
-    public static void main(String[] args) {
-        assertThat(replaceSpace("We are happy."))
-                .isEqualTo("We%20are%20happy.");
-        assertThat(replaceSpace(""))
-                .isEqualTo("");
-        assertThat(replaceSpace(" "))
-                .isEqualTo("%20");
-        assertThat(replaceSpace("   "))
-                .isEqualTo("%20%20%20");
-        assertThat(replaceSpace("xingle "))
-                .isEqualTo("xingle%20");
-        assertThat(replaceSpace(" dannong "))
-                .isEqualTo("%20dannong%20");
-        assertThat(replaceSpace(" gangyi"))
-                .isEqualTo("%20gangyi");
-        assertThat(replaceSpace("Hello, Java!"))
-                .isEqualTo("Hello,%20Java!");
     }
 }
