@@ -66,10 +66,11 @@ public class FindRepeatNumber {
                 i++;
                 continue;
             }
-            // 原地交换
             if (nums[num] == num) {
+                // 发现一个重复的数字
                 return num;
             }
+            // 原地交换
             nums[i] = nums[num];
             nums[num] = num;
         }
