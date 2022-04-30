@@ -68,8 +68,10 @@ public class SingleNumber {
      * </pre>
      */
     public static int singleNumber(int[] nums) {
+        // 出现一次的数字 x
         int x = 0;
         for (int num : nums) {
+            // 异或运算
             x ^= num;
         }
         return x;
