@@ -30,6 +30,7 @@ public class ReversePrint {
         if (head == null) {
             return;
         }
+        // 递归
         recursive(head.next, result);
         result.add(head.val);
     }
