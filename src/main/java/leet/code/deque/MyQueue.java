@@ -1,27 +1,30 @@
-package leet.code.twohundred.thirtytwo;
+package leet.code.deque;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * <a href="https://leetcode-cn.com/problems/implement-queue-using-stacks/">
- *     用栈实现队列</a>
- *
+ * 232. 用栈实现队列
+ * <p></p>
+ * https://leetcode-cn.com/problems/implement-queue-using-stacks/
  * <pre>
  * 使用栈实现队列的下列操作：
- *     push(x) -- 将一个元素放入队列的尾部。
- *     pop() -- 从队列首部移除元素。
- *     peek() -- 返回队列首部的元素。
- *     empty() -- 返回队列是否为空。
+ *     push(x) -- 将元素 x 推到队列的末尾
+ *     pop() -- 从队列的开头移除并返回元素
+ *     peek() -- 返回队列开头的元素
+ *     empty() -- 如果队列为空，返回 true ；否则，返回 false
+ *
+ * 提示：
+ * 1 <= x <= 9
+ * 最多调用 100 次 push、pop、peek 和 empty
+ * 假设所有操作都是有效的 （例如，一个空的队列不会调用 pop 或者 peek 操作）
+ *
+ * 进阶：
+ * 你能否实现每个操作均摊时间复杂度为 O(1) 的队列？
+ * 换句话说，执行 n 个操作的总时间复杂度为 O(n) ，即使其中一个操作可能花费较长时间。
  * </pre>
  *
- * <pre>
- * 执行用时: 0 ms, 在所有 Java 提交中击败了 100.00% 的用户
- * 内存消耗: 37.4 MB, 在所有 Java 提交中击败了 5.64% 的用户
- * </pre>
- *
- * @author EdwardLee03
- * @since 2020-03-29
+ * @author edwardlee03
  */
 @SuppressWarnings("unused")
 public class MyQueue {
