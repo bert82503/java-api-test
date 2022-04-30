@@ -1,4 +1,4 @@
-package leet.code.problem.list;
+package leet.code.list;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -54,7 +54,7 @@ public class ReversePrint {
         result.add(head.val);
     }
 
-    public static final class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
 
