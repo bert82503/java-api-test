@@ -45,19 +45,35 @@ public class AddTwoNumbers {
      * 思路与算法
      * 由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。
      * </pre>
+     *
+     * 画解算法：2. 两数相加
+     * https://leetcode-cn.com/problems/add-two-numbers/solution/hua-jie-suan-fa-2-liang-shu-xiang-jia-by-guanpengc/
+     * <pre>
+     * 思路
+     * 小技巧：对于链表问题，返回结果为头结点时，通常需要先初始化一个预先指针 pre，该指针的下一个节点指向真正的头结点head。
+     * 使用预先指针的目的在于链表初始化时无可用节点值，而且链表构造过程需要指针移动，进而会导致头指针丢失，无法返回结果。
+     * </pre>
+     *
+     * 两数相加
+     * https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-gpe3dbjds1/
+     * <pre>
+     * 整体思路：
+     * 不对齐补零，若链表不为空则用sum(代表每个位的和的结果)加上，考虑进位。
+     * </pre>
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode();
-        ListNode tail = head;
+        ListNode preHead = new ListNode(-1);
+        ListNode tail = preHead;
         // 两数之和的进位
         int carry = 0;
         while (l1 != null || l2 != null) {
-            int n1 = l1 != null ? l1.val : 0;
-            int n2 = l2 != null ? l2.val : 0;
-            int sum = n1 + n2 + carry;
+            int x = l1 != null ? l1.val : 0;
+            int y = l2 != null ? l2.val : 0;
+            int sum = x + y + carry;
+
+            carry = sum / 10;
             tail.next = new ListNode(sum % 10);
             tail = tail.next;
-            carry = sum / 10;
             if (l1 != null) {
                 l1 = l1.next;
             }
@@ -66,10 +82,10 @@ public class AddTwoNumbers {
             }
         }
         // 进位处理
-        if (carry > 0) {
+        if (carry == 1) {
             tail.next = new ListNode(carry);
         }
-        return head.next;
+        return preHead.next;
     }
 
     /**
