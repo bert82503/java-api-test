@@ -1,5 +1,7 @@
 package leet.code.sliding.window;
 
+import java.util.Arrays;
+
 /**
  * 3. 无重复字符的最长子串
  * <p></p>
@@ -46,6 +48,31 @@ package leet.code.sliding.window;
 public class LengthOfLongestSubstring {
 
     public static int lengthOfLongestSubstring(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
+        // 最长子串的长度
+        int maxLength = Integer.MIN_VALUE;
+        // 注册表(<char, index>)
+        int[] charMap = new int[256];
+        Arrays.fill(charMap, -1);
+
+        int length = str.length();
+        for (int j = 0, i = 0; j < length; j++) {
+            char ch = str.charAt(j);
+            if (charMap[ch] >= 0) {
+                // 出现重复字符，右滑N步
+                // 存在左滑回退N步的风险，故取最大值
+                i = Math.max(charMap[ch] + 1, i);
+            }
+            // 找到一个可行解，右滑1步
+            charMap[ch] = j;
+            maxLength = Math.max(j - i + 1, maxLength);
+        }
+        return maxLength;
+    }
+
+    public static int lengthOfLongestSubstring_Two(String str) {
         if (str == null || str.isEmpty()) {
             return 0;
         }
