@@ -35,43 +35,41 @@ package leet.code.list;
 public class AddTwoNumbers {
 
     /**
+     * 两数相加
+     * https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-leetcode-solution/
+     * <pre>
+     * 方法：初等数学
+     * 使用变量来跟踪进位，并从包含最低有效位的表头开始模拟逐位相加的过程。
+     *
+     * 方法一：模拟
+     * 思路与算法
+     * 由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。
+     * </pre>
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode root = new ListNode();
-        ListNode node = root;
-        // 两数之和的进位数
-        int carryNumber = 0;
-        while (l1 != null && l2 != null) {
-            int sum = l1.val + l2.val + carryNumber;
-            node.next = new ListNode(sum % 10);
-            carryNumber = sum / 10;
-
-            l1 = l1.next;
-            l2 = l2.next;
-            node = node.next;
+        ListNode head = new ListNode();
+        ListNode tail = head;
+        // 两数之和的进位
+        int carry = 0;
+        while (l1 != null || l2 != null) {
+            int n1 = l1 != null ? l1.val : 0;
+            int n2 = l2 != null ? l2.val : 0;
+            int sum = n1 + n2 + carry;
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+            carry = sum / 10;
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
         }
-        while (l1 != null) {
-            int sum = l1.val + carryNumber;
-            node.next = new ListNode(sum % 10);
-            carryNumber = sum / 10;
-
-            l1 = l1.next;
-            node = node.next;
+        // 进位处理
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
         }
-        while (l2 != null) {
-            int sum = l2.val + carryNumber;
-            node.next = new ListNode(sum % 10);
-            carryNumber = sum / 10;
-
-            l2 = l2.next;
-            node = node.next;
-        }
-        // 进位数处理
-        if (carryNumber == 1) {
-            node.next = new ListNode(carryNumber);
-        }
-
-        return root.next;
+        return head.next;
     }
 
     /**
