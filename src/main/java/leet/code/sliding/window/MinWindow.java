@@ -44,6 +44,7 @@ import java.util.Map;
  * 如果 s 中存在这样的子串，我们保证它是唯一的答案。
  * s 和 t 由英文字母组成
  *
+ * 特性：
  * 全局最优解
  * 重复字符计数器，哈希表
  * 在 O(n) 时间内解决此问题的算法，滑动窗口
@@ -53,7 +54,15 @@ import java.util.Map;
  */
 public class MinWindow {
 
-    public static String minWindow(String str, String target) {
+    /**
+     * 滑动窗口算法
+     * <pre>
+     * 对于window/needs计数器，使用包装类型的Map对象，存在基本类型与包装类型的自动包装与拆包装。
+     *
+     * 时间复杂度是 O(m + n)，空间复杂度是 O(52)
+     * </pre>
+     */
+    public static String minWindow_One(String str, String target) {
         if (target.length() > str.length()) {
             return "";
         }
@@ -87,7 +96,7 @@ public class MinWindow {
                 // 巧妙：等于判断规避了重复字符
                 if (windowCount == needCount) {
                     // 这个字符的出现次数符合要求了
-                    match += 1;
+                    match++;
                 }
             }
             right++;
@@ -110,7 +119,90 @@ public class MinWindow {
                     // 巧妙：小于判断规避了重复字符
                     if (windowCount < needCount) {
                         // 这个字符出现次数不再符合要求
-                        match -= 1;
+                        match--;
+                    }
+                }
+                left++;
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? "" :
+                str.substring(start, start + minLength);
+    }
+
+    /**
+     * 滑动窗口算法
+     * <pre>
+     * 优化：对于window/needs计数器，使用基本类型的数组替换Map对象，避免不必要的基本类型与包装类型的自动包装与拆包装。
+     * ({@code int[]} => {@code Map})
+     *
+     * C语言代码风格
+     *
+     * 时间复杂度是 O(m + n)，空间复杂度是 O(123)
+     *
+     * 这个版本的执行用时比第一版减少了6ms，耗时降低了75%。
+     * 在大数据量场景下，包装类型的自动装箱与拆箱还是挺耗时的。
+     * </pre>
+     */
+    public static String minWindow(String str, String target) {
+        if (target.length() > str.length()) {
+            return "";
+        }
+        // 记录最短子串的开始位置和长度
+        int start = 0;
+        int minLength = Integer.MAX_VALUE;
+
+        // 滑动窗口计数器
+        // 'z'=122
+        int[] window = new int[123];
+        // 目标字符串
+        int[] needs = new int[123];
+        int needsSize = 0;
+        int targetLength = target.length();
+        for (int i = 0; i < targetLength; i++) {
+            char ch = target.charAt(i);
+            needs[ch]++;
+            if (needs[ch] == 1) {
+                needsSize++;
+            }
+        }
+        // 记录window中已经有多少个字符符合要求了
+        int match = 0;
+
+        int left = 0;
+        int right = 0;
+        int strLength = str.length();
+        while (right < strLength) {
+            char rightChar = str.charAt(right);
+            int needCount = needs[rightChar];
+            if (needCount > 0) {
+                // 加入window
+                int windowCount = ++window[rightChar];
+                // 巧妙：等于判断规避了重复字符
+                if (windowCount == needCount) {
+                    // 这个字符的出现次数符合要求了
+                    match++;
+                }
+            }
+            right++;
+
+            while (match == needsSize) {
+                // window中的字符串已符合needs的要求了
+                // 找到一个可行解
+                int subLength = right - left;
+                if (subLength < minLength) {
+                    // 找到一个更优解，更新最小子串的开始位置和长度
+                    start = left;
+                    minLength = subLength;
+                }
+                char leftChar = str.charAt(left);
+                needCount = needs[leftChar];
+                if (needCount > 0) {
+                    // 移出window
+                    int windowCount = --window[leftChar];
+                    // 巧妙：小于判断规避了重复字符
+                    if (windowCount < needCount) {
+                        // 这个字符出现次数不再符合要求
+                        match--;
                     }
                 }
                 left++;
