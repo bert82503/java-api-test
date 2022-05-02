@@ -26,11 +26,23 @@ import java.util.List;
  * </pre>
  *
  * @author guangyi
+ * @see ThreeSum
  */
 public class FourSum {
 
+    private static final int MIN_NUM_ARRAY_LEN = 4;
+
+    // 方法一：排序 + 双指针
+
+    /**
+     * 排序 + 双指针
+     *
+     * 本题的难点在于如何去除重复解。
+     *
+     * @see ThreeSum#threeSum(int[])
+     */
     public static List<List<Integer>> fourSum(int[] nums, int target) {
-        if (nums == null || nums.length < 4) {
+        if (nums == null || nums.length < MIN_NUM_ARRAY_LEN) {
             return Collections.emptyList();
         }
         // 2. 对数组进行排序

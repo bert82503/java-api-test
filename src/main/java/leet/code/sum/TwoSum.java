@@ -53,6 +53,7 @@ public class TwoSum {
     public static int[] twoSum(int[] nums, int target) {
         // 注册表(<target-num, index>)
         Map<Integer, Integer> operandIndexMap = new HashMap<>(16);
+        // 巧妙：左右两边一起并行往中间查找
         int left = 0;
         int right = nums.length - 1;
         while (left <= right) {
