@@ -9,7 +9,7 @@ import java.util.List;
  * 18. 四数之和
  * <p></p>
  * https://leetcode-cn.com/problems/4sum/
- * <p></p>
+ * <pre>
  * 给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。
  * 请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] （若两个四元组元素一一对应，则认为两个四元组重复）：
  * * 0 <= a, b, c, d < n
@@ -17,16 +17,18 @@ import java.util.List;
  * * nums[a] + nums[b] + nums[c] + nums[d] == target
  *
  * 你可以按 任意顺序 返回答案 。
- * <p></p>
+ *
  * 四数之和与前面三数之和的思路几乎是一样的。
  *
  * 解决重复解：
  * 上面的解法存在重复解的原因是因为移动指针时可能出现重复数字的情况。
  * 所以我们要确保移动指针后，对应的数字要发生改变才行。
+ * </pre>
  *
  * @author guangyi
  */
 public class FourSum {
+
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         if (nums == null || nums.length < 4) {
             return Collections.emptyList();

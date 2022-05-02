@@ -36,7 +36,7 @@ import java.util.Map;
  * 进阶：你可以想出一个时间复杂度小于 O(n^2) 的算法吗？
  * </pre>
  * <pre>
- * 1. 认识题目
+ * 1.认识题目
  * 一个整数数组和一个整数目标值
  * 数组下标
  * 每种输入只会对应一个答案，只会存在一个有效答案
@@ -60,30 +60,30 @@ public class TwoSum {
      */
     public static int[] twoSum(int[] nums, int target) {
         // 注册表(<target-num, index>)
-        Map<Integer, Integer> map = new HashMap<>(16);
+        Map<Integer, Integer> operandIndexMap = new HashMap<>(16);
         int left = 0;
         int right = nums.length - 1;
         while (left <= right) {
             int leftNum = nums[left];
             int rightNum = nums[right];
             // 询问是否有人找过我
-            Integer leftIndex = map.get(leftNum);
+            Integer leftIndex = operandIndexMap.get(leftNum);
             if (leftIndex != null) {
                 // 发现目标
                 return new int[]{leftIndex, left};
             } else {
                 // 登记注册我要查找的人
                 int leftOperand = target - leftNum;
-                map.put(leftOperand, left++);
+                operandIndexMap.put(leftOperand, left++);
             }
-            Integer rightIndex = map.get(rightNum);
+            Integer rightIndex = operandIndexMap.get(rightNum);
             if (rightIndex != null) {
                 // 发现目标
                 return new int[]{rightIndex, right};
             } else {
                 // 登记注册我要查找的人
                 int rightOperand = target - rightNum;
-                map.put(rightOperand, right--);
+                operandIndexMap.put(rightOperand, right--);
             }
         }
         return new int[]{-1, -1};
@@ -110,18 +110,18 @@ public class TwoSum {
      */
     public static int[] twoSum_Hash2(int[] nums, int target) {
         // 注册表(<target-num, index>)
-        Map<Integer, Integer> map = new HashMap<>(16);
+        Map<Integer, Integer> operandIndexMap = new HashMap<>(16);
         for (int i = 0; i < nums.length; i++) {
             int num = nums[i];
             // 询问是否有人找过我
-            Integer index = map.get(num);
+            Integer index = operandIndexMap.get(num);
             if (index != null) {
                 // 发现目标
                 return new int[]{index, i};
             } else {
                 // 登记注册我要查找的人
                 int operand = target - num;
-                map.put(operand, i);
+                operandIndexMap.put(operand, i);
             }
         }
         return new int[]{-1, -1};
