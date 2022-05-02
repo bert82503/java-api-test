@@ -22,8 +22,15 @@ public class MinWindowTest {
     private static Object[][] minWindowTestData() {
         return new Object[][]{
                 {"ADOBECODEBANC", "ABC", "BANC"},
+                {"ADOCEBCODEBAC", "ABC", "BAC"},
+                // 相同长度
+                {"ABC", "ABC", "ABC"},
+                {"BAC", "ABC", "BAC"},
                 {"a", "a", "a"},
+                // 无效值
+                {"a", "A", ""},
                 {"a", "aa", ""},
+                {"A", "AA", ""},
 //                {, , },
         };
     }

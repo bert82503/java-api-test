@@ -74,6 +74,7 @@ public class MinWindow {
         Map<Character, Integer> window = new HashMap<>(16);
         // 目标字符串
         Map<Character, Integer> needs = new HashMap<>(16);
+
         int targetLength = target.length();
         for (int i = 0; i < targetLength; i++) {
             char ch = target.charAt(i);
@@ -157,6 +158,7 @@ public class MinWindow {
         // 目标字符串
         int[] needs = new int[123];
         int needsSize = 0;
+
         int targetLength = target.length();
         for (int i = 0; i < targetLength; i++) {
             char ch = target.charAt(i);
@@ -202,6 +204,76 @@ public class MinWindow {
                     // 巧妙：小于判断规避了重复字符
                     if (windowCount < needCount) {
                         // 这个字符出现次数不再符合要求
+                        match--;
+                    }
+                }
+                left++;
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? "" :
+                str.substring(start, start + minLength);
+    }
+
+    /**
+     * 滑动窗口算法
+     * <pre>
+     * 优化：在解法2的基础上，减少{@code int}临时变量的创建。
+     *
+     * 代码可读性差
+     * </pre>
+     *
+     * @see #minWindow(String, String)
+     */
+    public static String minWindow_Three(String str, String target) {
+        if (target.length() > str.length()) {
+            return "";
+        }
+        // 记录最短子串的开始位置和长度
+        int start = 0;
+        int minLength = Integer.MAX_VALUE;
+
+        // 相当于两个计数器
+        int[] window = new int[123];
+        int[] needs = new int[123];
+        int needsSize = 0;
+
+        int targetLength = target.length();
+        for (int i = 0; i < targetLength; i++) {
+            if ((needs[target.charAt(i)]++) == 0) {
+                needsSize++;
+            }
+        }
+
+        // 记录window中已经有多少字符符合要求了
+        int match = 0;
+
+        int left = 0;
+        int right = 0;
+        int strLength = str.length();
+        while (right < strLength) {
+            char rightChar = str.charAt(right);
+            if (needs[rightChar] > 0) {
+                // 加入window
+                if (++window[rightChar] == needs[rightChar]) {
+                    // 这个字符的出现次数符合要求了
+                    match++;
+                }
+            }
+            right++;
+
+            while (match == needsSize) {
+                // window中的字符串已符合needs的要求了
+                // 找到一个可行解
+                if (right - left < minLength) {
+                    // 找到一个更优解，更新最小子串的开始位置和长度
+                    start = left;
+                    minLength = right - left;
+                }
+                char leftChar = str.charAt(left);
+                if (needs[leftChar] > 0) {
+                    // 移出window
+                    if (--window[leftChar] < needs[leftChar]) {
+                        // 字符lc的出现次数不再符合要求
                         match--;
                     }
                 }
