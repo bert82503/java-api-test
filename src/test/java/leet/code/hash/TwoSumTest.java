@@ -25,8 +25,11 @@ public class TwoSumTest {
                         new int[]{0,1}},
                 {new int[]{2,7,11,15}, 17,
                         new int[]{0,3}},
+//                {new int[]{3,2,4}, 6,
+//                        new int[]{1,2}},
+                // 哈希表3
                 {new int[]{3,2,4}, 6,
-                        new int[]{1,2}},
+                        new int[]{2,1}},
                 {new int[]{3,3}, 6,
                         new int[]{0,1}},
 //                {new int[]{}, ,

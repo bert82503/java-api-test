@@ -48,7 +48,67 @@ import java.util.Map;
  */
 public class TwoSum {
 
+    /**
+     * 两数之和的四种解法的六个实现(排序+折半查找/封装+排序+折半查找/哈希)
+     * https://leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-de-si-chong-jie-fa-pai-6vatw/
+     * <pre>
+     * 解法四：哈希表3
+     * 算法描述
+     * 在哈希表2的基础上仍可改进，即每次在哈希表中搜索补数时，设置left和right两个指针，
+     * 一次搜索nums中左右两端的元素的补数，可以得到耗时0ms的效果。
+     * </pre>
+     */
     public static int[] twoSum(int[] nums, int target) {
+        // 注册表(<target-num, index>)
+        Map<Integer, Integer> map = new HashMap<>(16);
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int leftNum = nums[left];
+            int rightNum = nums[right];
+            // 询问是否有人找过我
+            Integer leftIndex = map.get(leftNum);
+            if (leftIndex != null) {
+                // 发现目标
+                return new int[]{leftIndex, left};
+            } else {
+                // 登记注册我要查找的人
+                int leftOperand = target - leftNum;
+                map.put(leftOperand, left++);
+            }
+            Integer rightIndex = map.get(rightNum);
+            if (rightIndex != null) {
+                // 发现目标
+                return new int[]{rightIndex, right};
+            } else {
+                // 登记注册我要查找的人
+                int rightOperand = target - rightNum;
+                map.put(rightOperand, right--);
+            }
+        }
+        return new int[]{-1, -1};
+    }
+
+    /**
+     * 两数之和
+     * https://leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-by-leetcode-solution/
+     * <pre>
+     * 方法二：查找表法
+     * 在遍历的同时，记录一些信息，以省去一层循环，这是"以空间换时间"的想法
+     * 需要记录已经遍历过的数值和它所对应的下标，可以借助查找表实现
+     * 查找表有两个常用的实现：
+     * * 哈希表
+     * * 平衡二叉搜索树，元素有序
+     *
+     * 方法二：哈希表
+     * 思路及算法
+     * 注意到方法一的时间复杂度较高的原因是寻找 target - x 的时间复杂度过高。
+     * 因此，我们需要一种更优秀的方法，能够快速寻找数组中是否存在目标元素。
+     * 如果存在，我们需要找出它的索引。
+     * 使用哈希表，可以将寻找 target - x 的时间复杂度降低到从 O(N) 降低到 O(1)。
+     * </pre>
+     */
+    public static int[] twoSum_Hash2(int[] nums, int target) {
         // 注册表(<target-num, index>)
         Map<Integer, Integer> map = new HashMap<>(16);
         for (int i = 0; i < nums.length; i++) {
@@ -58,11 +118,13 @@ public class TwoSum {
             if (index != null) {
                 // 发现目标
                 return new int[]{index, i};
+            } else {
+                // 登记注册我要查找的人
+                int operand = target - num;
+                map.put(operand, i);
             }
-            // 登记注册我要查找的人
-            int operand = target - num;
-            map.put(operand, i);
         }
         return new int[]{-1, -1};
+//        throw new IllegalArgumentException("No two sum solution");
     }
 }
