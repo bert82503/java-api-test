@@ -1,4 +1,4 @@
-package leet.code.sum;
+package leet.code.bit;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

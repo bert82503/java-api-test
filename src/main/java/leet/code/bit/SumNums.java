@@ -1,4 +1,4 @@
-package leet.code.sum;
+package leet.code.bit;
 
 /**
  * 剑指 Offer 64. 求1+2+…+n
