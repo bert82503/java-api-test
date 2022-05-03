@@ -1,4 +1,4 @@
-package leet.code.list;
+package leet.code.recursive;
 
 /**
  * 21. 合并两个有序链表
@@ -91,14 +91,17 @@ public class MergeTwoLists {
      * </pre>
      */
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        // 每一层调用都返回排序好的链表头
         if (list1 == null) {
             return list2;
         } else if (list2 == null) {
             return list1;
         } else if (list1.val < list2.val) {
+            // 每一层调用都返回排序好的链表头
             list1.next = mergeTwoLists(list1.next, list2);
             return list1;
         } else {
+            // 每一层调用都返回排序好的链表头
             list2.next = mergeTwoLists(list1, list2.next);
             return list2;
         }
