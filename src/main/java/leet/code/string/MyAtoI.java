@@ -60,6 +60,68 @@ public class MyAtoI {
     private static final char MINUS_OP = '-';
     private static final char PLUS_OP = '+';
 
+    private static final int MAX_RESULT = Integer.MAX_VALUE / 10;
+
+    /**
+     * 字符串转换整数 (atoi)
+     * https://leetcode-cn.com/problems/string-to-integer-atoi/solution/zi-fu-chuan-zhuan-huan-zheng-shu-atoi-by-leetcode-/
+     * <pre>
+     * 根据问题的描述我们来判断并且描述对应的解题方法。对于这道题目，很明显是字符串的转化问题。
+     * 需要明确转化规则，尽量根据转化规则编写对应的子函数。
+     *
+     * 这里我们要进行模式识别，一旦涉及整数的运算，我们需要注意溢出。
+     * 本题可能产生溢出的步骤在于推入、乘以 10 操作和累加操作都可能造成溢出。
+     * 对于溢出的处理方式通常可以转换为 INT_MAX 的逆操作。
+     *
+     * 方法1：字符串的转换
+     * - 明确转化规则
+     *   空格处理
+     *   正负号处理
+     *   数字处理
+     * - 推入 数字
+     *   result = result * 10 + num
+     * - 模式识别：整数运算注意溢出
+     *   转换为 INT_MAX 的逆运算
+     *
+     * 方法一：自动机
+     * 思路
+     * 字符串处理的题目往往涉及复杂的流程以及条件情况，如果直接上手写程序，一不小心就会写出极其臃肿的代码。
+     * 因此，为了有条理地分析每个输入字符的处理方法，我们可以使用自动机这个概念：
+     * 我们的程序在每个时刻有一个状态 s，每次从序列中输入一个字符 c，并根据字符 c 转移到下一个状态 s'。
+     * 这样，我们只需要建立一个覆盖所有情况的从 s 与 c 映射到 s' 的表格即可解决题目中的问题。
+     *
+     * 算法
+     * 本题可以建立如下图所示的自动机：
+     *
+     * </pre>
+     *
+     * 尽量不使用库函数、一次遍历（Java）
+     * https://leetcode-cn.com/problems/string-to-integer-atoi/solution/jin-liang-bu-shi-yong-ku-han-shu-nai-xin-diao-shi-/
+     * <pre>
+     * 解题思路：
+     * 这个问题其实没有考察算法的知识，模拟的是日常开发中对于原始数据的处理（例如「参数校验」等场景），
+     * 如果面试中遇到类似的问题，应先仔细阅读题目文字说明和示例，有疑惑的地方需要和面试官确认，在编码的时候需要耐心和细心地调试。
+     *
+     * 其实很多时候，业务需求就是类似这样的问题，工作中如果遇到：
+     * 1、有现成的工具和类库需尽量使用，因为它们是性能更优，且经过更严格测试，是相对可靠的；
+     * 2、能抽取成工具类、工具方法的尽量抽取，以突出主干逻辑、方便以后代码复用；
+     * 3、不得不写得比较繁琐、冗长的时候，需要写清楚注释、体现逻辑层次，以便上线以后排查问题和后续维护。
+     *
+     * 在这里我罗列几个要点：
+     * 根据示例 1，需要去掉前导空格；
+     * 根据示例 2，需要判断第 1 个字符为 + 和 - 的情况，因此，可以设计一个变量 sign，初始化的时候为 1，如果遇到 - ，将 sign 修正为 -1；
+     * 判断是否是数字，可以使用字符的 ASCII 码数值进行比较，即 0 <= c <= '9'；
+     * 根据示例 3 和示例 4 ，在遇到第 1 个不是数字的字符的情况下，转换停止，退出循环；
+     * 根据示例 5，如果转换以后的数字超过了 int 类型的范围，需要截取。
+     *   这里不能将结果 res 变量设计为 long 类型，注意：由于输入的字符串转换以后也有可能超过 long 类型，
+     *   因此需要在循环内部就判断是否越界，只要越界就退出循环，这样也可以减少不必要的计算；
+     * 由于涉及下标访问，因此全程需要考虑数组下标是否越界的情况。
+     *
+     * 特别注意：
+     * 1、由于题目中说「环境只能保存 32 位整数」，因此这里在每一轮循环之前先要检查乘以 10 以后是否溢出，具体细节请见编码。
+     *
+     * </pre>
+     */
     public static int myAtoi(String str) {
         if (str == null || str.isEmpty()) {
             return 0;
@@ -67,11 +129,13 @@ public class MyAtoI {
         int length = str.length();
         int left = 0;
         // 1.读入字符串并丢弃无用的前导空格
+        // 空格处理
         while (left < length && str.charAt(left) == BLANK_CHAR) {
             left++;
         }
         // 2.检查下一个字符（假设还未到字符末尾）为正还是负号，读取该字符（如果有）。
         // 确定最终结果是负数还是正数。 如果两者都不存在，则假定结果为正。
+        // 正负号处理
         int sign = 1;
         if (left < length) {
             char ch = str.charAt(left);
@@ -83,28 +147,24 @@ public class MyAtoI {
                 left++;
             }
         }
-        // 读入下一个字符，直到到达下一个非数字字符或到达输入的结尾。字符串的其余部分将被忽略。
-        long result = 0;
+        // 3.读入下一个字符，直到到达下一个非数字字符或到达输入的结尾。字符串的其余部分将被忽略。
+        // 数字处理
+        int result = 0;
+        int digit;
         while (left < length) {
             char ch = str.charAt(left);
             if (Character.isDigit(ch)) {
+                digit = ch - '0';
                 // 正数溢出/负数溢出
-                if (result > Integer.MAX_VALUE) {
-                    return Integer.MAX_VALUE;
-                } else if (result < Integer.MIN_VALUE) {
-                    return Integer.MIN_VALUE;
+                if (result > MAX_RESULT || (result == MAX_RESULT && digit > 7)) {
+                    return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                 }
-                result = result * 10 + sign * (ch - '0');
+                result = result * 10 + digit;
             } else {
                 break;
             }
             left++;
         }
-        if (result >= Integer.MAX_VALUE) {
-            return Integer.MAX_VALUE;
-        } else if (result <= Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
-        }
-        return (int) result;
+        return sign == 1 ? result : -result;
     }
 }
