@@ -33,27 +33,66 @@ package leet.code.math;
  */
 public class ReverseInteger {
 
+    /**
+     * <pre>
+     * 数学
+     * </pre>
+     */
     public static int reverse(int x) {
-        int flag = 1;
-        if (x < 0) {
-            flag = -1;
-            x = -x;
+        // 长整数
+        long num = x;
+        // 符号位
+        int sign = 1;
+        if (num < 0L) {
+            sign = -1;
+            // 转换为正长整数
+            num = -num;
         }
-        String numStr = String.valueOf(x);
-        int right = numStr.length() - 1;
-        while (right >= 0 && numStr.charAt(right) == '0') {
-            // 忽略前面的N个0
-            right--;
-        }
-        if (right < 0) {
+
+        // 直接反转整数
+        long result = 0L;
+        do {
+            result = result * 10 + (num % 10);
+            num /= 10;
+        } while (num > 0L);
+
+        result = sign * result;
+        if (result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {
             return 0;
         }
-        long num = numStr.charAt(right--) - '0';
-        while (right >= 0) {
-            char ch = numStr.charAt(right--);
-            num = num * 10 + (ch - '0');
+        return (int) result;
+    }
+
+    /**
+     * 方法二：双指针
+     */
+    public static int reverse_DoublePointer(int x) {
+        // 长整数
+        long num = x;
+        // 符号位
+        int sign = 1;
+        if (num < 0L) {
+            sign = -1;
+            // 转换为正长整数
+            num = -num;
         }
-        num = flag * num;
+
+        char[] charArray = String.valueOf(num).toCharArray();
+        char temp;
+        // 双指针，从两端向中央同时收缩，并互相字符
+        int left = 0;
+        int right = charArray.length - 1;
+        while (left < right) {
+            // 高低字符互换
+            temp = charArray[left];
+            charArray[left] = charArray[right];
+            charArray[right] = temp;
+            left++;
+            right--;
+        }
+
+        num = Long.parseLong(String.valueOf(charArray));
+        num = sign * num;
         if (num < Integer.MIN_VALUE || num > Integer.MAX_VALUE) {
             return 0;
         }
