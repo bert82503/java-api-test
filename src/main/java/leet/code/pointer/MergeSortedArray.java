@@ -51,7 +51,23 @@ package leet.code.pointer;
 public class MergeSortedArray {
 
     /**
-     * 双指针
+     * 合并两个有序数组
+     * https://leetcode-cn.com/problems/merge-sorted-array/solution/he-bing-liang-ge-you-xu-shu-zu-by-leetco-rrb0/
+     * <pre>
+     * 方法二：双指针
+     * 算法
+     * 方法一没有利用数组 nums1 与 nums2 已经被排序的性质。
+     * 为了利用这一性质，我们可以使用双指针方法。
+     * 这一方法将两个数组看作队列，每次从两个数组头部取出比较小的数字放到结果中。
+     *
+     * 方法三：逆向双指针
+     * 算法
+     * 方法二中，之所以要使用临时变量，是因为如果直接合并到数组 nums1 中，nums1 中的元素可能会在取出之前被覆盖。
+     * 那么如何直接避免覆盖 nums1 中的元素呢？观察可知，nums1 的后半部分是空的，可以直接覆盖而不会影响结果。
+     * 因此，可以指针设置为从后向前遍历，每次取两者之中的较大者放进 nums1 的最后面。
+     *
+     * 永远成立，因此 p1 后面的位置永远足够容纳被插入的元素，不会产生 p1 的元素被覆盖的情况。
+     * </pre>
      */
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         if (n == 0) {
@@ -60,16 +76,21 @@ public class MergeSortedArray {
         // 从右向左遍历，避免数组复制移动元素
         int m1Index = m - 1;
         int n2Index = n - 1;
-        int rightIndex = m + n - 1;
-        while (m1Index >= 0 && n2Index >= 0) {
-            if (nums2[n2Index] >= nums1[m1Index]) {
-                nums1[rightIndex--] = nums2[n2Index--];
+        int tailIndex = m + n - 1;
+        int cur;
+        while (m1Index >= 0 || n2Index >= 0) {
+            if (m1Index == -1) {
+                // nums1合并完成
+                cur = nums2[n2Index--];
+            } else if (n2Index == -1) {
+                // nums2合并完成
+                cur = nums1[m1Index--];
+            } else if (nums2[n2Index] >= nums1[m1Index]) {
+                cur = nums2[n2Index--];
             } else {
-                nums1[rightIndex--] = nums1[m1Index--];
+                cur = nums1[m1Index--];
             }
-        }
-        while (n2Index >= 0) {
-            nums1[rightIndex--] = nums2[n2Index--];
+            nums1[tailIndex--] = cur;
         }
     }
 }
