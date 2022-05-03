@@ -89,13 +89,17 @@ public class ReverseInteger {
         int result = 0;
         int digit;
         while (x != 0) {
-            // 正数溢出/负数溢出
-            if (result < MIN_RESULT || result > MAX_RESULT) {
+            digit = x % 10;
+            // 正数溢出
+            if (result > MAX_RESULT || (result == MAX_RESULT && digit > 7)) {
                 return 0;
             }
-            digit = x % 10;
-            x /= 10;
+            // 负数溢出
+            if (result < MIN_RESULT || (result == MIN_RESULT && digit < -8)) {
+                return 0;
+            }
             result = result * 10 + digit;
+            x /= 10;
         }
         return result;
     }
