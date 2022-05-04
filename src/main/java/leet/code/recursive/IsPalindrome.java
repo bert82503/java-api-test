@@ -115,11 +115,11 @@ public class IsPalindrome {
         ListNode cur = head;
         while (head.next != null) {
             ListNode next = head.next.next;
-            head.next.next = curr;
+            head.next.next = cur;
             cur = head.next;
             head.next = next;
         }
-        return curr;
+        return cur;
     }
 
     /**
@@ -129,9 +129,9 @@ public class IsPalindrome {
         ListNode prev = null;
         ListNode cur = head;
         while (cur != null) {
-            ListNode next = curr.next;
-            curr.next = prev;
-            prev = curr;
+            ListNode next = cur.next;
+            cur.next = prev;
+            prev = cur;
             cur = next;
         }
         return prev;
