@@ -68,9 +68,9 @@ public class ZigzagConversion {
         }
         int length = str.length();
         int capacity = length / 2;
-        List<StringBuilder> result = new ArrayList<>(numRows);
+        StringBuilder[] result = new StringBuilder[numRows];
         for (int i = 0; i < numRows; i++) {
-            result.add(new StringBuilder(capacity));
+            result[i] = new StringBuilder(capacity);
         }
 
         int mod = 2 * numRows - 2;
@@ -78,9 +78,9 @@ public class ZigzagConversion {
             char ch = str.charAt(i);
             int k = i % mod;
             if (k < numRows) {
-                result.get(k).append(ch);
+                result[k].append(ch);
             } else {
-                result.get(mod - k).append(ch);
+                result[mod - k].append(ch);
             }
         }
 
