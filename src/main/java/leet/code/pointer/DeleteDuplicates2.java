@@ -38,9 +38,9 @@ public class DeleteDuplicates2 {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode preHead = new ListNode(Integer.MAX_VALUE);
+        ListNode prevHead = new ListNode(Integer.MAX_VALUE);
         // 双指针
-        ListNode left = preHead;
+        ListNode left = prevHead;
         ListNode pre = head;
         ListNode right = head.next;
         // 重复数字标识
@@ -72,7 +72,7 @@ public class DeleteDuplicates2 {
         }
         // 删除所有重复的数字
         left.next = null;
-        return preHead.next;
+        return prevHead.next;
     }
 
     /**

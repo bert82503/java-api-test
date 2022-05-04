@@ -123,9 +123,9 @@ public class MergeTwoLists {
      * </pre>
      */
     public ListNode mergeTwoLists_ForEach(ListNode list1, ListNode list2) {
-        ListNode preHead = new ListNode(-1);
+        ListNode prevHead = new ListNode(-1);
 
-        ListNode prev = preHead;
+        ListNode prev = prevHead;
         while (list1 != null || list2 != null) {
             if (list1 == null) {
                 prev.next = list2;
@@ -143,7 +143,7 @@ public class MergeTwoLists {
             prev = prev.next;
         }
 
-        return preHead.next;
+        return prevHead.next;
     }
 
     /**

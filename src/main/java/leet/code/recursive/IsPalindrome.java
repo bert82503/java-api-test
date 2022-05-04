@@ -112,11 +112,11 @@ public class IsPalindrome {
      * </pre>
      */
     private static ListNode reverseList(ListNode head) {
-        ListNode curr = head;
+        ListNode cur = head;
         while (head.next != null) {
             ListNode next = head.next.next;
             head.next.next = curr;
-            curr = head.next;
+            cur = head.next;
             head.next = next;
         }
         return curr;
@@ -127,12 +127,12 @@ public class IsPalindrome {
      */
     private static ListNode reverseList_One(ListNode head) {
         ListNode prev = null;
-        ListNode curr = head;
-        while (curr != null) {
+        ListNode cur = head;
+        while (cur != null) {
             ListNode next = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = next;
+            cur = next;
         }
         return prev;
     }

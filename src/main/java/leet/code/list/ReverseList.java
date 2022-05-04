@@ -138,7 +138,7 @@ public class ReverseList {
     /**
      * 反转后的链表的头节点
      */
-    private final ListNode preHead = new ListNode();
+    private final ListNode prevHead = new ListNode();
 
     /**
      * <pre>
@@ -157,15 +157,15 @@ public class ReverseList {
             // 空链表，一个结点
             return head;
         }
-        // 技巧：preHead = null
+        // 技巧：prevHead = null
         reverseList_Recursive_Two(null, head);
-        return preHead.next;
+        return prevHead.next;
     }
 
     private void reverseList_Recursive_Two(ListNode cur, ListNode pre) {
         if (pre.next == null) {
             // 递归遍历到尾节点
-            preHead.next = pre;
+            prevHead.next = pre;
             pre.next = cur;
             return;
         }
