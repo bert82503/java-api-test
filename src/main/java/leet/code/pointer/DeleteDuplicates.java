@@ -31,6 +31,9 @@ package leet.code.pointer;
  */
 public class DeleteDuplicates {
 
+    /**
+     * 方法一：有序 + 双指针
+     */
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) {
             return head;
