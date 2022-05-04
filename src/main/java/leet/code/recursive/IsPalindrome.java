@@ -27,31 +27,58 @@ package leet.code.recursive;
  */
 public class IsPalindrome {
 
-    private final StringBuilder stringBuilder = new StringBuilder(4096);
+    /**
+     * <pre>
+     * 进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
+     *
+     * 方法三：一次遍历
+     * </pre>
+     */
+    public boolean isPalindrome(ListNode head) {
+        if (head.next == null) {
+            return true;
+        }
+        // 正序数字
+        int positiveNum = 0;
+        // 逆序数字
+        int reverseNum = 0;
+        int pow = 1;
+        ListNode node = head;
+        while (node != null) {
+            int digit = node.val;
+            positiveNum = positiveNum * 10 + digit;
+            reverseNum = reverseNum + digit * pow;
+            pow *= 10;
+            node = node.next;
+        }
+        return positiveNum == reverseNum;
+    }
 
     /**
      * 方法二：递归 + 双指针
      */
-    public boolean isPalindrome(ListNode head) {
-        recursive(head);
+    public boolean isPalindrome_Two(ListNode head) {
+        if (head.next == null) {
+            return true;
+        }
+
+        int[] values = new int[100001];
+        int length = 0;
+        ListNode node = head;
+        while (node != null) {
+            values[length++] = node.val;
+            node = node.next;
+        }
+
+        // 使用双指针判断是否回文
         int left = 0;
-        int right = stringBuilder.length() - 1;
+        int right = length - 1;
         while (left < right) {
-            if (stringBuilder.charAt(left) != stringBuilder.charAt(right)) {
+            if (values[left++] != values[right--]) {
                 return false;
             }
-            left++;
-            right--;
         }
         return true;
-    }
-
-    private void recursive(ListNode node) {
-        if (node == null) {
-            return;
-        }
-        stringBuilder.append(node.val);
-        recursive(node.next);
     }
 
     /**
