@@ -48,6 +48,7 @@ public class RemoveDuplicates {
         int right = 1;
         while (right < length) {
             if (nums[right] != nums[right - 1]) {
+                // 发现不重复的元素
                 nums[left] = nums[right];
                 left++;
             }
