@@ -27,23 +27,31 @@ package leet.code.recursive;
  */
 public class IsPalindrome {
 
-    private final StringBuilder positiveOrderString = new StringBuilder(10001);
-    private final StringBuilder reverseOrderString = new StringBuilder(10001);
+    private final StringBuilder stringBuilder = new StringBuilder(4096);
 
+    /**
+     * 方法二：递归 + 双指针
+     */
     public boolean isPalindrome(ListNode head) {
         recursive(head);
-        return positiveOrderString.length() == reverseOrderString.length() &&
-                positiveOrderString.toString().equals(reverseOrderString.toString());
+        int left = 0;
+        int right = stringBuilder.length() - 1;
+        while (left < right) {
+            if (stringBuilder.charAt(left) != stringBuilder.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
 
     private void recursive(ListNode node) {
         if (node == null) {
             return;
         }
-        int val = node.val;
-        positiveOrderString.append(val);
+        stringBuilder.append(node.val);
         recursive(node.next);
-        reverseOrderString.append(val);
     }
 
     /**
