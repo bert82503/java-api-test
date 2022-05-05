@@ -51,7 +51,7 @@ public class ReverseVowels {
             return str;
         }
         char[] chars = str.toCharArray();
-        // 双指针
+        // 左右指针
         int left = 0;
         int right = length - 1;
         while (left < right) {
@@ -64,15 +64,20 @@ public class ReverseVowels {
                 right--;
             }
             if (left < right) {
-                // 互换元素
-                char ch = chars[left];
-                chars[left] = chars[right];
-                chars[right] = ch;
-
+                swap(chars, left, right);
                 left++;
                 right--;
             }
         }
         return new String(chars);
+    }
+
+    /**
+     * 互换元素。
+     */
+    private static void swap(char[] chars, int left, int right) {
+        char ch = chars[left];
+        chars[left] = chars[right];
+        chars[right] = ch;
     }
 }
