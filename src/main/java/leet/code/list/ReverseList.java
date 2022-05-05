@@ -84,14 +84,14 @@ public class ReverseList {
             return head;
         }
         ListNode cur = null;
-        ListNode pre = head;
-        while (pre != null) {
+        ListNode prev = head;
+        while (prev != null) {
             // 实现一次局部反转
-            ListNode next = pre.next;
-            pre.next = cur;
+            ListNode next = prev.next;
+            prev.next = cur;
             // 同时往前移动一个位置
-            cur = pre;
-            pre = next;
+            cur = prev;
+            prev = next;
         }
         return cur;
     }
@@ -136,9 +136,13 @@ public class ReverseList {
     }
 
     /**
+     * <pre>
      * 反转后的链表的头节点
+     *
+     * 技巧：哑节点，虚拟的前驱节点
+     * </pre>
      */
-    private final ListNode prevHead = new ListNode();
+    private final ListNode dummy = new ListNode();
 
     /**
      * <pre>
@@ -157,15 +161,15 @@ public class ReverseList {
             // 空链表，一个结点
             return head;
         }
-        // 技巧：prevHead = null
+        // 技巧：prev = null
         reverseList_Recursive_Two(null, head);
-        return prevHead.next;
+        return dummy.next;
     }
 
     private void reverseList_Recursive_Two(ListNode cur, ListNode pre) {
         if (pre.next == null) {
             // 递归遍历到尾节点
-            prevHead.next = pre;
+            dummy.next = pre;
             pre.next = cur;
             return;
         }

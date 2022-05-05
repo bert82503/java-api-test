@@ -38,11 +38,11 @@ public class RemoveElements {
             // 空链表
             return null;
         }
-        // 技巧：虚拟的前驱节点
-        ListNode prevHead = new ListNode(Integer.MAX_VALUE);
-        prevHead.next = head;
+        // 技巧：哑节点，虚拟的前驱节点
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
+        dummy.next = head;
         // 前驱节点，当前节点
-        ListNode prev = prevHead;
+        ListNode prev = dummy;
         ListNode cur = head;
         while (cur != null) {
             if (cur.val == val) {
@@ -56,7 +56,7 @@ public class RemoveElements {
                 cur = cur.next;
             }
         }
-        return prevHead.next;
+        return dummy.next;
     }
 
     /**
@@ -68,11 +68,11 @@ public class RemoveElements {
             // 空链表
             return null;
         }
-        // 技巧：虚拟的前驱节点
-        ListNode prevHead = new ListNode(Integer.MAX_VALUE);
-        prevHead.next = head;
-        recursiveRemoveElements(prevHead, val);
-        return prevHead.next;
+        // 技巧：哑节点，虚拟的前驱节点
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
+        dummy.next = head;
+        recursiveRemoveElements(dummy, val);
+        return dummy.next;
     }
 
     public ListNode recursiveRemoveElements(ListNode head, int val) {

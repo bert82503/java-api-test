@@ -38,41 +38,42 @@ public class DeleteDuplicates2 {
         if (head == null || head.next == null) {
             return head;
         }
-        ListNode prevHead = new ListNode(Integer.MAX_VALUE);
+        // 技巧：哑节点，虚拟的前驱节点
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
         // 双指针
-        ListNode left = prevHead;
-        ListNode pre = head;
+        ListNode left = dummy;
+        ListNode prev = head;
         ListNode right = head.next;
         // 重复数字标识
         boolean dupNum = false;
         while (right != null) {
-            if (right.val == pre.val) {
+            if (right.val == prev.val) {
                 // 出现重复数字，待删除
                 dupNum = true;
             } else {
-                // right.val != pre.val
+                // right.val != prev.val
                 if (dupNum) {
                     // 新数字与旧数字不相同，看到新的希望
                     dupNum = false;
                     // 忽略重复的旧数字
-//                    pre = right;
+//                    prev = right;
                 } else {
                     // 发现不重复的数字
-                    left.next = pre;
+                    left.next = prev;
                     left = left.next;
                 }
             }
-            pre = right;
+            prev = right;
             right = right.next;
         }
         // 尾节点数字不重复处理
         if (!dupNum) {
-            left.next = pre;
+            left.next = prev;
             left = left.next;
         }
         // 删除所有重复的数字
         left.next = null;
-        return prevHead.next;
+        return dummy.next;
     }
 
     /**

@@ -62,8 +62,9 @@ public class AddTwoNumbers {
      * </pre>
      */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode prevHead = new ListNode(-1);
-        ListNode tail = prevHead;
+        // 技巧：哑节点，虚拟的前驱节点
+        ListNode dummy = new ListNode(-1);
+        ListNode tail = dummy;
         // 两数之和的进位
         int carry = 0;
         while (l1 != null || l2 != null) {
@@ -85,7 +86,7 @@ public class AddTwoNumbers {
         if (carry == 1) {
             tail.next = new ListNode(carry);
         }
-        return prevHead.next;
+        return dummy.next;
     }
 
     /**

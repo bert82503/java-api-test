@@ -123,9 +123,10 @@ public class MergeTwoLists {
      * </pre>
      */
     public ListNode mergeTwoLists_ForEach(ListNode list1, ListNode list2) {
-        ListNode prevHead = new ListNode(-1);
+        // 技巧：哑节点，虚拟的前驱节点
+        ListNode dummy = new ListNode(-1);
 
-        ListNode prev = prevHead;
+        ListNode prev = dummy;
         while (list1 != null || list2 != null) {
             if (list1 == null) {
                 prev.next = list2;
@@ -143,7 +144,7 @@ public class MergeTwoLists {
             prev = prev.next;
         }
 
-        return prevHead.next;
+        return dummy.next;
     }
 
     /**
