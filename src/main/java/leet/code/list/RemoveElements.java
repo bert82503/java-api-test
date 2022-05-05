@@ -29,6 +29,9 @@ package leet.code.list;
  */
 public class RemoveElements {
 
+    /**
+     * 遍历
+     */
     public ListNode removeElements(ListNode head, int val) {
         // 特殊情况
         if (head == null) {
@@ -54,6 +57,44 @@ public class RemoveElements {
             }
         }
         return prevHead.next;
+    }
+
+    /**
+     * 方法二：递归
+     */
+    public ListNode removeElements_Recursive(ListNode head, int val) {
+        // 特殊情况
+        if (head == null) {
+            // 空链表
+            return null;
+        }
+        // 技巧：虚拟的前驱节点
+        ListNode prevHead = new ListNode(Integer.MAX_VALUE);
+        prevHead.next = head;
+        recursiveRemoveElements(prevHead, val);
+        return prevHead.next;
+    }
+
+    public ListNode recursiveRemoveElements(ListNode head, int val) {
+        if (head == null) {
+            // 尾节点
+            return null;
+        }
+        // 递归调用
+        ListNode resNode = recursiveRemoveElements(head.next, val);
+        // 先调整节点
+        if (resNode == null && head.next != null) {
+            // 发现目标
+            ListNode temp = head.next;
+            head.next = head.next.next;
+            // 删除节点
+            temp.next = null;
+        }
+        // 再判断当前节点
+        if (head.val == val) {
+            return null;
+        }
+        return head;
     }
 
     /**
