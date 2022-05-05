@@ -183,7 +183,7 @@ public class MinWindow {
         int minLength = Integer.MAX_VALUE;
 
         // 滑动窗口计数器
-        // ascii('z') = 122
+        // ASCII('z') = 122
         int[] window = new int[128];
         // 目标字符串
         int[] needs = new int[128];
@@ -301,7 +301,7 @@ public class MinWindow {
         int minLength = Integer.MAX_VALUE;
 
         // 滑动窗口计数器
-        // ascii('z') = 122
+        // ASCII('z') = 122
         int[] window = new int[128];
         int[] needs = new int[128];
         // 汉明距离
