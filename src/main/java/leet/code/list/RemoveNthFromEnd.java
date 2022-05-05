@@ -1,5 +1,7 @@
 package leet.code.list;
 
+import com.sun.org.apache.xalan.internal.xsltc.dom.MultiValuedNodeHeapIterator;
+
 /**
  * 19. 删除链表的倒数第 N 个结点
  * <p></p>
@@ -31,7 +33,9 @@ package leet.code.list;
  * 1.认识题目
  * 标签：链表
  * 难点：删除链表的倒数第 n 个结点
- * 想法：先反转链表，再正向删除第 n 个结点
+ * 想法：
+ * 1.先反转链表，再正向删除第 n 个结点
+ * 2.基于深度优先搜索递归回溯计算倒数第 n 个结点
  * </pre>
  *
  * @author guangyi
@@ -42,36 +46,27 @@ public class RemoveNthFromEnd {
         if (head.next == null) {
             return null;
         }
-        head = reverseList(head);
-        // 正向删除第 n 个结点
         // 技巧：虚拟的前驱节点
         ListNode preHead = new ListNode(Integer.MIN_VALUE);
         preHead.next = head;
-        ListNode prev = preHead;
-        ListNode cur = head;
-        while (--n > 0) {
-            prev = cur;
-            cur = cur.next;
-        }
-        prev.next = cur.next;
-        cur.next = null;
-        head = reverseList(preHead.next);
-        return head;
+        recursiveRemoveNthFromEnd(preHead, n);
+        return preHead.next;
     }
 
     /**
-     * 链表反转
+     * 基于深度优先搜索递归回溯计算倒数第 n 个结点，并删除这个结点。
      */
-    private static ListNode reverseList(ListNode head) {
-        ListNode prev = null;
-        ListNode cur = head;
-        while (cur != null) {
-            ListNode next = cur.next;
-            cur.next = prev;
-            prev = cur;
-            cur = next;
+    private static int recursiveRemoveNthFromEnd(ListNode head, int n) {
+        if (head == null) {
+            return 0;
         }
-        return prev;
+        int nthFromEnd = recursiveRemoveNthFromEnd(head.next, n);
+        if (nthFromEnd == n) {
+            ListNode next = head.next;
+            head.next = head.next.next;
+            next.next = null;
+        }
+        return nthFromEnd + 1;
     }
 
     /**
