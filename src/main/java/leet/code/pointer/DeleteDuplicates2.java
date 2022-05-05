@@ -39,9 +39,9 @@ public class DeleteDuplicates2 {
             return head;
         }
         // 技巧：哑节点，虚拟的前驱节点
-        ListNode dummy = new ListNode(Integer.MAX_VALUE);
+        ListNode dummyHead = new ListNode(Integer.MAX_VALUE);
         // 双指针
-        ListNode left = dummy;
+        ListNode left = dummyHead;
         ListNode prev = head;
         ListNode right = head.next;
         // 重复数字标识
@@ -73,7 +73,7 @@ public class DeleteDuplicates2 {
         }
         // 删除所有重复的数字
         left.next = null;
-        return dummy.next;
+        return dummyHead.next;
     }
 
     /**

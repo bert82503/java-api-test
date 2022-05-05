@@ -80,10 +80,10 @@ public class RemoveNthFromEnd {
             return null;
         }
         // 技巧：哑节点，虚拟的前驱节点
-        ListNode dummy = new ListNode(Integer.MIN_VALUE, head);
+        ListNode dummyHead = new ListNode(Integer.MIN_VALUE, head);
         // 快慢指针
         ListNode fast = head;
-        ListNode slow = dummy;
+        ListNode slow = dummyHead;
         // 1.首先使用 fast 对链表进行遍历，遍历的次数为 n
         // fast 和 slow 之间间隔了 n−1 个节点，即 fast 比 slow 超前了 n 个节点
         for (int i = 0; i < n; i++) {
@@ -99,7 +99,7 @@ public class RemoveNthFromEnd {
         ListNode next = slow.next;
         slow.next = slow.next.next;
         next.next = null;
-        return dummy.next;
+        return dummyHead.next;
     }
 
     /**

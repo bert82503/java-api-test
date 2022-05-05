@@ -142,7 +142,7 @@ public class ReverseList {
      * 技巧：哑节点，虚拟的前驱节点
      * </pre>
      */
-    private final ListNode dummy = new ListNode();
+    private final ListNode dummyHead = new ListNode();
 
     /**
      * <pre>
@@ -163,13 +163,13 @@ public class ReverseList {
         }
         // 技巧：prev = null
         reverseList_Recursive_Two(null, head);
-        return dummy.next;
+        return dummyHead.next;
     }
 
     private void reverseList_Recursive_Two(ListNode cur, ListNode pre) {
         if (pre.next == null) {
             // 递归遍历到尾节点
-            dummy.next = pre;
+            dummyHead.next = pre;
             pre.next = cur;
             return;
         }
