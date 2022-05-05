@@ -33,34 +33,56 @@ package leet.code.pointer;
  */
 public class MoveZeroes {
 
+    /**
+     * 移动零
+     * https://leetcode-cn.com/problems/move-zeroes/solution/yi-dong-ling-by-leetcode-solution/
+     * <pre>
+     * 方法一：双指针
+     * 思路及解法
+     * 使用双指针，左指针指向当前已经处理好的序列的尾部，右指针指向待处理序列的头部。
+     * 右指针不断向右移动，每次右指针指向非零数，则将左右指针对应的数交换，同时左指针右移。
+     *
+     * 注意到以下性质：
+     * 1.左指针左边均为非零数；
+     * 2.右指针左边直到左指针处均为零。
+     *
+     * 因此每次交换，都是将左指针的零与右指针的非零数交换，且非零数的相对顺序并未改变。
+     * </pre>
+     *
+     * 动画演示 283.移动零
+     * https://leetcode-cn.com/problems/move-zeroes/solution/dong-hua-yan-shi-283yi-dong-ling-by-wang_ni_ma/
+     * <pre>
+     * 一次遍历
+     * 这里参考了快速排序的思想，快速排序首先要确定一个待分割的元素做中间点x，
+     * 然后把所有小于等于x的元素放到x的左边，大于x的元素放到其右边。
+     * 这里我们可以用0当做这个中间点，把不等于0(注意题目没说不能有负数)的放到中间点的左边，等于0的放到其右边。
+     * 这个中间点就是0本身，所以实现起来比快速排序简单很多，我们使用两个指针i和j，只要nums[i]!=0，我们就交换nums[i]和nums[j]。
+     * </pre>
+     */
     public static void moveZeroes(int[] nums) {
         int length = nums.length;
         if (length <= 1) {
             return;
         }
         // 双指针
+        // 左指针指向当前已经处理好的序列的尾部
         int left = 0;
+        // 右指针指向待处理序列的头部
         int right = 0;
-        while (left < length && right < length) {
-            // 寻找最左侧零元素
-            while (left < length && nums[left] != 0) {
+        while (right < length) {
+            if (nums[right] != 0) {
+                if (left != right) {
+                    swap(nums, left, right);
+                }
                 left++;
             }
-            // 寻找最左侧零元素后面的最左侧非零元素
-            // 最左侧零元素前面都是非零元素
-            right = left + 1;
-            while (right < length && nums[right] == 0) {
-                right++;
-            }
-            if (right < length) {
-                // 互换元素
-                int temp = nums[left];
-                nums[left] = nums[right];
-                nums[right] = temp;
-
-                left++;
-                right++;
-            }
+            right++;
         }
+    }
+
+    private static void swap(int[] nums, int left, int right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
     }
 }
