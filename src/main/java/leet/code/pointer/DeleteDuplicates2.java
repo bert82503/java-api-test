@@ -32,47 +32,47 @@ package leet.code.pointer;
 public class DeleteDuplicates2 {
 
     /**
-     * 方法一：有序 + 双指针
+     * 方法一：有序 + 快慢指针
      */
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
         // 技巧：哑节点，虚拟的前驱节点
-        ListNode dummyHead = new ListNode(Integer.MAX_VALUE);
-        // 双指针
-        ListNode left = dummyHead;
+        ListNode dummyHead = new ListNode(Integer.MIN_VALUE);
+        // 快慢指针
+        ListNode slow = dummyHead;
         ListNode prev = head;
-        ListNode right = head.next;
+        ListNode fast = head.next;
         // 重复数字标识
         boolean dupNum = false;
-        while (right != null) {
-            if (right.val == prev.val) {
+        while (fast != null) {
+            if (fast.val == prev.val) {
                 // 出现重复数字，待删除
                 dupNum = true;
             } else {
-                // right.val != prev.val
                 if (dupNum) {
                     // 新数字与旧数字不相同，看到新的希望
                     dupNum = false;
                     // 忽略重复的旧数字
-//                    prev = right;
+//                    prev = fast;
                 } else {
                     // 发现不重复的数字
-                    left.next = prev;
-                    left = left.next;
+                    // 维护 list[0..slow] 无重复
+                    slow.next = prev;
+                    slow = slow.next;
                 }
             }
-            prev = right;
-            right = right.next;
+            prev = fast;
+            fast = fast.next;
         }
         // 尾节点数字不重复处理
         if (!dupNum) {
-            left.next = prev;
-            left = left.next;
+            slow.next = prev;
+            slow = slow.next;
         }
-        // 删除所有重复的数字
-        left.next = null;
+        // 删除后序所有重复的元素
+        slow.next = null;
         return dummyHead.next;
     }
 
