@@ -39,21 +39,23 @@ package leet.code.pointer;
 public class RemoveDuplicates {
 
     /**
-     * 方法一：排序 + 双指针
+     * 方法一：有序 + 快慢指针
      */
     public static int removeDuplicates(int[] nums) {
         int length = nums.length;
-        // 双指针
-        int left = 1;
-        int right = 1;
-        while (right < length) {
-            if (nums[right] != nums[right - 1]) {
+        // 快慢指针
+        int fast = 0;
+        int slow = 0;
+        while (fast < length) {
+            if (nums[fast] != nums[slow]) {
                 // 发现不重复的元素
-                nums[left] = nums[right];
-                left++;
+                slow++;
+                // 维护 nums[0..slow] 无重复
+                nums[slow] = nums[fast];
             }
-            right++;
+            fast++;
         }
-        return left;
+        // 数组长度为索引 + 1
+        return slow + 1;
     }
 }
