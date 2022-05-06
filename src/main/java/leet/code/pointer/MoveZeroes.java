@@ -64,25 +64,28 @@ public class MoveZeroes {
         if (length <= 1) {
             return;
         }
-        // 双指针
-        // 左指针指向当前已经处理好的序列的尾部
-        int left = 0;
-        // 右指针指向待处理序列的头部
-        int right = 0;
-        while (right < length) {
-            if (nums[right] != 0) {
-                if (left != right) {
-                    swap(nums, left, right);
+        // 快慢指针
+        // 慢指针指向当前已经处理好的序列的尾部
+        int slow = 0;
+        // 快指针指向待处理序列的头部
+        int fast = 0;
+        while (fast < length) {
+            if (nums[fast] != 0) {
+                if (slow != fast) {
+                    int temp = nums[slow];
+                    nums[slow] = nums[fast];
+                    nums[fast] = temp;
+//                    swap(nums, slow, fast);
                 }
-                left++;
+                slow++;
             }
-            right++;
+            fast++;
         }
     }
 
-    private static void swap(int[] nums, int left, int right) {
-        int temp = nums[left];
-        nums[left] = nums[right];
-        nums[right] = temp;
+    private static void swap(int[] nums, int slow, int fast) {
+        int temp = nums[slow];
+        nums[slow] = nums[fast];
+        nums[fast] = temp;
     }
 }
