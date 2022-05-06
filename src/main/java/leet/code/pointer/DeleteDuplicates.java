@@ -32,27 +32,26 @@ package leet.code.pointer;
 public class DeleteDuplicates {
 
     /**
-     * 方法一：有序 + 双指针
+     * 方法一：有序 + 快慢指针
      */
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null || head.next == null) {
             return head;
         }
-        // 双指针
-        ListNode left = head;
-        ListNode prev = head;
-        ListNode right = head.next;
-        while (right != null) {
+        // 快慢指针
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (fast != null) {
             // 发现不重复的元素
-            if (right.val != prev.val) {
-                left.next = right;
-                left = left.next;
+            if (fast.val != slow.val) {
+                // 维护 list[0..slow] 无重复
+                slow.next = fast;
+                slow = slow.next;
             }
-            prev = right;
-            right = right.next;
+            fast = fast.next;
         }
-        // 删除所有重复的元素
-        left.next = null;
+        // 删除后序所有重复的元素
+        slow.next = null;
         return head;
     }
 
