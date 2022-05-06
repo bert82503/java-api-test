@@ -35,12 +35,12 @@ public class DeleteDuplicates {
      * 方法一：有序 + 快慢指针
      */
     public ListNode deleteDuplicates(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
+        if (head == null) {
+            return null;
         }
         // 快慢指针
         ListNode slow = head;
-        ListNode fast = head.next;
+        ListNode fast = head;
         while (fast != null) {
             // 发现不重复的元素
             if (fast.val != slow.val) {
@@ -50,7 +50,7 @@ public class DeleteDuplicates {
             }
             fast = fast.next;
         }
-        // 删除后序所有重复的元素
+        // 断开与后面重复元素的连接
         slow.next = null;
         return head;
     }
