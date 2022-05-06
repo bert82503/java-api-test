@@ -45,6 +45,9 @@ public class ReverseVowels {
         CHAR_MAP['U'] = false;
     }
 
+    /**
+     * 左右指针
+     */
     public static String reverseVowels(String str) {
         int length = str.length();
         if (length <= 1) {
