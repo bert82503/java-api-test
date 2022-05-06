@@ -27,12 +27,15 @@ package leet.code.pointer;
  */
 public class ReverseString {
 
+    /**
+     * 左右指针
+     */
     public static void reverseString(char[] chars) {
         int length = chars.length;
         if (length <= 1) {
             return;
         }
-        // 双指针
+        // 左右指针
         int left = 0;
         int right = length - 1;
         while (left < right) {
