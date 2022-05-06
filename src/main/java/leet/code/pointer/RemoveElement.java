@@ -35,12 +35,15 @@ package leet.code.pointer;
  */
 public class RemoveElement {
 
+    /**
+     * 左右指针
+     */
     public static int removeElement(int[] nums, int val) {
         int length = nums.length;
         if (length == 0) {
             return 0;
         }
-        // 双指针
+        // 左右指针
         int left = 0;
         int right = length - 1;
         while (left <= right) {
