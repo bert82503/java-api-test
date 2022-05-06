@@ -36,40 +36,23 @@ package leet.code.pointer;
 public class RemoveElement {
 
     /**
-     * 左右指针
+     * 快慢指针
      */
     public static int removeElement(int[] nums, int val) {
         int length = nums.length;
         if (length == 0) {
             return 0;
         }
-        // 左右指针
-        int left = 0;
-        int right = length - 1;
-        while (left <= right) {
-            // 寻找最左侧等于 val 的元素
-            while (left <= right && nums[left] != val) {
-                left++;
+        // 快慢指针
+        int fast = 0;
+        int slow = 0;
+        while (fast < length) {
+            if (nums[fast] != val) {
+                nums[slow] = nums[fast];
+                slow++;
             }
-            // 寻找最右侧不等于 val 的元素
-            while (left <= right && nums[right] == val) {
-                right--;
-            }
-            if (left < right) {
-                // 互换元素
-                int temp = nums[left];
-                nums[left] = nums[right];
-                nums[right] = temp;
-
-                left++;
-                right--;
-            }
+            fast++;
         }
-        // 处理最后一个元素是否等于 val
-        if (left < length && nums[left] != val) {
-            return left + 1;
-        } else {
-            return left;
-        }
+        return slow;
     }
 }
