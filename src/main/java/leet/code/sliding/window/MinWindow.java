@@ -139,7 +139,7 @@ public class MinWindow {
                     int windowCount = window.get(leftChar) - 1;
                     window.put(leftChar, windowCount);
                     // 巧妙：小于判断规避了重复字符
-                    if (windowCount < needCount) {
+                    if (windowCount == needCount - 1) {
                         // 这个字符出现次数不再符合要求
                         match--;
                     }
@@ -233,7 +233,7 @@ public class MinWindow {
                     // 移出window
                     int windowCount = --window[leftChar];
                     // 巧妙：小于判断规避了重复字符
-                    if (windowCount < needCount) {
+                    if (windowCount == needCount - 1) {
                         // 这个字符出现次数不再符合要求
                         match--;
                     }
