@@ -81,74 +81,70 @@ public class MinWindow {
      * 时间复杂度是 O(m + n)，空间复杂度是 O(52)
      * </pre>
      */
-    public static String minWindow_One(String source, String target) {
-        if (target.length() > source.length()) {
+    public static String minWindow_One(String s, String t) {
+        if (t.length() > s.length()) {
             return "";
         }
-        // 记录最小子串的开始位置和长度
-        int start = 0;
-        int minLength = Integer.MAX_VALUE;
-
         // 滑动窗口计数器
         // 大小写英文字母共52个
         Map<Character, Integer> window = new HashMap<>(128);
         // 目标字符串
         Map<Character, Integer> need = new HashMap<>(128);
-
-        int targetLength = target.length();
-        for (int i = 0; i < targetLength; i++) {
-            char ch = target.charAt(i);
+        for (int i = 0; i < t.length(); i++) {
+            char ch = t.charAt(i);
             need.put(ch, need.getOrDefault(ch, 0) + 1);
         }
         // 汉明距离
         int distance = need.size();
-        // 记录window中已经有多少个字符符合要求了
-        int match = 0;
 
+        // 记录最小覆盖子串的起始索引及长度
+        int start = 0;
+        int minLen = Integer.MAX_VALUE;
+
+        int valid = 0;
         int left = 0;
         int right = 0;
-        int sourceLength = source.length();
-        while (right < sourceLength) {
-            char rightChar = source.charAt(right);
-            Integer needCount = need.get(rightChar);
+        while (right < s.length()) {
+            // c 是将移入窗口的字符
+            char c = s.charAt(right);
+            // 扩大窗口
+            right++;
+            // 进行窗口内数据的一系列更新
+            Integer needCount = need.get(c);
             if (needCount != null) {
-                // 加入window
-                int windowCount = window.getOrDefault(rightChar, 0) + 1;
-                window.put(rightChar, windowCount);
+                int windowCount = window.getOrDefault(c, 0) + 1;
+                window.put(c, windowCount);
                 // 巧妙：等于判断规避了重复字符
                 if (windowCount == needCount) {
-                    // 这个字符的出现次数符合要求了
-                    match++;
+                    valid++;
                 }
             }
-            right++;
 
-            while (match == distance) {
-                // window中的字符串已符合needs的要求了
-                // 找到一个可行解
-                int subLength = right - left;
-                if (subLength < minLength) {
-                    // 找到一个更优解，更新最小子串的开始位置和长度
+            // 判断左侧窗口是否要收缩
+            while (valid == distance) {
+                // 在这里更新最小覆盖子串
+                if (right - left < minLen) {
                     start = left;
-                    minLength = subLength;
+                    minLen = right - left;
                 }
-                char leftChar = source.charAt(left);
-                needCount = need.get(leftChar);
-                if (needCount != null) {
-                    // 移出window
-                    int windowCount = window.get(leftChar) - 1;
-                    window.put(leftChar, windowCount);
-                    // 巧妙：小于判断规避了重复字符
-                    if (windowCount == needCount - 1) {
-                        // 这个字符出现次数不再符合要求
-                        match--;
-                    }
-                }
+                // d 是将移出窗口的字符
+                char d = s.charAt(left);
+                // 缩小窗口
                 left++;
+                // 进行窗口内数据的一系列更新
+                needCount = need.get(d);
+                if (needCount != null) {
+                    int windowCount = window.get(d);
+                    // 巧妙：等于判断规避了重复字符
+                    if (windowCount == needCount) {
+                        valid--;
+                    }
+                    window.put(d, windowCount - 1);
+                }
             }
         }
-        return minLength == Integer.MAX_VALUE ? "" :
-                source.substring(start, start + minLength);
+        return minLen == Integer.MAX_VALUE ? "" :
+                s.substring(start, start + minLen);
     }
 
     /**
@@ -174,75 +170,71 @@ public class MinWindow {
      * 在大数据量场景下，包装类型的自动装箱与拆箱还是挺耗时的。
      * </pre>
      */
-    public static String minWindow(String source, String target) {
-        int targetLength = target.length();
-        int sourceLength = source.length();
-        if (targetLength > sourceLength) {
+    public static String minWindow(String s, String t) {
+        if (t.length() > s.length()) {
             return "";
         }
-        // 记录最小子串的开始位置和长度
-        int start = 0;
-        int minLength = Integer.MAX_VALUE;
-
         // 滑动窗口计数器
         // ASCII('z') = 122
         int[] window = new int[128];
-        // 目标字符串
         int[] need = new int[128];
         // 汉明距离
         int distance = 0;
-
-        for (int i = 0; i < targetLength; i++) {
-            char ch = target.charAt(i);
+        for (int i = 0; i < t.length(); i++) {
+            char ch = t.charAt(i);
             need[ch]++;
             if (need[ch] == 1) {
                 distance++;
             }
         }
-        // 记录window中已经有多少个字符符合要求了
-        int match = 0;
 
+        // 记录最小覆盖子串的起始索引及长度
+        int start = 0;
+        int minLen = Integer.MAX_VALUE;
+
+        int valid = 0;
         int left = 0;
         int right = 0;
-        while (right < sourceLength) {
-            char rightChar = source.charAt(right);
-            int needCount = need[rightChar];
+        while (right < s.length()) {
+            // c 是将移入窗口的字符
+            char c = s.charAt(right);
+            // 扩大窗口
+            right++;
+            // 进行窗口内数据的一系列更新
+            int needCount = need[c];
             if (needCount > 0) {
-                // 加入window
-                int windowCount = ++window[rightChar];
+                int windowCount = ++window[c];
                 // 巧妙：等于判断规避了重复字符
                 if (windowCount == needCount) {
-                    // 这个字符的出现次数符合要求了
-                    match++;
+                    valid++;
                 }
             }
-            right++;
 
-            while (match == distance) {
-                // window中的字符串已符合needs的要求了
-                // 找到一个可行解
-                int subLength = right - left;
-                if (subLength < minLength) {
-                    // 找到一个更优解，更新最小子串的开始位置和长度
+            // 判断左侧窗口是否要收缩
+            while (valid == distance) {
+                // 在这里更新最小覆盖子串
+                if (right - left < minLen) {
                     start = left;
-                    minLength = subLength;
+                    minLen = right - left;
                 }
-                char leftChar = source.charAt(left);
-                needCount = need[leftChar];
-                if (needCount > 0) {
-                    // 移出window
-                    int windowCount = --window[leftChar];
-                    // 巧妙：小于判断规避了重复字符
-                    if (windowCount == needCount - 1) {
-                        // 这个字符出现次数不再符合要求
-                        match--;
-                    }
-                }
+                // d 是将移出窗口的字符
+                char d = s.charAt(left);
+                // 缩小窗口
                 left++;
+                // 进行窗口内数据的一系列更新
+                needCount = need[d];
+                if (needCount > 0) {
+                    int windowCount = window[d];
+                    // 巧妙：等于判断规避了重复字符
+                    if (windowCount == needCount) {
+                        valid--;
+                    }
+                    window[d]--;
+                }
             }
         }
-        return minLength == Integer.MAX_VALUE ? "" :
-                source.substring(start, start + minLength);
+        return minLen == Integer.MAX_VALUE ? "" :
+                s.substring(start, start + minLen);
     }
 
     /**
@@ -292,65 +284,63 @@ public class MinWindow {
      *
      * @see #minWindow(String, String)
      */
-    public static String minWindow_Three(String source, String target) {
-        if (target.length() > source.length()) {
+    public static String minWindow_Three(String s, String t) {
+        if (t.length() > s.length()) {
             return "";
         }
-        // 记录最小子串的开始位置和长度
-        int start = 0;
-        int minLength = Integer.MAX_VALUE;
-
         // 滑动窗口计数器
         // ASCII('z') = 122
         int[] window = new int[128];
         int[] need = new int[128];
         // 汉明距离
         int distance = 0;
-
-        int targetLength = target.length();
-        for (int i = 0; i < targetLength; i++) {
-            if ((need[target.charAt(i)]++) == 0) {
+        for (int i = 0; i < t.length(); i++) {
+            if ((need[t.charAt(i)]++) == 0) {
                 distance++;
             }
         }
 
-        // 记录window中已经有多少字符符合要求了
-        int match = 0;
+        // 记录最小覆盖子串的起始索引及长度
+        int start = 0;
+        int minLen = Integer.MAX_VALUE;
 
+        int valid = 0;
         int left = 0;
         int right = 0;
-        int sourceLength = source.length();
-        while (right < sourceLength) {
-            char rightChar = source.charAt(right);
-            if (need[rightChar] > 0) {
-                // 加入window
-                if (++window[rightChar] == need[rightChar]) {
-                    // 这个字符的出现次数符合要求了
-                    match++;
+        while (right < s.length()) {
+            // c 是将移入窗口的字符
+            char c = s.charAt(right);
+            // 扩大窗口
+            right++;
+            // 进行窗口内数据的一系列更新
+            if (need[c] > 0) {
+                // 巧妙：等于判断规避了重复字符
+                if (++window[c] == need[c]) {
+                    valid++;
                 }
             }
-            right++;
 
-            while (match == distance) {
-                // window中的字符串已符合needs的要求了
-                // 找到一个可行解
-                if (right - left < minLength) {
-                    // 找到一个更优解，更新最小子串的开始位置和长度
+            // 判断左侧窗口是否要收缩
+            while (valid == distance) {
+                // 在这里更新最小覆盖子串
+                if (right - left < minLen) {
                     start = left;
-                    minLength = right - left;
+                    minLen = right - left;
                 }
-                char leftChar = source.charAt(left);
-                if (need[leftChar] > 0) {
-                    // 移出window
-                    if (--window[leftChar] == need[leftChar] - 1) {
-                        // 字符lc的出现次数不再符合要求
-                        match--;
+                // d 是将移出窗口的字符
+                char d = s.charAt(left);
+                // 缩小窗口
+                left++;
+                // 进行窗口内数据的一系列更新
+                if (need[d] > 0) {
+                    // 巧妙：等于判断规避了重复字符
+                    if (window[d]-- == need[d]) {
+                        valid--;
                     }
                 }
-                left++;
             }
         }
-        return minLength == Integer.MAX_VALUE ? "" :
-                source.substring(start, start + minLength);
+        return minLen == Integer.MAX_VALUE ? "" :
+                s.substring(start, start + minLen);
     }
 }
