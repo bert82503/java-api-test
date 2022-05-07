@@ -81,8 +81,8 @@ public class MinWindow {
      * 时间复杂度是 O(m + n)，空间复杂度是 O(52)
      * </pre>
      */
-    public static String minWindow_One(String str, String target) {
-        if (target.length() > str.length()) {
+    public static String minWindow_One(String source, String target) {
+        if (target.length() > source.length()) {
             return "";
         }
         // 记录最小子串的开始位置和长度
@@ -93,24 +93,24 @@ public class MinWindow {
         // 大小写英文字母共52个
         Map<Character, Integer> window = new HashMap<>(128);
         // 目标字符串
-        Map<Character, Integer> needs = new HashMap<>(128);
+        Map<Character, Integer> need = new HashMap<>(128);
 
         int targetLength = target.length();
         for (int i = 0; i < targetLength; i++) {
             char ch = target.charAt(i);
-            needs.put(ch, needs.getOrDefault(ch, 0) + 1);
+            need.put(ch, need.getOrDefault(ch, 0) + 1);
         }
         // 汉明距离
-        int distance = needs.size();
+        int distance = need.size();
         // 记录window中已经有多少个字符符合要求了
         int match = 0;
 
         int left = 0;
         int right = 0;
-        int strLength = str.length();
-        while (right < strLength) {
-            char rightChar = str.charAt(right);
-            Integer needCount = needs.get(rightChar);
+        int sourceLength = source.length();
+        while (right < sourceLength) {
+            char rightChar = source.charAt(right);
+            Integer needCount = need.get(rightChar);
             if (needCount != null) {
                 // 加入window
                 int windowCount = window.getOrDefault(rightChar, 0) + 1;
@@ -132,8 +132,8 @@ public class MinWindow {
                     start = left;
                     minLength = subLength;
                 }
-                char leftChar = str.charAt(left);
-                needCount = needs.get(leftChar);
+                char leftChar = source.charAt(left);
+                needCount = need.get(leftChar);
                 if (needCount != null) {
                     // 移出window
                     int windowCount = window.get(leftChar) - 1;
@@ -148,7 +148,7 @@ public class MinWindow {
             }
         }
         return minLength == Integer.MAX_VALUE ? "" :
-                str.substring(start, start + minLength);
+                source.substring(start, start + minLength);
     }
 
     /**
@@ -174,8 +174,10 @@ public class MinWindow {
      * 在大数据量场景下，包装类型的自动装箱与拆箱还是挺耗时的。
      * </pre>
      */
-    public static String minWindow(String str, String target) {
-        if (target.length() > str.length()) {
+    public static String minWindow(String source, String target) {
+        int targetLength = target.length();
+        int sourceLength = source.length();
+        if (targetLength > sourceLength) {
             return "";
         }
         // 记录最小子串的开始位置和长度
@@ -186,15 +188,14 @@ public class MinWindow {
         // ASCII('z') = 122
         int[] window = new int[128];
         // 目标字符串
-        int[] needs = new int[128];
+        int[] need = new int[128];
         // 汉明距离
         int distance = 0;
 
-        int targetLength = target.length();
         for (int i = 0; i < targetLength; i++) {
             char ch = target.charAt(i);
-            needs[ch]++;
-            if (needs[ch] == 1) {
+            need[ch]++;
+            if (need[ch] == 1) {
                 distance++;
             }
         }
@@ -203,10 +204,9 @@ public class MinWindow {
 
         int left = 0;
         int right = 0;
-        int strLength = str.length();
-        while (right < strLength) {
-            char rightChar = str.charAt(right);
-            int needCount = needs[rightChar];
+        while (right < sourceLength) {
+            char rightChar = source.charAt(right);
+            int needCount = need[rightChar];
             if (needCount > 0) {
                 // 加入window
                 int windowCount = ++window[rightChar];
@@ -227,8 +227,8 @@ public class MinWindow {
                     start = left;
                     minLength = subLength;
                 }
-                char leftChar = str.charAt(left);
-                needCount = needs[leftChar];
+                char leftChar = source.charAt(left);
+                needCount = need[leftChar];
                 if (needCount > 0) {
                     // 移出window
                     int windowCount = --window[leftChar];
@@ -242,7 +242,7 @@ public class MinWindow {
             }
         }
         return minLength == Integer.MAX_VALUE ? "" :
-                str.substring(start, start + minLength);
+                source.substring(start, start + minLength);
     }
 
     /**
@@ -292,8 +292,8 @@ public class MinWindow {
      *
      * @see #minWindow(String, String)
      */
-    public static String minWindow_Three(String str, String target) {
-        if (target.length() > str.length()) {
+    public static String minWindow_Three(String source, String target) {
+        if (target.length() > source.length()) {
             return "";
         }
         // 记录最小子串的开始位置和长度
@@ -303,13 +303,13 @@ public class MinWindow {
         // 滑动窗口计数器
         // ASCII('z') = 122
         int[] window = new int[128];
-        int[] needs = new int[128];
+        int[] need = new int[128];
         // 汉明距离
         int distance = 0;
 
         int targetLength = target.length();
         for (int i = 0; i < targetLength; i++) {
-            if ((needs[target.charAt(i)]++) == 0) {
+            if ((need[target.charAt(i)]++) == 0) {
                 distance++;
             }
         }
@@ -319,12 +319,12 @@ public class MinWindow {
 
         int left = 0;
         int right = 0;
-        int strLength = str.length();
-        while (right < strLength) {
-            char rightChar = str.charAt(right);
-            if (needs[rightChar] > 0) {
+        int sourceLength = source.length();
+        while (right < sourceLength) {
+            char rightChar = source.charAt(right);
+            if (need[rightChar] > 0) {
                 // 加入window
-                if (++window[rightChar] == needs[rightChar]) {
+                if (++window[rightChar] == need[rightChar]) {
                     // 这个字符的出现次数符合要求了
                     match++;
                 }
@@ -339,10 +339,10 @@ public class MinWindow {
                     start = left;
                     minLength = right - left;
                 }
-                char leftChar = str.charAt(left);
-                if (needs[leftChar] > 0) {
+                char leftChar = source.charAt(left);
+                if (need[leftChar] > 0) {
                     // 移出window
-                    if (--window[leftChar] == needs[leftChar] - 1) {
+                    if (--window[leftChar] == need[leftChar] - 1) {
                         // 字符lc的出现次数不再符合要求
                         match--;
                     }
@@ -351,6 +351,6 @@ public class MinWindow {
             }
         }
         return minLength == Integer.MAX_VALUE ? "" :
-                str.substring(start, start + minLength);
+                source.substring(start, start + minLength);
     }
 }
