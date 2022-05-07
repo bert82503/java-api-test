@@ -342,7 +342,7 @@ public class MinWindow {
                 char leftChar = str.charAt(left);
                 if (needs[leftChar] > 0) {
                     // 移出window
-                    if (--window[leftChar] < needs[leftChar]) {
+                    if (--window[leftChar] == needs[leftChar] - 1) {
                         // 字符lc的出现次数不再符合要求
                         match--;
                     }
