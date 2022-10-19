@@ -34,7 +34,7 @@
         <joda-time.version>2.9.2</joda-time.version>
 
         <!-- Common -->
-        <jackson.version>2.9.10.8</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <lombok.version>1.16.8</lombok.version>
 
         <!-- Test -->
