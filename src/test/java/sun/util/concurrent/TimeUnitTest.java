@@ -14,13 +14,20 @@ import org.testng.annotations.Test;
 public class TimeUnitTest {
     @Test
     public void toMillis() {
-        assertThat(TimeUnit.SECONDS.toMillis(10L)).isEqualTo(1000L * 10);
-        assertThat(TimeUnit.MINUTES.toMillis(10L)).isEqualTo(1000L * 60 * 10);
+        assertThat(TimeUnit.SECONDS.toMillis(10L))
+                .isEqualTo(10 * 1000L);
+        assertThat(TimeUnit.MINUTES.toMillis(10L))
+                .isEqualTo(10 * 60 * 1000L);
+
+        assertThat(TimeUnit.MINUTES.toMillis(30L))
+                .isEqualTo(30 * 60 * 1000L);
     }
 
     @Test
     public void toSeconds() {
-        assertThat(TimeUnit.MILLISECONDS.toSeconds(1000L)).isEqualTo(1L);
-        assertThat(TimeUnit.MINUTES.toSeconds(1L)).isEqualTo(60L);
+        assertThat(TimeUnit.MILLISECONDS.toSeconds(1000L))
+                .isEqualTo(1L);
+        assertThat(TimeUnit.MINUTES.toSeconds(1L))
+                .isEqualTo(60L);
     }
 }
