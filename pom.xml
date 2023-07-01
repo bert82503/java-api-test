@@ -30,12 +30,15 @@
         <okhttp.version>4.11.0</okhttp.version>
         <async-http-client.version>2.12.3</async-http-client.version>
 
+        <!-- json -->
+        <fastjson.version>2.0.34</fastjson.version>
+
         <!-- Date Time -->
         <joda-time.version>2.9.2</joda-time.version>
 
         <!-- Common -->
         <jackson-bom.version>2.15.2</jackson-bom.version>
-        <lombok.version>1.18.28</lombok.version>
+<!--        <lombok.version>1.18.28</lombok.version>-->
 
         <!-- Test -->
 <!--        <junit-jupiter.version>5.9.3</junit-jupiter.version>-->
@@ -159,7 +162,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>2.0.34</version>
+                <version>${fastjson.version}</version>
             </dependency>
 <!--            <dependency>-->
 <!--                <groupId>org.projectlombok</groupId>-->
@@ -220,8 +223,7 @@
 <!--            <dependency>-->
 <!--                <groupId>ch.qos.logback</groupId>-->
 <!--                <artifactId>logback-classic</artifactId>-->
-<!--                <version>1.1.2</version>-->
-<!--                <optional>true</optional>-->
+<!--                <version>${logback.version}</version>-->
 <!--            </dependency>-->
             <!-- SLF4J: Simple Logging Facade for Java User Manual - http://www.slf4j.org/manual.html -->
             <!-- Documentation - http://www.slf4j.org/docs.html -->
@@ -230,12 +232,6 @@
 <!--                <artifactId>slf4j-api</artifactId>-->
 <!--                <version>${slf4j.version}</version>-->
 <!--            </dependency>-->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-jcl</artifactId>
-                <version>1.7.6</version>
-                <optional>true</optional>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -367,13 +363,9 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-api</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jcl</artifactId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
 
