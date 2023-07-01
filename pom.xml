@@ -24,6 +24,7 @@
 
         <!-- Cache -->
         <caffeine.version>2.3.5</caffeine.version>
+        <guava.version>32.1.1-jre</guava.version>
 
         <!-- HTTP -->
         <retrofit.version>2.6.1</retrofit.version>
@@ -100,6 +101,11 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
             <!-- HTTP -->
