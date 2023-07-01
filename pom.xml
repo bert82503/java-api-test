@@ -23,7 +23,7 @@
         <rxjava.version>2.1.1</rxjava.version>
 
         <!-- Cache -->
-        <caffeine.version>2.3.5</caffeine.version>
+        <caffeine.version>3.1.6</caffeine.version>
         <guava.version>32.1.1-jre</guava.version>
 
         <!-- HTTP -->
@@ -45,7 +45,7 @@
         <assertj.version>3.20.2</assertj.version>
         <mockito.version>3.11.2</mockito.version>
 
-        <jdk.version>1.8</jdk.version>
+        <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -450,8 +450,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
@@ -532,12 +532,12 @@
             <!-- Maven Deploy Plugin > Usage - https://maven.apache.org/plugins/maven-deploy-plugin/usage.html -->
             <!-- deploy:deploy-file - https://maven.apache.org/plugins/maven-deploy-plugin/deploy-file-mojo.html -->
             <!-- 部署源码包和API文档包到远程中央仓库的命令：
-                mvn deploy:deploy-file -Durl=http://maven.mogujie.org/nexus/content/repositories/snapshots \
+                mvn deploy:deploy-file -Durl=http://maven.xxx.org/nexus/content/repositories/snapshots \
                                        -DrepositoryId=snapshots \
                                        -DpomFile=pom.xml \
-                                       -Dfile=target/ferrari-api-1.0-SNAPSHOT.jar \
-                                       -Dsources=target/ferrari-api-1.0-SNAPSHOT-sources.jar \
-                                       -Djavadoc=target/ferrari-api-1.0-SNAPSHOT-javadoc.jar
+                                       -Dfile=target/xxx-1.0-SNAPSHOT.jar \
+                                       -Dsources=target/xxx-1.0-SNAPSHOT-sources.jar \
+                                       -Djavadoc=target/xxx-1.0-SNAPSHOT-javadoc.jar
              -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
