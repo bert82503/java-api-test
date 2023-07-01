@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -23,6 +24,21 @@ import org.testng.annotations.Test;
  * @since 2016年10月26日
  */
 public class LocalDateTimeTest {
+    /**
+     * Test of {@link Instant#toEpochMilli()}, {@link System#currentTimeMillis()}.
+     */
+    @Test
+    public void toEpochMilli() {
+        long localDateTimeEpochMilli = LocalDateTime.now()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+        long instantEpochMilli = Instant.now().toEpochMilli();
+        long currentTimeMillis = System.currentTimeMillis();
+        assertThat(TimeUnit.MILLISECONDS.toSeconds(localDateTimeEpochMilli))
+                .isEqualTo(TimeUnit.MILLISECONDS.toSeconds(instantEpochMilli))
+                .isEqualTo(TimeUnit.MILLISECONDS.toSeconds(currentTimeMillis));
+    }
 
     @Test
     public void functionTest() {
@@ -98,5 +114,4 @@ public class LocalDateTimeTest {
                 {1567966035000L, "2019年09月09日"},
         };
     }
-
 }
