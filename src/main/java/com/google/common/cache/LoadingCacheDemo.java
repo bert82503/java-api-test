@@ -33,7 +33,7 @@ public class LoadingCacheDemo {
             .setNameFormat("loading-cache")
             .build();
     private static final ExecutorService EXECUTOR_SERVICE = new ThreadPoolExecutor(
-            1, 4,
+            2, 4,
             5, TimeUnit.MINUTES,
             new LinkedBlockingQueue<>(100),
             THREAD_FACTORY,
@@ -56,6 +56,7 @@ public class LoadingCacheDemo {
             // Refresh，刷新
             @Override
             public ListenableFuture<Object> reload(String key, Object oldValue) throws Exception {
+                // 异步重新加载
                 ListenableFutureTask<@Nullable Object> futureTask = ListenableFutureTask.create(
                         () -> {
                             // createObject(key);
@@ -72,6 +73,7 @@ public class LoadingCacheDemo {
                 EXECUTOR_SERVICE.execute(futureTask);
                 return futureTask;
 
+                // 同步重新加载
 //                return super.reload(key, oldValue);
             }
 
@@ -93,13 +95,13 @@ public class LoadingCacheDemo {
 
         // Cache, ConcurrentMap
         LoadingCache<String, Object> loadingCache = CacheBuilder.newBuilder()
-//                .initialCapacity(100) // 初始容量
-//                .concurrencyLevel(16) // 并发等级
+//                .initialCapacity(16) // 初始容量
+//                .concurrencyLevel(4) // 并发等级
 
                 // Eviction，驱逐机制
                 // Size-based Eviction，基于大小的驱逐策略
-                .maximumSize(1_000L)
-                .maximumWeight(100_000L)
+                .maximumSize(10_000L)
+                .maximumWeight(10_000L)
                 .weigher(
                         (Weigher<String, Object>) (key, value) -> value.hashCode()
 //                        new Weigher<String, Object>() {
@@ -130,7 +132,9 @@ public class LoadingCacheDemo {
                 .recordStats()
 
                 // 构建缓存
-                .build(cacheLoader);
+//                .build(cacheLoader)
+                .build(CacheLoader.asyncReloading(cacheLoader, EXECUTOR_SERVICE))
+                ;
 
         // Statistics，统计
         // 定时输出打印日志
@@ -173,6 +177,7 @@ public class LoadingCacheDemo {
 //        loadingCache.cleanUp();
 
         } catch (ExecutionException e) {
+            // Interruption
             throw new RuntimeException(e);
         }
     }
